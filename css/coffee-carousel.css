@@ -1,0 +1,322 @@
+/* A single stage: the coffee changes, the ground and controls stay put. */
+.coffee-section.coffee-carousel {
+    --coffee-ground: #185441;
+    --coffee-ink: #f4eee8;
+    height: auto;
+    color: var(--coffee-ink);
+    background: var(--coffee-ground);
+}
+
+.coffee-carousel .coffee-screen {
+    position: relative;
+    height: auto;
+    color: inherit;
+    background: inherit;
+    overflow: clip;
+}
+
+.coffee-section.coffee-carousel .coffee-panel {
+    position: relative;
+    min-height: 600px;
+    color: var(--coffee-ink);
+    background: transparent;
+}
+
+.coffee-carousel.is-ready .coffee-screen {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 24px;
+    height: 100svh;
+    min-height: 760px;
+    max-height: 1040px;
+    padding: 130px 6vw 32px;
+}
+
+.coffee-carousel.is-ready .coffee-panels {
+    position: relative;
+    inset: auto;
+    min-height: 0;
+    touch-action: pan-y;
+}
+
+.coffee-carousel.is-ready .coffee-panel {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
+    align-items: center;
+    gap: 4%;
+    height: 100%;
+    min-height: 0;
+    padding: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.coffee-carousel.is-ready .coffee-panel.is-current,
+.coffee-carousel.is-ready .coffee-panel.is-leaving {
+    visibility: visible;
+}
+
+.coffee-carousel.is-ready .coffee-panel.is-current {
+    pointer-events: auto;
+}
+
+.coffee-carousel .poster-copy {
+    position: relative;
+    max-width: 100%;
+}
+
+.coffee-carousel .poster-title {
+    font-size: clamp(82px, 9vw, 160px);
+    line-height: .9;
+    white-space: nowrap;
+}
+
+.coffee-carousel .poster-blend .poster-title {
+    font-size: clamp(72px, 7.8vw, 138px);
+    max-width: 5.8em;
+    white-space: normal;
+}
+
+.coffee-carousel .poster-origin {
+    margin: 20px 0 0;
+    font-size: 16px;
+}
+
+.coffee-carousel .poster-flavor {
+    position: static;
+    margin: 25px 0 0;
+    font-size: clamp(34px, 3.65vw, 62px);
+}
+
+.coffee-carousel .poster-notes {
+    position: static;
+    margin: 12px 0 0;
+    max-width: 400px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.coffee-carousel .poster-choose {
+    position: static;
+    justify-self: start;
+    min-width: 200px;
+    min-height: 58px;
+    margin: 26px 0 0;
+    font-size: 18px;
+}
+
+.coffee-carousel .poster-visual {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: 600px;
+    overflow: visible;
+    align-self: stretch;
+}
+
+.coffee-carousel .poster-pack {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    will-change: auto;
+}
+
+.coffee-carousel .poster-sticker {
+    top: auto;
+    right: 1%;
+    bottom: 12px;
+    width: 78px;
+    pointer-events: none;
+}
+
+.coffee-carousel.is-ready .coffee-controls {
+    position: relative;
+    inset: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px 32px;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    transition: none;
+}
+
+.coffee-carousel .coffee-scene-tabs {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px 30px;
+}
+
+.coffee-carousel .coffee-scene-tabs > button {
+    font-size: 17px;
+    padding: 14px 0 16px;
+}
+
+.coffee-carousel .coffee-scroll-cue {
+    display: block;
+    grid-column: 1 / -1;
+    margin: 0;
+    max-width: none;
+    font-size: 13px;
+}
+
+.coffee-navigation {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.coffee-step {
+    --step-shift: 6px;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    background: var(--coffee-ink);
+    box-shadow: calc(-1 * var(--step-shift)) var(--step-shift) 0 var(--ink);
+    translate: 0 0;
+    cursor: pointer;
+    transition: translate 180ms cubic-bezier(.25, 1, .5, 1), box-shadow 180ms cubic-bezier(.25, 1, .5, 1);
+}
+
+.coffee-step svg {
+    width: 27px;
+    height: 27px;
+}
+
+@media (max-width: 700px) {
+    .coffee-step {
+        --step-shift: 5px;
+    }
+}
+
+@media (hover: hover) {
+    .coffee-step:hover {
+        translate: calc(-1 * var(--step-shift)) var(--step-shift);
+        box-shadow: 0 0 0 var(--ink);
+    }
+}
+
+.coffee-step:active {
+    translate: calc(-1 * var(--step-shift)) var(--step-shift);
+    box-shadow: 0 0 0 var(--ink);
+}
+
+.coffee-carousel button:focus-visible {
+    outline: 3px solid #ffe42f;
+    outline-offset: 5px;
+}
+
+@media (max-width: 1050px) and (min-width: 701px) {
+    .coffee-carousel .poster-title { font-size: 82px; }
+    .coffee-carousel .poster-blend .poster-title { font-size: 74px; }
+    .coffee-carousel .poster-flavor { font-size: 36px; }
+    .coffee-carousel .coffee-scene-tabs { gap: 20px; }
+    .coffee-carousel .coffee-scene-tabs > button { font-size: 15px; }
+}
+
+@media (max-width: 700px) {
+    .coffee-carousel.is-ready .coffee-screen {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        padding: 112px 22px 28px;
+        gap: 26px;
+    }
+    .coffee-carousel.is-ready .coffee-panels { height: 665px; }
+    .coffee-carousel.is-ready .coffee-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto minmax(0, 1fr) auto auto auto;
+        gap: 12px;
+        align-items: start;
+    }
+    .coffee-carousel .poster-copy { display: contents; }
+    .coffee-carousel .poster-title {
+        grid-row: 1;
+        font-size: clamp(64px, 18vw, 90px);
+        white-space: normal;
+    }
+    .coffee-carousel .poster-blend .poster-title {
+        font-size: clamp(43px, 12.5vw, 68px);
+        max-width: 100%;
+        white-space: nowrap;
+    }
+    .coffee-carousel .poster-origin {
+        grid-row: 2;
+        margin: 0;
+        font-size: 14px;
+    }
+    .coffee-carousel .poster-visual {
+        grid-row: 3;
+        min-height: 0;
+        height: 100%;
+        max-height: none;
+    }
+    .coffee-carousel .poster-flavor {
+        grid-row: 4;
+        margin: 0;
+        font-size: 35px;
+    }
+    .coffee-carousel .poster-notes {
+        grid-row: 5;
+        font-size: 15px;
+        margin: 0;
+    }
+    .coffee-carousel .poster-choose {
+        grid-row: 6;
+        min-height: 54px;
+        font-size: 17px;
+        margin: 8px 0 0;
+    }
+    .coffee-carousel .poster-sticker {
+        width: 58px;
+        bottom: 240px;
+        right: 0;
+    }
+    .coffee-carousel.is-ready .coffee-controls {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+    }
+    .coffee-carousel .coffee-scene-tabs {
+        grid-column: 1 / -1;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 9px;
+    }
+    .coffee-carousel .coffee-scene-tabs > button {
+        font-size: 14px;
+        padding: 12px 0;
+    }
+    .coffee-carousel .coffee-scroll-cue {
+        display: block;
+        grid-column: 1;
+        grid-row: 2;
+        font-size: 13px;
+        line-height: 1.5;
+        max-width: 160px;
+    }
+    .coffee-navigation { grid-column: 2; grid-row: 2; }
+    .coffee-step { width: 48px; height: 48px; }
+}
+
+@media (max-width: 360px) {
+    .coffee-carousel.is-ready .coffee-screen { padding-inline: 18px; }
+    .coffee-carousel .coffee-scene-tabs > button { font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .coffee-step,
+    .coffee-carousel .coffee-scene-tabs > button:after { transition: none; }
+}

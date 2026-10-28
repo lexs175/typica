@@ -1,0 +1,29 @@
+<svg viewBox="0 0 420 600" aria-hidden="true">
+            <path d="M78 108 L342 108 L352 540 Q352 566 326 566 L94 566 Q68 566 68 540 L78 108 Z" fill="#C96A3B" stroke="#15120E" stroke-width="3"/>
+            <g class="bag-seal">
+              <rect x="96" y="76" width="228" height="34" rx="6" fill="#F5F1E6" stroke="#15120E" stroke-width="3"/>
+              <path d="M120 84 v18 M144 84 v18 M168 84 v18 M192 84 v18 M216 84 v18 M240 84 v18 M264 84 v18 M288 84 v18" stroke="#15120E" stroke-width="1.4"/>
+            </g>
+            <g class="bag-woman" fill="none" stroke="#F5F1E6" stroke-width="2.6">
+              <path d="M182 318 q-8 -28 10 -40 q18 -12 36 0 q18 12 10 40"/>
+              <path d="M148 318 q62 -20 124 0"/>
+              <path d="M148 318 q-16 2 -18 8 q2 7 18 7 q62 13 124 0 q16 0 18 -7 q-2 -6 -18 -8"/>
+              <path d="M186 330 q0 24 24 24 q24 0 24 -24"/>
+              <circle cx="200" cy="343" r="2.4" fill="#F5F1E6"/>
+              <circle cx="220" cy="343" r="2.4" fill="#F5F1E6"/>
+              <path d="M203 356 q7 6 14 0" stroke-width="1.8"/>
+              <path d="M210 370 q-42 4 -56 36 q-6 12 -6 22 h124 q0 -10 -6 -22 q-14 -32 -56 -36z"/>
+              <path d="M172 398 h76 M168 410 h84" stroke-width="1.8"/>
+              <path d="M244 300 q2 -10 10 -10 q0 10 -10 12 q-4 -8 -10 -10 q2 10 10 10z" stroke-width="1.8"/>
+            </g>
+            <text x="210" y="208" text-anchor="middle" font-family="Fraunces, serif" font-size="42" font-weight="900" letter-spacing="3" fill="#F5F1E6">NORA</text>
+            <text x="210" y="252" text-anchor="middle" font-family="Fraunces, serif" font-size="42" font-weight="900" letter-spacing="3" fill="#F5F1E6">GEMIO</text>
+            <path d="M130 268 h160" stroke="#F5F1E6" stroke-width="2"/>
+            <text x="210" y="470" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" letter-spacing="4" fill="#F5F1E6">COROICO · NOR YUNGAS · JAVA LAVADO</text>
+            <g font-family="Archivo, sans-serif" fill="#15120E">
+              <rect x="90" y="486" width="140" height="52" rx="8" fill="#FFD500" stroke="#15120E" stroke-width="2.5"/>
+              <text x="102" y="506" font-size="10" letter-spacing="1">MUJERES DEL CAFÉ</text>
+              <text x="102" y="524" font-size="13" font-weight="700">BOLIVIANO</text>
+              <text x="262" y="522" font-size="15" font-weight="700" fill="#F5F1E6">300 g</text>
+            </g>
+          </svg>

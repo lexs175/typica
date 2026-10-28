@@ -1,0 +1,70 @@
+/* The complete heading stays readable when motion or JavaScript is unavailable. */
+.meet-section { padding: 0; overflow: clip; background: var(--white); }
+.meet-stage { position: relative; padding: 110px var(--gutter) 80px; }
+.meet-rail { position: relative; }
+.meet-track { position: relative; }
+.meet-heading {
+  margin: 0;
+  font: 900 clamp(48px, 8.5vw, 148px)/1.04 Epilogue, Arial, sans-serif;
+  letter-spacing: -.065em;
+  text-align: center;
+  text-wrap: balance;
+}
+.meet-sticker-anchor { position: absolute; width: clamp(64px, 7.5vw, 128px); pointer-events: none; }
+.meet-sticker { display: block; width: 100%; height: auto; }
+.meet-love { left: 16%; top: -105px; transform: rotate(-12deg); }
+.meet-thumb { right: 10%; top: -95px; transform: rotate(12deg); }
+.meet-description {
+  max-width: 590px;
+  margin: 65px auto 0;
+  padding: 0 20px;
+  font-size: 20px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Only the enhanced scene receives the horizontal strip and extra scroll space. */
+.meet-section.meet-live { height: 230svh; }
+.meet-live .meet-stage {
+  position: sticky;
+  top: 92px;
+  height: calc(100svh - 92px);
+  min-height: 350px;
+  padding: 0;
+  overflow: clip;
+}
+.meet-live .meet-rail { position: absolute; top: 43%; left: 0; width: 100%; transform: translateY(-50%); }
+.meet-live .meet-track { width: max-content; }
+.meet-live .meet-heading {
+  font-size: clamp(100px, 12vw, 210px);
+  line-height: 1.05;
+  white-space: nowrap;
+  text-align: left;
+  text-wrap: nowrap;
+}
+.meet-word, .meet-char { display: inline-block; }
+.meet-word { white-space: nowrap; }
+.meet-char { transform-origin: 50% 65%; }
+.meet-live .meet-love { left: 27%; right: auto; top: 86%; }
+.meet-live .meet-thumb { left: 65%; right: auto; top: -70%; }
+.meet-live .meet-description {
+  position: absolute;
+  bottom: clamp(28px, 6svh, 70px);
+  left: 50%;
+  width: min(100%, 590px);
+  margin: 0;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 700px) {
+  .meet-stage { padding: 105px 24px 65px; }
+  .meet-heading { font-size: clamp(45px, 10.8vw, 72px); }
+  .meet-love { left: 9%; top: -85px; }
+  .meet-thumb { right: 8%; top: -80px; }
+  .meet-description { font-size: 18px; margin-top: 50px; }
+  .meet-section.meet-live { height: 270svh; }
+  .meet-live .meet-stage { top: 90px; height: calc(100svh - 90px); min-height: 0; }
+  .meet-live .meet-rail { top: 39%; }
+  .meet-live .meet-heading { font-size: clamp(82px, 20vw, 130px); }
+  .meet-live .meet-description { width: calc(100% - 28px); bottom: 32px; }
+}
