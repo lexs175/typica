@@ -1,0 +1,129 @@
+---
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Button from "@/components/Button.astro";
+import Television from "@/components/media/Television.astro";
+import VideoControls from "@/components/media/VideoControls.astro";
+import SoundToggle from "@/components/media/SoundToggle.astro";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Main heading. */
+  title?: string;
+  /** Supporting text. */
+  description?: string;
+  /** Button text. */
+  action?: string;
+  /** Link destination. */
+  href?: string;
+}
+const {
+  render = true,
+  title = "Café de especialidad para amantes del café en Bolivia",
+  description = "Somos cafetería y tostaduría de café boliviano, con desayunos, brunch y postres, y un equipo premiado en barismo y latte art.",
+  action = "Elegir mi café",
+  href = "#cafes",
+} = Astro.props;
+---
+
+{render && title && (
+  <section
+    class="hero-tv_wrap theme-light"
+    id="inicio"
+    aria-labelledby="hero-title"
+    data-hero-tv
+  >
+    <span id="typica-tv" class="hero-tv_anchor" aria-hidden="true"></span>
+    <div class="hero-tv_stage" data-hero-stage>
+      <div class="hero-tv_content" data-hero-content>
+        <ContentWrapper centered>
+          <Heading tag="h1" variant="h1" maxWidth={28} id="hero-title">
+            {title}
+          </Heading>
+          <Paragraph variant="main" maxWidth={48}>
+            {description}
+          </Paragraph>
+          <ButtonWrapper>
+            <Button element="link" href={href} data-hero-cta>
+              {action}
+            </Button>
+          </ButtonWrapper>
+        </ContentWrapper>
+      </div>
+      <Television />
+      <SoundToggle namespace="hero" />
+      <VideoControls namespace="hero" />
+      <span
+        class="sr-only"
+        data-hero-status
+        role="status"
+        aria-live="polite"
+      ></span>
+    </div>
+  </section>
+)}
+<script>
+  import { initHeroTv } from "@/scripts/hero-tv";
+  initHeroTv();
+</script>
+<style is:global>
+  @layer components {
+    .hero-tv_wrap {
+      --background: var(--light-200);
+      --h1-text-transform: uppercase;
+      position: relative;
+      background: var(--background);
+      color: var(--text);
+      isolation: isolate;
+      &.is-animated {
+        height: calc(var(--hero-stage-height) + 145svh);
+      }
+      &.is-animated .hero-tv_stage {
+        position: sticky;
+        top: var(--hero-sticky-top, 0);
+      }
+    }
+    .hero-tv_anchor {
+      position: absolute;
+      top: 0;
+    }
+    .hero-tv_stage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100svh;
+      overflow: clip;
+      isolation: isolate;
+      background: var(--background);
+      &:fullscreen {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw;
+        height: 100svh;
+      }
+    }
+    .hero-tv_content {
+      position: relative;
+      z-index: 2;
+      width: var(--site-width);
+      max-width: var(--max-width-main);
+      margin-inline: auto;
+      padding-block: var(--hero-top-space) var(--hero-media-gap);
+    }
+    .hero-tv_stage [hidden] {
+      display: none !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-tv_wrap.is-animated {
+        height: auto;
+      }
+      .hero-tv_wrap.is-animated .hero-tv_stage {
+        position: relative;
+      }
+    }
+  }
+</style>

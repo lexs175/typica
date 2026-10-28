@@ -1,0 +1,64 @@
+---
+import type { Coffee } from "@/data/coffees";
+interface Props {
+  render?: boolean;
+  coffee: Coffee;
+}
+const { render = true, coffee } = Astro.props;
+---
+
+{render && (
+  <div
+    class="quantity-stepper_wrap"
+    role="group"
+    aria-labelledby={`quantity-label-${coffee.id}`}
+  >
+    <button
+      type="button"
+      data-quantity-step="-1"
+      aria-label={"Reducir cantidad de " + coffee.name}
+      disabled
+    >
+      −
+    </button>
+    <output
+      class="quantity-stepper_count"
+      aria-label={"Bolsas de " + coffee.name}
+      aria-live="polite"
+    >
+      1
+    </output>
+    <button
+      type="button"
+      data-quantity-step="1"
+      aria-label={"Aumentar cantidad de " + coffee.name}
+    >
+      +
+    </button>
+  </div>
+)}
+<style is:global>
+  @layer components {
+    .quantity-stepper_wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 0.0625rem solid var(--border-subtle);
+    }
+    .quantity-stepper_wrap button {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 3.25rem;
+      font-size: 1.25rem;
+    }
+    .quantity-stepper_wrap button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    .quantity-stepper_count {
+      font-size: 0.875rem;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+</style>

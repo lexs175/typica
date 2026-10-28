@@ -1,0 +1,252 @@
+---
+import PhotoFan from "@/components/content/PhotoFan.astro";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <section class="coffee-intro_wrap" aria-labelledby="intro-title">
+    <h2 id="intro-title" data-split="">
+      Café de aquí <br />
+      Gente de todos lados
+    </h2>
+    <p class="coffee-intro_serif-line">
+      Siempre en buena compañía
+      <svg viewBox="0 0 550 30" aria-hidden="true">
+        <path
+          class="hand-path"
+          d="M5 21Q230 2 535 13"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+        ></path>
+        <path
+          class="hand-path"
+          d="M59 27Q325 10 546 19"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+        ></path>
+      </svg>
+    </p>
+    <PhotoFan />
+    <p class="coffee-intro_paragraph">
+      Del origen al tueste, de la barra a tu mesa. Cada café tiene su historia.
+      Y cada visita, la suya.
+    </p>
+  </section>
+)}
+<style is:global>
+  @layer components {
+    .coffee-intro_wrap {
+      padding: 5rem var(--gutter) 7.8125rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .coffee-intro_wrap h2 {
+      font-size: clamp(3rem, 6.3vw, 7rem);
+      line-height: 1.03;
+      letter-spacing: -0.065em;
+      max-width: 75rem;
+      margin: auto;
+    }
+    .coffee-intro_serif-line {
+      font:
+        italic 400 clamp(2.875rem, 6.5vw, 7.4375rem)/1.05 "Instrument Serif",
+        Georgia,
+        serif;
+      letter-spacing: -0.025em;
+      position: relative;
+      display: table;
+      margin: 0.75rem auto 0;
+    }
+    .coffee-intro_serif-line > svg {
+      position: absolute;
+      bottom: -0.875rem;
+      left: 5%;
+      width: 90%;
+      height: 1.875rem;
+      overflow: visible;
+      pointer-events: none;
+    }
+    .coffee-intro_paragraph {
+      max-width: 34.375rem;
+      font-size: 1.25rem;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    @media (max-width: 56.25rem) {
+      .coffee-intro_wrap {
+        padding-top: 2.5rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .coffee-intro_paragraph {
+        font-size: 1.125rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap {
+        padding: 2.8125rem 1.375rem 5rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap h2 {
+        font-size: 8.5vw;
+        line-height: 1.08;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_serif-line {
+        font-size: 9.8vw;
+        line-height: 1.05;
+        margin-top: 0.9375rem;
+        max-width: 90%;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_serif-line > svg {
+        height: 1.25rem;
+        bottom: -1.0625rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_paragraph {
+        font-size: 1.125rem;
+        max-width: 23.125rem;
+      }
+    }
+    @media (max-width: 27.5rem) {
+      .coffee-intro_paragraph {
+        font-size: 1.0625rem;
+      }
+    }
+    .coffee-intro_wrap .photo-fan_wrap {
+      --fan-width: min(100%, 73.75rem);
+      position: relative;
+      display: block;
+      width: var(--fan-width);
+      max-width: 73.75rem;
+      height: auto;
+      aspect-ratio: 2.28;
+      margin: 5.9375rem auto 4.0625rem;
+      isolation: isolate;
+    }
+    .coffee-intro_wrap .photo-fan_photo {
+      position: absolute;
+      width: 29%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      margin: 0;
+      overflow: visible;
+      border-radius: 0.9375rem;
+      transform: rotate(var(--fan-rotation));
+      transform-origin: 50% 50%;
+    }
+    .coffee-intro_wrap .photo-fan_photo > img:not(.sticker) {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+    .coffee-intro_wrap .photo-fan_photo-a {
+      --fan-rotation: -9deg;
+      left: 5%;
+      top: 4%;
+      z-index: 1;
+    }
+    .coffee-intro_wrap .photo-fan_photo-b {
+      --fan-rotation: 0deg;
+      left: 35.5%;
+      top: 15%;
+      z-index: 3;
+    }
+    .coffee-intro_wrap .photo-fan_photo-c {
+      --fan-rotation: 9deg;
+      left: 66%;
+      top: 1%;
+      z-index: 2;
+    }
+    .coffee-intro_wrap .photo-fan_photo-a > img:not(.sticker) {
+      object-position: 40% 50%;
+    }
+    .coffee-intro_wrap .photo-fan_photo > .sticker {
+      height: auto;
+      max-width: none;
+      object-fit: contain;
+      z-index: 4;
+    }
+    .coffee-intro_wrap .photo-fan_cups {
+      width: 29%;
+      left: -12%;
+      bottom: -6%;
+      top: auto;
+      right: auto;
+      transform: rotate(-10deg);
+    }
+    .coffee-intro_wrap .photo-fan_smile {
+      width: 25%;
+      right: -9%;
+      top: -7%;
+      bottom: auto;
+      left: auto;
+      transform: rotate(8deg);
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap .photo-fan_wrap {
+        width: 100%;
+        aspect-ratio: 1.75;
+        margin: 4.0625rem auto 2.5rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap .photo-fan_photo {
+        width: 33%;
+        border-radius: 0.6875rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap .photo-fan_photo-a {
+        left: 1.5%;
+        top: 5%;
+        --fan-rotation: -9deg;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap .photo-fan_photo-b {
+        left: 33.5%;
+        top: 18%;
+        --fan-rotation: 0deg;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap .photo-fan_photo-c {
+        left: 65.5%;
+        top: 2%;
+        --fan-rotation: 9deg;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap .photo-fan_cups {
+        width: 35%;
+        left: -7%;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .coffee-intro_wrap .photo-fan_smile {
+        width: 30%;
+        right: -4%;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .coffee-intro_wrap .photo-fan_photo {
+        will-change: auto;
+      }
+    }
+  }
+</style>

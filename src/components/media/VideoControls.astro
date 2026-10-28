@@ -1,0 +1,110 @@
+---
+import pauseSticker from "@/assets/stickers/truus.co-10.svg";
+import fullscreenSticker from "@/assets/stickers/truus.co-12.svg";
+
+interface Props {
+  render?: boolean;
+  namespace?: "film" | "hero";
+}
+const { render = true, namespace = "film" } = Astro.props;
+---
+
+{render && (
+  <div
+    class="video-controls_wrap"
+    data-controls={namespace}
+    role="group"
+    aria-label="Controles del vídeo"
+    hidden={namespace === "hero"}
+  >
+    <button
+      type="button"
+      id={namespace === "film" ? "film-toggle" : undefined}
+      data-play={namespace}
+      aria-label="Reproducir vídeo"
+      title="Reproducir vídeo"
+    >
+      <span class="video-controls_label sr-only">Reproducir vídeo</span>
+      <svg class="video-controls_symbol" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          class="video-controls_play"
+          d="m8 5 11 7-11 7Z"
+          fill="currentColor"
+        />
+      </svg>
+      <img
+        class="video-controls_pause"
+        src={pauseSticker.src}
+        alt=""
+      />
+    </button>
+    <button
+      type="button"
+      id={namespace === "film" ? "film-fullscreen" : undefined}
+      data-fullscreen={namespace}
+      aria-label="Ver vídeo en pantalla completa"
+      title="Pantalla completa"
+    >
+      <img src={fullscreenSticker.src} alt="" />
+    </button>
+  </div>
+)}
+<style is:global>
+  @layer components {
+    .video-controls_symbol {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+    }
+    .video-controls_pause,
+    .is-playing .video-controls_play {
+      display: none;
+    }
+    .is-playing .video-controls_pause {
+      display: block;
+    }
+    .video-controls_wrap {
+      position: absolute;
+      left: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 6;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .video-controls_wrap > button {
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0.6875rem;
+      display: grid;
+      place-items: center;
+      border-radius: 0.5rem;
+      background: var(--warm-100);
+      color: var(--dark-900);
+      transition: background-color 0.2s;
+    }
+    .video-controls_wrap > button:hover {
+      background: var(--yellow);
+    }
+    .video-controls_wrap > button > img {
+      width: 1.375rem;
+      height: 1.375rem;
+      object-fit: contain;
+    }
+    .video-controls_wrap .video-controls_pause,
+    .video-controls_wrap .is-playing .video-controls_symbol {
+      display: none;
+    }
+    .video-controls_wrap .is-playing .video-controls_pause {
+      display: block;
+    }
+    .video-controls_wrap > button[hidden] {
+      display: none;
+    }
+    @media (max-width: 56.25rem) {
+      .video-controls_wrap {
+        left: 0.875rem;
+        bottom: 1rem;
+      }
+    }
+  }
+</style>

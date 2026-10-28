@@ -1,0 +1,79 @@
+---
+import SubscriptionVisual from "@/components/media/SubscriptionVisual.astro";
+import SubscriptionForm from "@/components/form/SubscriptionForm.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <section
+    class="subscription-section_wrap"
+    aria-labelledby="subscription-title"
+  >
+    <SubscriptionVisual />
+    <div class="subscription-section_copy">
+      <Heading tag="h1" variant="inherit" id="subscription-title">
+        Tu café.
+        <br />A tu ritmo.
+      </Heading>
+      <Paragraph>
+        Hay rituales que vale la pena repetir. Elige tu café y cuéntanos cada
+        cuánto te gustaría recibirlo.
+      </Paragraph>
+      <SubscriptionForm />
+    </div>
+  </section>
+)}
+<style is:global>
+  @layer components {
+    .subscription-section_wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100svh;
+    }
+    .subscription-section_copy {
+      padding: 8.75rem 5vw 4.375rem;
+    }
+    .subscription-section_copy h1 {
+      font-size: clamp(4rem, 6.5vw, 6.75rem);
+      line-height: 0.94;
+      font-weight: 850;
+      letter-spacing: -0.065em;
+    }
+    .subscription-section_copy > p {
+      margin-top: 1.875rem;
+      max-width: 32em;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+    @media (max-width: 68.75rem) {
+      .subscription-section_copy {
+        padding: 8.125rem 1.875rem 3.125rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .subscription-section_wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .subscription-section_copy {
+        padding: 2.8125rem var(--gutter) 3.75rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .subscription-section_copy h1 {
+        font-size: clamp(3.5rem, 16vw, 4.875rem);
+      }
+    }
+  }
+</style>
+
+<script>
+  import "@/scripts/experiences.js";
+</script>

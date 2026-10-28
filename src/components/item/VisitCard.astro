@@ -1,0 +1,169 @@
+---
+import santaCruzImage from "@/assets/images/casa-santa-cruz.png";
+import granosImage from "@/assets/images/granos.avif";
+import javaPackImage from "@/assets/products/Image-1.png";
+
+interface Props {
+  render?: boolean;
+  kind: "locations" | "subscriptions";
+}
+const { render = true, kind } = Astro.props;
+const location = kind === "locations";
+const mainImage = location ? santaCruzImage : granosImage;
+---
+
+{render && (
+  <a
+    class:list={[
+      "visit-card_wrap",
+      location ? "visit-card_houses" : "visit-card_subscriptions",
+    ]}
+    href={location ? "/sucursales/" : "/suscripciones/"}
+  >
+    <img
+      src={mainImage.src}
+      alt={
+        location
+          ? "La barra de una casa Typica"
+          : "Café de especialidad para preparar en casa"
+      }
+      width={mainImage.width}
+      height={mainImage.height}
+      loading="lazy"
+    />
+    {!location && (
+      <img
+        class="visit-card_pack"
+        src={javaPackImage.src}
+        alt="Bolsa de café Java de Typica"
+        width={javaPackImage.width}
+        height={javaPackImage.height}
+        loading="lazy"
+      />
+    )}
+    <div class="visit-card_copy">
+      <h2>
+        {location ? "Siempre hay una casa cerca." : "Tu café. A tu ritmo."}
+      </h2>
+      <span class="visit-card_link">
+        {location ? "Encuentra tu Typica" : "Explora las suscripciones"}{" "}
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path
+            d="M5 16h21M17 6l10 10-10 10"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+    </div>
+  </a>
+)}
+<style is:global>
+  @layer components {
+    .visit-card_wrap {
+      position: relative;
+      isolation: isolate;
+      min-height: 31.875rem;
+      display: flex;
+      align-items: end;
+      overflow: hidden;
+      color: var(--light-100);
+      background: var(--green-700);
+    }
+    .visit-card_wrap > img:first-child {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -3;
+      transition: transform 550ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .visit-card_wrap:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        0deg,
+        var(--overlay-strong),
+        var(--wash-subtle) 80%
+      );
+      z-index: -1;
+    }
+    .visit-card_copy {
+      padding: 2.5rem;
+    }
+    .visit-card_wrap h2 {
+      font-size: clamp(2.1875rem, 4.1vw, 4.25rem);
+      line-height: 1.04;
+      font-weight: 750;
+      letter-spacing: -0.06em;
+    }
+    .visit-card_link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.75rem;
+      margin-top: 1.625rem;
+      padding-block: 0.625rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+    }
+    .visit-card_link svg {
+      width: 1.875rem;
+      height: 1.875rem;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .visit-card_wrap:hover > img:first-child {
+        transform: scale(1.035);
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .visit-card_wrap {
+        min-height: 26.25rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .visit-card_copy {
+        padding: 1.875rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .visit-card_wrap h2 {
+        font-size: 2.875rem;
+      }
+    }
+    @media (max-width: 22.5rem) {
+      .visit-card_wrap h2 {
+        font-size: 2.5rem;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .visit-card_wrap > img:first-child,
+      .site-header_dropdown summary > svg {
+        transition: none;
+      }
+    }
+    .visit-card_subscriptions > img:first-child {
+      opacity: 0.42;
+    }
+    .visit-card_subscriptions .visit-card_pack {
+      position: absolute;
+      top: -10%;
+      right: -6%;
+      width: 68%;
+      height: 78%;
+      object-fit: contain;
+      transform: rotate(12deg);
+      z-index: -2;
+    }
+    @media (max-width: 47.5rem) {
+      .visit-card_subscriptions .visit-card_pack {
+        width: 67%;
+        height: 82%;
+      }
+    }
+  }
+</style>

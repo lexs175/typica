@@ -1,0 +1,179 @@
+---
+import Button from "@/components/Button.astro";
+import Select from "@/components/form/Select.astro";
+import { coffees, grindOptions } from "@/data/coffees";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <form class="subscription-form_wrap" id="subscription-form">
+    <Select
+      label="Tu café"
+      id="subscription-coffee"
+      name="cafe"
+      value={coffees[0].id}
+      options={coffees.map((coffee) => ({ value: coffee.id, label: coffee.name }))}
+    />
+    <div class="subscription-form_fields">
+      <Select
+        label="Cantidad"
+        id="subscription-quantity"
+        name="cantidad"
+        value="1"
+        options={[1, 2, 3, 4].map((quantity) => ({
+          value: String(quantity),
+          label: `${quantity} ${quantity === 1 ? 'bolsa' : 'bolsas'} de 250 g`,
+        }))}
+      />
+      <Select
+        label="Frecuencia"
+        id="subscription-frequency"
+        name="frecuencia"
+        value="Cada dos semanas"
+        options={["Cada dos semanas", "Cada mes"]}
+      />
+    </div>
+    <Select
+      label="¿Cómo lo preparas?"
+      id="subscription-grind"
+      name="molienda"
+      value={grindOptions[0]}
+      options={[...grindOptions]}
+    />
+    <p class="subscription-form_summary" id="subscription-summary">
+      1 bolsa de Gesha, cada dos semanas.
+    </p>
+    <Button type="submit">Preparar mi consulta</Button>
+    <p class="subscription-form_note">
+      Consulta con Typica la disponibilidad, el precio y la entrega de este
+      servicio.
+    </p>
+    <div class="subscription-form_result" id="subscription-result" hidden>
+      <p>Tu selección está lista para consultar.</p>
+      <textarea
+        id="subscription-message"
+        rows="5"
+        readonly=""
+        aria-label="Tu consulta de suscripción"
+      ></textarea>
+      <button type="button" id="subscription-copy">
+        Copiar consulta
+      </button>
+      <a
+        href="https://linktr.ee/typicacafetostaduria"
+        target="_blank"
+        rel="noopener"
+      >
+        Contactar con Typica{" "}
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path
+            d="M5 16h21M17 6l10 10-10 10"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+      </a>
+      <p id="subscription-status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+)}
+<style is:global>
+  @layer components {
+    .subscription-form_wrap {
+      margin-top: 2rem;
+    }
+    .subscription-form_wrap label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5625rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+    }
+    .subscription-form_wrap select {
+      width: 100%;
+      min-height: 3.25rem;
+      padding: 0.8125rem 2.25rem 0.8125rem 0.875rem;
+      background: var(--light-100);
+      border: 0.0625rem solid var(--neutral-400);
+      border-radius: 0;
+      font-size: 0.875rem;
+      font-weight: 450;
+    }
+    .subscription-form_fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem;
+      margin: 1.25rem 0;
+    }
+    .subscription-form_summary {
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    .subscription-form_note {
+      margin-top: 1.125rem;
+      font-size: 0.75rem;
+      line-height: 1.6;
+    }
+    .subscription-form_result {
+      margin-top: 1.5rem;
+      padding: 1.375rem;
+      background: var(--sage-100);
+      font-size: 0.875rem;
+    }
+    .subscription-form_result textarea {
+      margin: 0.875rem 0;
+      padding: 0.75rem;
+      width: 100%;
+      resize: vertical;
+      min-height: 8.125rem;
+      border: 0;
+      background: var(--light-100);
+      color: var(--neutral-900);
+      font: 400 0.8125rem/1.6 var(--font);
+    }
+    .subscription-form_result button,
+    .subscription-form_result a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      min-height: 2.75rem;
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+      margin-right: 1.25rem;
+    }
+    .subscription-form_result a svg {
+      width: 1.375rem;
+      height: 1.375rem;
+    }
+    .subscription-form_result[hidden] {
+      display: none;
+    }
+    @media (max-width: 68.75rem) {
+      .subscription-form_fields {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .subscription-form_fields {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .subscription-form_wrap select {
+        font-size: 1rem;
+      }
+    }
+    @media (max-width: 22.5rem) {
+      .subscription-form_fields {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+</style>

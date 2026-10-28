@@ -1,0 +1,262 @@
+---
+import frame4Sticker from "@/assets/stickers/Frame-4.svg";
+import frame6Sticker from "@/assets/stickers/Frame-6.svg";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <section class="meet-copy_wrap" id="de-cerca" aria-labelledby="meet-title">
+    <div class="meet-copy_stage">
+      <div class="meet-copy_rail">
+        <div class="meet-copy_track">
+          <h2 id="meet-title" class="meet-copy_heading">
+            Nos vemos donde el café nos junta
+          </h2>
+          <span
+            class="meet-copy_sticker-anchor meet-copy_love"
+            aria-hidden="true"
+          >
+            <img
+              class="meet-copy_sticker"
+              src={frame4Sticker.src}
+              alt=""
+              width="110"
+              height="140"
+            />
+          </span>
+          <span
+            class="meet-copy_sticker-anchor meet-copy_thumb"
+            aria-hidden="true"
+          >
+            <img
+              class="meet-copy_sticker"
+              src={frame6Sticker.src}
+              alt=""
+              width="120"
+              height="140"
+            />
+          </span>
+        </div>
+      </div>
+      <p class="meet-copy_description">
+        Nos gusta el café de acá. Y todo lo que pasa alrededor: una
+        conversación, un disco, una casa que se vuelve tu lugar.
+      </p>
+    </div>
+  </section>
+)}
+<style is:global>
+  @layer components {
+    .meet-copy_wrap {
+      overflow: hidden;
+      background: var(--white);
+      padding: 6.25rem 0 6.25rem;
+      position: relative;
+    }
+    .meet-copy_wrap > p {
+      font-size: 1.25rem;
+      max-width: 34.375rem;
+      text-align: center;
+      margin: 1.25rem auto 0;
+      padding: 0 1.25rem;
+      line-height: 1.5;
+    }
+    @media (max-width: 56.25rem) {
+      .meet-copy_wrap {
+        padding: 4.375rem 0 5.625rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .meet-copy_wrap > p {
+        font-size: 1.125rem;
+        max-width: 31.25rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_wrap {
+        padding: 3.4375rem 0 5rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_wrap > p {
+        font-size: 1.125rem;
+        max-width: 25.625rem;
+        padding: 0 1.5625rem;
+        margin-top: 0.3125rem;
+      }
+    }
+    .meet-copy_wrap {
+      padding: 0;
+      overflow: clip;
+      background: var(--white);
+    }
+    .meet-copy_stage {
+      position: relative;
+      padding: 6.875rem var(--gutter) 5rem;
+    }
+    .meet-copy_rail {
+      position: relative;
+    }
+    .meet-copy_track {
+      position: relative;
+    }
+    .meet-copy_heading {
+      margin: 0;
+      font:
+        900 clamp(3rem, 8.5vw, 9.25rem)/1.04 Epilogue,
+        Arial,
+        sans-serif;
+      letter-spacing: -0.065em;
+      text-align: center;
+      text-wrap: balance;
+    }
+    .meet-copy_sticker-anchor {
+      position: absolute;
+      width: clamp(4rem, 7.5vw, 8rem);
+      pointer-events: none;
+    }
+    .meet-copy_sticker {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .meet-copy_love {
+      left: 16%;
+      top: -6.5625rem;
+      transform: rotate(-12deg);
+    }
+    .meet-copy_thumb {
+      right: 10%;
+      top: -5.9375rem;
+      transform: rotate(12deg);
+    }
+    .meet-copy_description {
+      max-width: 36.875rem;
+      margin: 4.0625rem auto 0;
+      padding: 0 1.25rem;
+      font-size: 1.25rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .meet-copy_wrap.meet-copy_live {
+      height: 230svh;
+    }
+    .meet-copy_live .meet-copy_stage {
+      position: sticky;
+      top: 5.75rem;
+      height: calc(100svh - 5.75rem);
+      min-height: 21.875rem;
+      padding: 0;
+      overflow: clip;
+    }
+    .meet-copy_live .meet-copy_rail {
+      position: absolute;
+      top: 43%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+    .meet-copy_live .meet-copy_track {
+      width: max-content;
+    }
+    .meet-copy_live .meet-copy_heading {
+      font-size: clamp(6.25rem, 12vw, 13.125rem);
+      line-height: 1.05;
+      white-space: nowrap;
+      text-align: left;
+      text-wrap: nowrap;
+    }
+    .meet-copy_word,
+    .meet-copy_char {
+      display: inline-block;
+    }
+    .meet-copy_word {
+      white-space: nowrap;
+    }
+    .meet-copy_char {
+      transform-origin: 50% 65%;
+    }
+    .meet-copy_live .meet-copy_love {
+      left: 27%;
+      right: auto;
+      top: 86%;
+    }
+    .meet-copy_live .meet-copy_thumb {
+      left: 65%;
+      right: auto;
+      top: -70%;
+    }
+    .meet-copy_live .meet-copy_description {
+      position: absolute;
+      bottom: clamp(1.75rem, 6svh, 4.375rem);
+      left: 50%;
+      width: min(100%, 36.875rem);
+      margin: 0;
+      transform: translateX(-50%);
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_stage {
+        padding: 6.5625rem 1.5rem 4.0625rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_heading {
+        font-size: clamp(2.8125rem, 10.8vw, 4.5rem);
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_love {
+        left: 9%;
+        top: -5.3125rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_thumb {
+        right: 8%;
+        top: -5rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_description {
+        font-size: 1.125rem;
+        margin-top: 3.125rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_wrap.meet-copy_live {
+        height: 270svh;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_live .meet-copy_stage {
+        top: 5.625rem;
+        height: calc(100svh - 5.625rem);
+        min-height: 0;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_live .meet-copy_rail {
+        top: 39%;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_live .meet-copy_heading {
+        font-size: clamp(5.125rem, 20vw, 8.125rem);
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .meet-copy_live .meet-copy_description {
+        width: calc(100% - 1.75rem);
+        bottom: 2rem;
+      }
+    }
+  }
+</style>
+
+<script>
+  import "@/scripts/meet-text.js";
+</script>

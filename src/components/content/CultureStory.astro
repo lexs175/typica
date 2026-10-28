@@ -1,0 +1,269 @@
+---
+import baristaImage from "@/assets/images/barista.avif";
+import frame1Sticker from "@/assets/stickers/Frame-1.svg";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <div class="culture-story_wrap">
+    <figure class="culture-story_photo">
+      <img
+        src={baristaImage.src}
+        alt="Barista de Typica sirviendo leche sobre un café"
+        width="1500"
+        height="1000"
+        loading="lazy"
+      />
+      <img
+        class="sticker"
+        src={frame1Sticker.src}
+        alt=""
+        aria-hidden="true"
+      />
+      <svg
+        class="culture-story_photo-spark culture-story_spark-bottom"
+        viewBox="0 0 80 109"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          class="draw-path"
+          pathLength="100"
+          d="M11.1056 107.429C11.1056 107.429 41.3921 75.9563 1.85536 45.3846C39.6893 67.1983 37.5729 21.5813 34.6647 13.925C40.0573 22.0799 72.2872 32.0642 78.2717 2.44878"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></path>
+      </svg>
+    </figure>
+    <div class="culture-story_copy">
+      <h3>
+        Hay oficio
+        <br />
+        <em class="culture-story_flourish-wrap">
+          Y mucho cariño
+          <svg
+            class="culture-story_title-flourish"
+            viewBox="0 0 403 17"
+            fill="none"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              class="draw-path"
+              pathLength="100"
+              d="M1 16C25.8389 14.2222 50.643 12.2137 75.2387 9.47009C107.364 5.99145 144.414 1.26496 174.898 1C178.242 1.35897 168.254 2.8718 166.786 3.22223C163.842 3.76924 160.464 4.41881 157.146 5.11966C152.23 6.22223 134.982 9.64957 144.171 12.1282C152.23 13.8974 167.551 13.4701 178.572 13.094C200.11 12.2393 222.066 10.2137 243.639 8.99146C296.296 5.69231 349.291 6.34188 402 8.58975"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+        </em>
+      </h3>
+      <p>
+        Manos que seleccionan, tuestan y preparan. Gente que vuelve. Música,
+        charlas y planes que se arman alrededor de una taza.
+      </p>
+      <a
+        href="https://www.instagram.com/typica.cafe/"
+        target="_blank"
+        rel="noopener"
+      >
+        Mira lo que pasa en Typica{" "}
+      </a>
+    </div>
+  </div>
+)}
+<style is:global>
+  @layer components {
+    .culture-story_wrap {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 10%;
+      align-items: center;
+      margin: auto;
+    }
+    .culture-story_photo {
+      position: relative;
+    }
+    .culture-story_photo > img:first-child {
+      width: 100%;
+      height: 35rem;
+      object-fit: cover;
+      border-radius: 1.0625rem;
+      object-position: 35% 50%;
+    }
+    .culture-story_photo > .sticker {
+      width: 6.875rem;
+      right: -3.125rem;
+      bottom: 1.5625rem;
+      transform: rotate(-10deg);
+    }
+    .culture-story_photo-spark {
+      position: absolute;
+      width: 3.875rem;
+      height: 5.25rem;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 5;
+      color: var(--yellow-400);
+    }
+    .culture-story_photo-spark.culture-story_spark-bottom {
+      right: -1.5625rem;
+      bottom: -2.1875rem;
+      transform: rotate(-8deg);
+    }
+    .culture-story_flourish-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .culture-story_title-flourish {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 1.25rem;
+      margin-top: 0.1875rem;
+      overflow: visible;
+      pointer-events: none;
+      color: var(--warm-100);
+    }
+    .culture-story_copy h3 {
+      font-size: clamp(2.625rem, 4.5vw, 5rem);
+      line-height: 1.06;
+      letter-spacing: -0.06em;
+    }
+    .culture-story_copy > p {
+      font-size: 1.3125rem;
+      line-height: 1.5;
+      max-width: 26.875rem;
+      margin-top: 2.1875rem;
+    }
+    .culture-story_copy > a {
+      display: flex;
+      gap: 1.5625rem;
+      align-items: center;
+      max-width: 26.875rem;
+      font-size: 1.125rem;
+      margin-top: 2.1875rem;
+    }
+    .culture-story_copy > a > span {
+      font-size: 1.75rem;
+    }
+    @media (max-width: 71.875rem) {
+      .culture-story_photo > img:first-child {
+        height: 28.125rem;
+      }
+    }
+    @media (max-width: 71.875rem) {
+      .culture-story_copy > p {
+        font-size: 1.1875rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .culture-story_wrap {
+        gap: 9%;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .culture-story_photo > img:first-child {
+        height: 25rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .culture-story_photo > .sticker {
+        width: 5.3125rem;
+        right: -2.1875rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .culture-story_copy h3 {
+        font-size: 2.5rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .culture-story_copy > p {
+        font-size: 1.0625rem;
+        margin-top: 1.5625rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .culture-story_copy > a {
+        font-size: 1rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-story_wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 2.8125rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-story_photo {
+        width: 88%;
+        align-self: flex-start;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-story_photo > img:first-child {
+        height: 24.375rem;
+        border-radius: 0.875rem;
+        object-position: 35% 50%;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-story_photo > .sticker {
+        width: 5.625rem;
+        right: -2.5rem;
+        bottom: 1.5625rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-story_copy {
+        align-self: flex-end;
+        width: 90%;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-story_copy h3 {
+        font-size: 10vw;
+        line-height: 1.05;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-story_copy > p {
+        font-size: 1.125rem;
+        margin-top: 1.5625rem;
+        max-width: 23.75rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-story_copy > a {
+        font-size: 1rem;
+        margin-top: 1.5625rem;
+      }
+    }
+    @media (max-width: 27.5rem) {
+      .culture-story_photo > img:first-child {
+        height: 20.625rem;
+      }
+    }
+    @media (max-width: 27.5rem) {
+      .culture-story_copy > p {
+        font-size: 1.0625rem;
+      }
+    }
+    .culture-story_wrap {
+      padding-left: 6vw;
+      padding-right: 6vw;
+      box-sizing: border-box;
+    }
+  }
+</style>

@@ -1,0 +1,220 @@
+---
+import SoundToggle from "@/components/media/SoundToggle.astro";
+import VideoControls from "@/components/media/VideoControls.astro";
+import posterImage from "@/assets/images/typica-poster.jpg";
+import frame5Sticker from "@/assets/stickers/Frame-5.svg";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <div class="film-player_wrap">
+    <video
+      id="typica-film"
+      muted
+      loop
+      playsinline
+      preload="none"
+      poster={posterImage.src}
+      aria-label="El proceso de preparación del café en Typica"
+    >
+      <source data-src="/videos/cafe-typica.mp4" type="video/mp4" />
+    </video>
+    <SoundToggle />
+    <VideoControls />
+    <img
+      class="sticker film-player_sticker"
+      src={frame5Sticker.src}
+      alt=""
+      aria-hidden="true"
+    />
+  </div>
+)}
+<style is:global>
+  @layer components {
+    .film-player_wrap {
+      position: relative;
+      max-width: 78.75rem;
+      width: 87%;
+      margin: 5.9375rem auto 8.75rem;
+      aspect-ratio: 16/9;
+      border-radius: 1.125rem;
+      isolation: isolate;
+      background: var(--brown-900);
+    }
+    .film-player_wrap > video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 1.125rem;
+    }
+    .film-player_wrap > button {
+      position: absolute;
+      bottom: 1.375rem;
+      left: 1.375rem;
+      padding: 0.75rem 1.0625rem;
+      background: var(--warm-100);
+      color: var(--ink);
+      font-size: 1rem;
+      border-radius: 0 0.875rem 0.875rem 0.875rem;
+      display: flex;
+      gap: 1.25rem;
+    }
+    .film-player_sticker {
+      width: 9.0625rem;
+      right: -3.4375rem;
+      bottom: -3.75rem;
+      transform: rotate(15deg);
+    }
+    @media (max-width: 56.25rem) {
+      .film-player_wrap {
+        width: 94%;
+        margin-top: 4.6875rem;
+        margin-bottom: 6.25rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .film-player_wrap > button {
+        font-size: 0.875rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .film-player_sticker {
+        width: 6.875rem;
+        right: -1.5625rem;
+        bottom: -2.8125rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .film-player_wrap {
+        width: 100%;
+        margin: 3.75rem auto 5.625rem;
+        aspect-ratio: 4/3;
+        border-radius: 0.8125rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .film-player_wrap > video {
+        border-radius: 0.8125rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .film-player_wrap > button {
+        font-size: 0.8125rem;
+        left: 0.75rem;
+        bottom: 0.75rem;
+        padding: 0.6875rem 0.75rem;
+        gap: 0.875rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .film-player_sticker {
+        width: 5.625rem;
+        right: 0;
+        bottom: -2.8125rem;
+      }
+    }
+    .film-player_wrap {
+      margin-top: 4.0625rem;
+      margin-bottom: 6.25rem;
+    }
+    @media (max-width: 43.75rem) {
+      .film-player_wrap {
+        margin-top: 3.4375rem;
+        margin-bottom: 5rem;
+      }
+    }
+    .film-player_wrap {
+      width: 100%;
+      max-width: none;
+      margin: 4.0625rem 0 6.25rem;
+      overflow: hidden;
+      aspect-ratio: 16/8.6;
+    }
+    .film-player_wrap > video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .film-player_sticker {
+      right: 1.25rem;
+      bottom: 0.9375rem;
+      width: 6.875rem;
+    }
+    @media (max-width: 56.25rem) {
+      .film-player_wrap {
+        width: 100%;
+        aspect-ratio: 16/10;
+        margin: 3.4375rem 0 5.3125rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .film-player_sticker {
+        width: 5.625rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+    }
+    @media (max-width: 37.5rem) {
+      .film-player_wrap {
+        aspect-ratio: 4/3;
+      }
+    }
+    @media (max-width: 37.5rem) {
+      .film-player_sticker {
+        width: 4.5625rem;
+        right: 0.5625rem;
+        bottom: 0.5625rem;
+      }
+    }
+    .film-player_wrap > button {
+      align-items: center;
+    }
+    .film-player_wrap > .sound-toggle_wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      display: block;
+      cursor: pointer;
+    }
+    .film-player_sticker {
+      width: 5.3125rem;
+      right: 1.375rem;
+      top: 1.375rem;
+      bottom: auto;
+    }
+    .film-player_wrap:fullscreen {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border-radius: 0;
+      background: var(--dark-900);
+      aspect-ratio: auto;
+    }
+    .film-player_wrap:fullscreen > video {
+      object-fit: contain;
+      border-radius: 0;
+    }
+    @media (max-width: 56.25rem) {
+      .film-player_sticker {
+        width: 4.0625rem;
+        top: 1rem;
+        right: 1rem;
+      }
+    }
+  }
+</style>
+
+<script>
+  import "@/scripts/typica.js";
+</script>

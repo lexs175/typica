@@ -1,0 +1,438 @@
+---
+import geshaImage from "@/assets/products/Image.png";
+import frameSticker from "@/assets/stickers/Frame.svg";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <div
+    class="navigation-menu_wrap"
+    id="menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Explora Typica"
+    inert
+    aria-hidden="true"
+  >
+    <div class="navigation-menu_layout">
+      <nav aria-label="Navegación principal">
+        <a
+          href="/#cafes"
+          data-menu-preview="cafes"
+          class="navigation-menu_is-active"
+        >
+          <span class="navigation-menu_link-title">Cafés</span>
+          <span class="navigation-menu_link-note">Para preparar en casa</span>
+        </a>
+        <a href="/sucursales/" data-menu-preview="espacios">
+          <span class="navigation-menu_link-title">Sucursales</span>
+          <span class="navigation-menu_link-note">Encuentra tu lugar</span>
+        </a>
+        <a href="/suscripciones/" data-menu-preview="suscripciones">
+          <span class="navigation-menu_link-title">Suscripciones</span>
+          <span class="navigation-menu_link-note">Tu café, a tu ritmo</span>
+        </a>
+        <a href="/#cultura" data-menu-preview="cultura">
+          <span class="navigation-menu_link-title">Cultura</span>
+          <span class="navigation-menu_link-note">Lo que pasa alrededor</span>
+        </a>
+        <a href="/#de-cerca" data-menu-preview="typica">
+          <span class="navigation-menu_link-title">Esto es Typica</span>
+          <span class="navigation-menu_link-note">
+            Café de aquí. Gente de todos lados.
+          </span>
+        </a>
+      </nav>
+      <figure class="navigation-menu_preview" data-preview="cafes">
+        <div class="navigation-menu_preview-image">
+          <img
+            id="menu-preview-photo"
+            src={geshaImage.src}
+            alt="Bolsa de café Gesha de Typica"
+            width="480"
+            height="480"
+          />
+          <img
+            id="menu-preview-sticker"
+            src={frameSticker.src}
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+        <figcaption>
+          <span id="menu-preview-caption">Tu próxima taza empieza aquí.</span>
+          <span class="navigation-menu_preview-signature">
+            Typica, a tu manera.
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="navigation-menu_bottom">
+      <span>Nos encontramos en una buena taza.</span>
+      <div>
+        <a
+          href="https://www.instagram.com/typica.cafe/"
+          target="_blank"
+          rel="noopener"
+        >
+          Instagram
+        </a>
+        <a
+          href="https://linktr.ee/typicacafetostaduria"
+          target="_blank"
+          rel="noopener"
+        >
+          Hablemos
+        </a>
+      </div>
+    </div>
+  </div>
+)}
+<style is:global>
+  @layer components {
+    .navigation-menu_wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      background: var(--yellow);
+      padding: 9.375rem var(--gutter) 2.1875rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      visibility: hidden;
+      clip-path: inset(0 0 100% 0);
+      overflow: auto;
+    }
+    .navigation-menu_wrap nav {
+      width: 75%;
+      position: relative;
+      z-index: 2;
+    }
+    .navigation-menu_wrap nav > a {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.25rem;
+      font-size: clamp(2.625rem, 5.7vw, 5.75rem);
+      font-weight: 900;
+      letter-spacing: -0.065em;
+      line-height: 1.15;
+      padding: 0.3125rem 0;
+    }
+    .navigation-menu_wrap nav > a > span {
+      font-weight: 400;
+    }
+    .navigation-menu_bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.125rem;
+      margin-top: 4.375rem;
+    }
+    .navigation-menu_sticker {
+      position: absolute;
+      right: 7%;
+      top: 42%;
+      width: 20%;
+      transform: rotate(15deg);
+    }
+    @media (max-width: 43.75rem) {
+      .navigation-menu_wrap {
+        padding-top: 7.1875rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .navigation-menu_wrap nav {
+        width: 100%;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .navigation-menu_wrap nav > a {
+        font-size: 8.4vw;
+        line-height: 1.35;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .navigation-menu_bottom {
+        display: block;
+        font-size: 1rem;
+        margin-top: 3.125rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .navigation-menu_bottom > a {
+        display: block;
+        margin-top: 1.25rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .navigation-menu_sticker {
+        width: 7.5rem;
+        top: auto;
+        bottom: 8%;
+        right: 6%;
+        opacity: 0.7;
+      }
+    }
+    .navigation-menu_wrap nav > a > .inline-arrow {
+      width: 0.65em;
+      height: 0.65em;
+    }
+    .navigation-menu_wrap nav > a {
+      align-items: center;
+    }
+    .navigation-menu_preview[data-preview="suscripciones"] #menu-preview-photo {
+      object-fit: contain;
+      padding: 1.5rem;
+    }
+    @media (max-width: 47.5rem) {
+      .navigation-menu_wrap .navigation-menu_preview {
+        display: none;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .navigation-menu_wrap {
+        overflow-y: auto;
+      }
+    }
+    .navigation-menu_wrap {
+      padding: 7.1875rem var(--gutter) 1.75rem;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      align-content: stretch;
+      justify-content: stretch;
+      gap: 1.875rem;
+    }
+    .navigation-menu_layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 6%;
+      align-items: center;
+      min-height: 0;
+    }
+    .navigation-menu_wrap .navigation-menu_layout > nav {
+      width: 100%;
+    }
+    .navigation-menu_wrap .navigation-menu_layout nav > a {
+      position: relative;
+      display: block;
+      padding: 0.6875rem 0 0.75rem;
+      line-height: 1;
+    }
+    .navigation-menu_wrap .navigation-menu_link-title {
+      display: inline-block;
+      font-size: clamp(2.75rem, 6.9vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+    }
+    .navigation-menu_wrap .navigation-menu_link-note {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      line-height: 1.4;
+      margin: 0.375rem 0 0 0.25rem;
+    }
+    .navigation-menu_wrap
+      .navigation-menu_layout
+      nav
+      > a.navigation-menu_is-active
+      .navigation-menu_link-title {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.035em;
+    }
+    .navigation-menu_preview {
+      width: 100%;
+      margin: 0;
+      align-self: center;
+      overflow: visible;
+    }
+    .navigation-menu_preview-image {
+      position: relative;
+      height: min(51svh, 31.875rem);
+      min-height: 16.875rem;
+      background: var(--pink-200);
+      overflow: visible;
+    }
+    .navigation-menu_preview[data-preview="cafes"] #menu-preview-photo {
+      object-fit: contain;
+      padding: 1.5rem 1.875rem 1.125rem;
+    }
+    .navigation-menu_preview figcaption {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3125rem;
+      padding-top: 1.625rem;
+      font-size: 1.0625rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .navigation-menu_preview-signature {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-style: italic;
+      font-size: 1.6875rem;
+      font-weight: 400;
+    }
+    .navigation-menu_wrap .navigation-menu_bottom {
+      margin: 0;
+      gap: 1.25rem;
+      align-items: center;
+      font-size: 0.9375rem;
+    }
+    .navigation-menu_bottom > div {
+      display: flex;
+      gap: 1.75rem;
+    }
+    .navigation-menu_bottom a {
+      text-decoration: underline;
+      text-underline-offset: 0.3125rem;
+    }
+    .navigation-menu_wrap a:focus-visible,
+    .site-header_wrap a:focus-visible,
+    .site-header_wrap button:focus-visible {
+      outline: 0.1875rem solid currentColor;
+      outline-offset: 0.3125rem;
+    }
+    @media (min-width: 100rem) {
+      .navigation-menu_wrap .navigation-menu_layout nav > a {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .navigation-menu_wrap {
+        padding-top: 6.875rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .navigation-menu_layout {
+        gap: 5%;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .navigation-menu_wrap .navigation-menu_link-title {
+        font-size: clamp(2.375rem, 6.9vw, 4.0625rem);
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .navigation-menu_wrap .navigation-menu_link-note {
+        font-size: 0.8125rem;
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .navigation-menu_preview-image {
+        min-height: 15.625rem;
+        height: 43svh;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_wrap {
+        padding: 5.625rem 1.5rem 1.5625rem;
+        gap: 1.625rem;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_layout {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: start;
+        gap: 1.5rem;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_wrap .navigation-menu_layout nav > a {
+        padding: 0.4375rem 0;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_wrap .navigation-menu_link-title {
+        font-size: clamp(2.375rem, 11vw, 3.625rem);
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_wrap .navigation-menu_link-note {
+        font-size: 0.8125rem;
+        line-height: 1.25;
+        margin-top: 0.1875rem;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_preview {
+        width: 100%;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_preview-image {
+        min-height: 0;
+        height: 11.5625rem;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_preview[data-preview="cafes"] #menu-preview-photo {
+        padding: 0.5rem;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_preview figcaption {
+        padding-top: 1.125rem;
+        font-size: 0.875rem;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_preview-signature {
+        display: none;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_wrap .navigation-menu_bottom {
+        display: block;
+        font-size: 0.8125rem;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_bottom > span {
+        display: none;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_bottom > div {
+        justify-content: space-between;
+      }
+    }
+    @media (max-width: 40.625rem) {
+      .navigation-menu_bottom > div > a {
+        margin: 0;
+        padding: 0.625rem 0;
+      }
+    }
+    @media (max-height: 43.75rem) and (min-width: 40.6875rem) {
+      .navigation-menu_wrap {
+        padding-top: 5.9375rem;
+      }
+    }
+    @media (max-height: 43.75rem) and (min-width: 40.6875rem) {
+      .navigation-menu_wrap .navigation-menu_link-title {
+        font-size: min(6vw, 4.6875rem);
+      }
+    }
+    @media (max-height: 43.75rem) and (min-width: 40.6875rem) {
+      .navigation-menu_wrap .navigation-menu_layout nav > a {
+        padding-top: 0.375rem;
+        padding-bottom: 0.375rem;
+      }
+    }
+    @media (max-height: 43.75rem) and (min-width: 40.6875rem) {
+      .navigation-menu_preview-image {
+        min-height: 11.875rem;
+        height: 42svh;
+      }
+    }
+  }
+</style>

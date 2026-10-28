@@ -1,0 +1,60 @@
+---
+import "@/styles/global.css";
+import SkipLink from "@/components/global/SkipLink.astro";
+import SiteHeader from "@/components/global/SiteHeader.astro";
+import NavigationMenu from "@/components/global/NavigationMenu.astro";
+import SiteFooter from "@/components/global/SiteFooter.astro";
+import CartPanel from "@/components/global/CartPanel.astro";
+import CartNotice from "@/components/global/CartNotice.astro";
+import ImageCredits from "@/components/global/ImageCredits.astro";
+import tvHeroImage from "@/assets/tv/television-hero-centered.png";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/consts";
+
+interface Props {
+  title?: string;
+  description?: string;
+  home?: boolean;
+}
+const {
+  title = "Café de especialidad en Bolivia",
+  description = SITE_DESCRIPTION,
+  home = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE_URL);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · {SITE_NAME}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5efe3" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={`${title} · ${SITE_NAME}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_BO" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {home && (
+      <link
+        rel="preload"
+        href={tvHeroImage.src}
+        as="image"
+      />
+    )}
+  </head>
+  <body class:list={[!home && "inner-page", "theme-light"]}>
+    <SkipLink target="contenido" label="Ir al contenido" />
+    <SiteHeader />
+    <NavigationMenu />
+    <main id="contenido">
+      <slot />
+    </main>
+    <SiteFooter />
+    <CartPanel />
+    <CartNotice />
+    <ImageCredits />
+  </body>
+</html>

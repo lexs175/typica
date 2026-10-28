@@ -1,0 +1,134 @@
+---
+import type { Location } from "@/data/locations";
+interface Props {
+  render?: boolean;
+  location: Location;
+}
+const { render = true, location } = Astro.props;
+---
+
+{render && (
+  <article
+    class="location-card_wrap"
+    id={location.id}
+    data-city={location.city}
+  >
+    <div class="location-card_image">
+      <img
+        src={typeof location.image === "string" ? location.image : location.image.src}
+        alt={location.alt}
+        width="1200"
+        height="900"
+        loading="lazy"
+      />
+    </div>
+    <div class="location-card_copy">
+      <div>
+        <h2>{location.name}</h2>
+        <p>{location.description}</p>
+      </div>
+      <p class="location-card_branches">{location.branches}</p>
+      <a
+        class="location-card_link"
+        href={location.href}
+        target="_blank"
+        rel="noopener"
+      >
+        Direcciones, horarios y carta{" "}
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path
+            d="M5 16h21M17 6l10 10-10 10"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </article>
+)}
+<style is:global>
+  @layer components {
+    .location-card_wrap {
+      scroll-margin-top: 6.5625rem;
+    }
+    .location-card_wrap:first-child {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      background: var(--mint-300);
+    }
+    .location-card_image {
+      height: 20.625rem;
+      overflow: hidden;
+    }
+    .location-card_image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .location-card_wrap:first-child .location-card_image {
+      height: 29.375rem;
+    }
+    .location-card_copy {
+      padding: 1.625rem 0 0;
+    }
+    .location-card_wrap:first-child .location-card_copy {
+      padding: 2.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .location-card_copy h2 {
+      font-size: clamp(2.375rem, 4.2vw, 4rem);
+      font-weight: 750;
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+    }
+    .location-card_copy p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      margin-top: 0.875rem;
+    }
+    .location-card_copy .location-card_branches {
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      max-width: 33em;
+    }
+    .location-card_link {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 1.375rem;
+      min-height: 2.75rem;
+      font-size: 0.875rem;
+      font-weight: 650;
+    }
+    .location-card_link svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    @media (max-width: 47.5rem) {
+      .location-card_wrap:first-child {
+        display: block;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .location-card_wrap:first-child .location-card_copy {
+        padding: 1.75rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .location-card_image,
+      .location-card_wrap:first-child .location-card_image {
+        height: 20.625rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .location-card_copy h2 {
+        font-size: 2.75rem;
+      }
+    }
+  }
+</style>

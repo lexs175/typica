@@ -1,0 +1,22 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Button from "@/components/Button.astro";
+---
+
+<SiteLayout title="Página no encontrada">
+  <Section paddingTop="navoverlap" fullHeight>
+    <ContentWrapper centered>
+      <Heading tag="h1">Esta página no está aquí.</Heading>
+      <Paragraph>
+        Vuelve a Typica para encontrar nuestros cafés y sucursales.
+      </Paragraph>
+      <Button element="link" href="/">
+        Volver al inicio
+      </Button>
+    </ContentWrapper>
+  </Section>
+</SiteLayout>

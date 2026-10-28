@@ -1,0 +1,257 @@
+---
+import FilmPlayer from "@/components/media/FilmPlayer.astro";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <div class="culture-film_wrap" id="film-story">
+    <div class="culture-film_stage">
+      <h2
+        class="culture-film_title"
+        id="people-title"
+        aria-label="El café nos junta, lo bueno pasa después"
+      >
+        <span class="culture-film_title-row" aria-hidden="true">
+          <span class="culture-film_title-start">El café</span>
+          <span class="culture-film_mini-slot"></span>
+          <span class="culture-film_title-end">nos junta</span>
+        </span>
+        <em class="culture-film_subtitle" aria-hidden="true">
+          Lo bueno pasa después
+          <svg
+            class="culture-film_subtitle-flourish"
+            viewBox="0 0 634 28"
+            fill="none"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              class="draw-path"
+              pathLength="100"
+              d="M2 26C41.0237 23.1556 79.9927 19.9419 118.634 15.5521C169.106 9.98633 227.314 2.42393 275.206 2C280.46 2.57436 264.768 4.99488 262.462 5.55556C257.837 6.43078 252.529 7.47009 247.317 8.59146C239.594 10.3556 212.496 15.8393 226.932 19.8051C239.594 22.6359 263.663 21.9521 280.978 21.3504C314.817 19.9829 349.311 16.7419 383.204 14.7863C465.931 9.5077 549.191 10.547 632 14.1436"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+        </em>
+      </h2>
+      <FilmPlayer />
+    </div>
+  </div>
+)}
+<style is:global>
+  @layer components {
+    .culture-film_wrap {
+      position: relative;
+      width: 100%;
+    }
+    .culture-film_wrap:not(.culture-film_animating) {
+      padding: 5.625rem 6vw 0;
+    }
+    .culture-film_stage {
+      position: relative;
+      width: 100%;
+    }
+    .culture-film_title {
+      text-align: center;
+      margin: 0 auto;
+      color: var(--warm-100);
+      max-width: none;
+    }
+    .culture-film_title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2em;
+      font: 900 clamp(1.875rem, 5.1vw, 6.5rem) / 1.05 var(--font);
+      letter-spacing: -0.065em;
+      white-space: nowrap;
+    }
+    .culture-film_title-start,
+    .culture-film_title-end {
+      display: block;
+    }
+    .culture-film_mini-slot {
+      display: none;
+      width: clamp(4.625rem, 15vw, 15.625rem);
+      aspect-ratio: 16/10;
+      flex-shrink: 0;
+    }
+    .culture-film_title .culture-film_subtitle {
+      display: inline-block;
+      position: relative;
+      font:
+        italic 400 clamp(2.25rem, 6vw, 6.875rem) / 1.04 "Instrument Serif",
+        Georgia,
+        serif;
+      letter-spacing: -0.025em;
+      margin-top: 1.125rem;
+    }
+    .culture-film_subtitle-flourish {
+      position: absolute;
+      top: 100%;
+      left: -2%;
+      width: 104%;
+      height: 1.875rem;
+      margin-top: 0.25rem;
+      overflow: visible;
+      pointer-events: none;
+      color: var(--light-100);
+    }
+    .culture-film_subtitle-flourish .draw-path {
+      will-change: stroke-dashoffset;
+    }
+    .culture-film_wrap + .culture-story_wrap {
+      margin-top: 8.125rem;
+    }
+    .culture-film_animating {
+      height: 280svh;
+    }
+    .culture-film_animating .culture-film_stage {
+      position: sticky;
+      top: 0;
+      width: 100vw;
+      height: 100svh;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .culture-film_animating .culture-film_title {
+      position: absolute;
+      top: calc(50% + 0.75rem);
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      z-index: 1;
+      padding: 0 6vw;
+      box-sizing: border-box;
+    }
+    .culture-film_animating .culture-film_mini-slot {
+      display: block;
+    }
+    .culture-film_animating .film-player_wrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+      aspect-ratio: auto;
+      max-width: none;
+      z-index: 3;
+      transform-origin: 0 0;
+      will-change: transform, width, height, border-radius;
+      overflow: hidden;
+    }
+    .culture-film_animating .film-player_wrap > video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      display: block;
+    }
+    .culture-film_animating .video-controls_wrap {
+      position: absolute;
+      left: clamp(1.25rem, 3.5vw, 3rem);
+      bottom: clamp(1.5rem, 4vh, 3rem);
+      z-index: 6;
+    }
+    .culture-film_animating .sound-toggle_sticker {
+      right: clamp(1.25rem, 3.5vw, 3rem);
+      bottom: clamp(1.5rem, 4vh, 3rem);
+    }
+    .culture-film_animating .film-player_sticker {
+      position: absolute;
+      right: clamp(1.25rem, 3.5vw, 3rem);
+      top: clamp(5.3125rem, 11vh, 7.8125rem);
+      bottom: auto;
+      width: clamp(6.25rem, 9vw, 8.4375rem);
+      transform: rotate(12deg);
+      z-index: 5;
+      pointer-events: none;
+    }
+    .culture-film_wrap .film-player_wrap:fullscreen {
+      position: fixed !important;
+      left: 0 !important;
+      top: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      transform: none !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+    }
+    @media (max-width: 56.25rem) {
+      .culture-film_title-row {
+        font-size: clamp(1.875rem, 5.1vw, 4.0625rem);
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .culture-film_title .culture-film_subtitle {
+        font-size: clamp(2.125rem, 6vw, 3.75rem);
+      }
+    }
+    @media (max-width: 56.25rem) {
+      .culture-film_wrap + .culture-story_wrap {
+        margin-top: 5.9375rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-film_animating {
+        height: 230svh;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-film_animating .culture-film_title {
+        top: calc(50% + 0.75rem);
+        transform: translateY(-50%);
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-film_title-row {
+        font-size: clamp(1.6875rem, 7.2vw, 3rem);
+        gap: 0.18em;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-film_mini-slot {
+        width: clamp(4rem, 17vw, 7.1875rem);
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-film_title .culture-film_subtitle {
+        font-size: clamp(1.9375rem, 8.5vw, 3.1875rem);
+        margin-top: 1.375rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .culture-film_wrap + .culture-story_wrap {
+        margin-top: 4.6875rem;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .culture-film_stage {
+        position: relative;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .culture-film_wrap {
+        height: auto;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .culture-film_title-start,
+      .culture-film_title-end,
+      .film-player_wrap {
+        will-change: auto;
+      }
+    }
+  }
+</style>
+
+<script>
+  import "@/scripts/film-expand.js";
+</script>

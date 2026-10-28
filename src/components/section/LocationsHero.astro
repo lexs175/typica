@@ -1,0 +1,117 @@
+---
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import frame2Sticker from "@/assets/stickers/Frame-2.svg";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <section class="locations-hero_wrap">
+    <Heading tag="h1" variant="inherit">
+      Encuentra
+      <br />
+      tu Typica.
+    </Heading>
+    <div>
+      <Paragraph>
+        Cada casa tiene su propia mezcla.
+        <br />
+        El buen café nos encuentra en todas.
+      </Paragraph>
+      <img
+        src={frame2Sticker.src}
+        alt=""
+        aria-hidden="true"
+        width="130"
+        height="130"
+      />
+    </div>
+  </section>
+)}
+<style is:global>
+  @layer components {
+    .locations-hero_wrap {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 3.125rem;
+      padding: 10.625rem var(--gutter) 4.0625rem;
+    }
+    .locations-hero_wrap h1 {
+      font-size: clamp(4.375rem, 8.8vw, 9.0625rem);
+      line-height: 0.94;
+      font-weight: 850;
+      letter-spacing: -0.065em;
+    }
+    .locations-hero_wrap > div {
+      display: flex;
+      align-items: center;
+      gap: 2.1875rem;
+      padding-bottom: 0.625rem;
+    }
+    .locations-hero_wrap > div > p {
+      font-size: 1.125rem;
+      line-height: 1.55;
+    }
+    .locations-hero_wrap > div > img {
+      width: 6.5625rem;
+      height: 7.5rem;
+      object-fit: contain;
+      transform: rotate(10deg);
+    }
+    @media (max-width: 68.75rem) {
+      .locations-hero_wrap > div {
+        gap: 1.125rem;
+      }
+    }
+    @media (max-width: 68.75rem) {
+      .locations-hero_wrap > div > p {
+        font-size: 0.9375rem;
+      }
+    }
+    @media (max-width: 68.75rem) {
+      .locations-hero_wrap > div > img {
+        width: 5rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .locations-hero_wrap {
+        padding-top: 8.4375rem;
+        flex-direction: column;
+        align-items: start;
+        gap: 1.875rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .locations-hero_wrap h1 {
+        font-size: clamp(3.5rem, 16vw, 5rem);
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .locations-hero_wrap > div {
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .locations-hero_wrap > div > p {
+        font-size: 0.9375rem;
+      }
+    }
+    @media (max-width: 47.5rem) {
+      .locations-hero_wrap > div > img {
+        height: 5.3125rem;
+      }
+    }
+    @media (max-width: 22.5rem) {
+      .locations-hero_wrap h1,
+      .subscription-section_copy h1 {
+        font-size: 3.5rem;
+      }
+    }
+  }
+</style>

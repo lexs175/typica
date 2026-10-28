@@ -1,0 +1,96 @@
+---
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <dialog
+    class="image-credits_wrap"
+    id="credits-dialog"
+    aria-labelledby="credits-title"
+  >
+    <button
+      class="image-credits_dialog-close"
+      aria-label="Cerrar fotografías"
+      data-close="credits-dialog"
+    >
+      ×
+    </button>
+    <h2 id="credits-title">Las imágenes</h2>
+    <p>
+      Fotografías de las casas, empaques y stickers proporcionados en el
+      proyecto Typica.
+    </p>
+    <p>
+      Fotografía de baristas, casas, granos, tostaduría y vídeo: publicados en
+      el{" "}
+      <a href="https://www.typica.com.bo/" target="_blank" rel="noopener">
+        sitio oficial de Typica
+      </a>
+      .
+    </p>
+    <p>
+      Barra de Santa Cruz: fotografía publicada en el{" "}
+      <a
+        href="https://www.typica.com.bo/santa-cruz"
+        target="_blank"
+        rel="noopener"
+      >
+        sitio de Typica
+      </a>
+      .
+    </p>
+  </dialog>
+)}
+<style is:global>
+  @layer components {
+    .image-credits_dialog-close {
+      position: absolute;
+      right: 1.25rem;
+      top: 0.75rem;
+      font-size: 2.25rem;
+      z-index: 4;
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+    .image-credits_wrap {
+      padding: 3.4375rem 2.5rem 2.5rem;
+      max-width: 40.625rem;
+    }
+    .image-credits_wrap h2 {
+      font-size: 2.8125rem;
+    }
+    .image-credits_wrap p {
+      font-size: 1.125rem;
+      margin-top: 1.875rem;
+    }
+    .image-credits_wrap a {
+      text-decoration: underline;
+    }
+    @media (max-width: 43.75rem) {
+      .image-credits_dialog-close {
+        right: 0.625rem;
+        top: 0.5rem;
+        background: white;
+        line-height: 1;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .image-credits_wrap {
+        padding: 3.4375rem 1.5625rem 1.875rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .image-credits_wrap h2 {
+        font-size: 2.375rem;
+      }
+    }
+    @media (max-width: 43.75rem) {
+      .image-credits_wrap p {
+        font-size: 1.0625rem;
+      }
+    }
+  }
+</style>

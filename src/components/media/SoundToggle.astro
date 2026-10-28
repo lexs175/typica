@@ -1,0 +1,114 @@
+---
+import shapeSticker from "@/assets/stickers/truus.co-17.svg";
+import soundOffSticker from "@/assets/stickers/truus.co-3.svg";
+import soundOnSticker from "@/assets/stickers/truus.co-4.svg";
+
+interface Props {
+  render?: boolean;
+  namespace?: "film" | "hero";
+}
+const { render = true, namespace = "film" } = Astro.props;
+---
+
+{render && (
+  <button
+    class="sound-toggle_wrap"
+    type="button"
+    id={namespace === "film" ? "film-sound" : undefined}
+    data-sound={namespace}
+    hidden={namespace === "hero"}
+    aria-label="Activar sonido"
+    aria-pressed="false"
+  >
+    <span class="sound-toggle_sticker">
+      <img
+        class="sound-toggle_shape"
+        src={shapeSticker.src}
+        alt=""
+      />
+      <img
+        class="sound-toggle_off"
+        src={soundOffSticker.src}
+        alt=""
+      />
+      <img
+        class="sound-toggle_on"
+        src={soundOnSticker.src}
+        alt=""
+      />
+    </span>
+    <span class="sr-only">Activar o desactivar sonido</span>
+  </button>
+)}
+<style is:global>
+  @layer components {
+    .sound-toggle_sticker {
+      position: absolute;
+      right: 1.375rem;
+      bottom: 1.375rem;
+      width: 6.75rem;
+      height: 7rem;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+      transform-origin: center;
+    }
+    .sound-toggle_shape {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .sound-toggle_off,
+    .sound-toggle_on {
+      position: relative;
+      width: 39%;
+      height: 39%;
+      object-fit: contain;
+    }
+    .sound-toggle_on,
+    .is-audible .sound-toggle_off {
+      display: none;
+    }
+    .is-audible .sound-toggle_on {
+      display: block;
+    }
+    .has-sound-cursor > .sound-toggle_wrap {
+      cursor: none;
+    }
+    .has-sound-cursor .sound-toggle_sticker {
+      right: auto;
+      bottom: auto;
+      will-change: transform;
+    }
+    .sound-toggle_wrap:focus-visible {
+      outline: 0.1875rem solid var(--yellow);
+      outline-offset: -0.5rem;
+    }
+    @media (max-width: 56.25rem) {
+      .sound-toggle_sticker {
+        width: 5.5rem;
+        height: 5.75rem;
+        right: 1rem;
+        bottom: 1rem;
+      }
+    }
+  }
+</style>
+
+<style is:global>
+  @layer components {
+    .sound-toggle_wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+</style>

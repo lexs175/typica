@@ -1,0 +1,144 @@
+---
+import tvHeroImage from "@/assets/tv/television-hero-centered.png";
+import tvPosterImage from "@/assets/tv/typica-tv-poster.jpg";
+import handSticker from "@/assets/stickers/Frame-6.svg";
+import hundredSticker from "@/assets/stickers/Frame.svg";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Foreground image. */
+  image?: string;
+  /** Video URL. */
+  video?: string;
+  /** Video poster. */
+  poster?: string;
+}
+const {
+  render = true,
+  image = tvHeroImage.src,
+  video = "/videos/typica-tv.mp4",
+  poster = tvPosterImage.src,
+} = Astro.props;
+---
+
+{render && image && video && (
+  <div class="television_wrap" data-television>
+    <div class="television_artboard">
+      <div class="television_screen">
+        <video
+          data-hero-video
+          controls
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster={poster}
+          aria-label="Vídeo de café proporcionado como ejemplo"
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+      </div>
+      <img
+        class="television_image"
+        src={image}
+        alt="Televisor vintage sobre una mesa de madera, junto a utensilios de café"
+        width="1774"
+        height="887"
+        fetchpriority="high"
+      />
+      <img
+        class="television_hand"
+        src={handSticker.src}
+        alt=""
+        aria-hidden="true"
+        width="104"
+        height="134"
+      />
+      <img
+        class="television_hundred"
+        src={hundredSticker.src}
+        alt=""
+        aria-hidden="true"
+        width="145"
+        height="138"
+      />
+    </div>
+  </div>
+)}
+<style is:global>
+  @layer components {
+    .television_wrap {
+      --_scale: var(--hero-media-scale);
+      position: relative;
+      display: flow-root;
+      width: 100%;
+      overflow: clip;
+      isolation: isolate;
+      pointer-events: none;
+      @media (width < 62rem) {
+        --_scale: 1.85;
+      }
+      @media (width < 38rem) {
+        --_scale: 2.45;
+      }
+    }
+    .television_artboard {
+      position: relative;
+      width: calc(var(--_scale) * 100%);
+      margin-inline-start: calc(50% - var(--_scale) * 50.2066892%);
+      margin-block-start: calc(var(--_scale) * var(--hero-media-crop) * -1);
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 63.5% 0 auto;
+        height: 12%;
+        background: var(--brand-500);
+      }
+    }
+    .television_image {
+      position: relative;
+      z-index: 2;
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: none;
+    }
+    .television_screen {
+      position: absolute;
+      z-index: 1;
+      left: 34.667%;
+      top: 33.822%;
+      width: 26.325%;
+      height: 40.586%;
+      overflow: clip;
+      background: var(--dark-950);
+      pointer-events: auto;
+      & > video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .television_hand,
+    .television_hundred {
+      position: absolute;
+      z-index: 3;
+      height: auto;
+      max-width: none;
+    }
+    .television_hand {
+      width: 3.9%;
+      top: 31%;
+      left: 64.6%;
+      rotate: 13deg;
+    }
+    .television_hundred {
+      width: 5.3%;
+      left: 29.9%;
+      top: 73%;
+      rotate: -14deg;
+    }
+  }
+</style>

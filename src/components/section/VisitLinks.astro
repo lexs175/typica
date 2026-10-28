@@ -1,0 +1,37 @@
+---
+import VisitCard from "@/components/item/VisitCard.astro";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <section
+    class="visit-links_wrap"
+    id="espacios"
+    aria-label="En Typica o en casa"
+  >
+    <VisitCard kind="locations" />
+    <VisitCard kind="subscriptions" />
+  </section>
+)}
+<style is:global>
+  @layer components {
+    .visit-links_wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.125rem;
+      padding: 5.3125rem var(--gutter) 6.25rem;
+      background: var(--white);
+    }
+    @media (max-width: 47.5rem) {
+      .visit-links_wrap {
+        grid-template-columns: 1fr;
+        padding-block: 2.8125rem 3.4375rem;
+        gap: 1rem;
+      }
+    }
+  }
+</style>
