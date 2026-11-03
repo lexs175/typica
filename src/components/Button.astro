@@ -179,28 +179,37 @@ const named = {
         --border-width: var(--button-icon-stroke);
       }
       transition:
-        background-color var(--hover-duration) var(--hover-ease),
-        color var(--hover-duration) var(--hover-ease),
-        border-color var(--hover-duration) var(--hover-ease);
+        transform var(--button-press-duration) var(--button-press-ease),
+        box-shadow var(--button-press-duration) var(--button-press-ease);
       &:not(.link, .play, .close, .arrow) {
         gap: var(--button-gap);
-        padding: 0.9em 1.35em;
+        padding: 0.85em 1.5em;
         min-height: 3.5rem;
         border: var(--button-stroke) solid var(--button-shadow-color);
         border-radius: var(--button-radius);
         box-shadow: calc(var(--button-shadow-size) * -1)
           var(--button-shadow-size) 0 var(--button-shadow-color);
         font-weight: var(--button-font-weight);
-        &:active {
+        cursor: pointer;
+        @media (hover: hover) {
+          &:hover:not(:disabled) {
+            transform: translate(
+              calc(var(--button-shadow-size) * -1),
+              var(--button-shadow-size)
+            );
+            box-shadow: 0 0 0 transparent;
+          }
+        }
+        &:active:not(:disabled) {
           transform: translate(
             calc(var(--button-shadow-size) * -1),
             var(--button-shadow-size)
           );
-          box-shadow: none;
+          box-shadow: 0 0 0 transparent;
         }
       }
       @media (hover: hover) {
-        &:hover:not(:disabled) {
+        &:hover:not(:disabled):is(.link, .play, .close, .arrow) {
           background-color: var(--button-background-hover);
           color: var(--button-text-hover);
           border-color: var(--button-border-hover);
@@ -267,6 +276,9 @@ const named = {
       &:disabled {
         cursor: not-allowed;
         opacity: 0.5;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
       }
     }
   }

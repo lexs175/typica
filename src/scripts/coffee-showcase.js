@@ -89,6 +89,7 @@ import "@/scripts/motion";
     mm.add(
       "(min-width: 901px) and (min-height: 621px) and (prefers-reduced-motion: no-preference)",
       () => {
+        section.classList.add("is-scroll-driven");
         viewport.scrollLeft = 0;
         const tween = gsap.to(track, {
           x: () => -distance(),
@@ -97,7 +98,8 @@ import "@/scripts/motion";
             trigger: section,
             start: "top top",
             end: () => "+=" + distance(),
-            pin: viewport,
+            pin: section,
+            pinSpacing: true,
             scrub: 0.65,
             invalidateOnRefresh: true,
             anticipatePin: 1,
@@ -109,6 +111,7 @@ import "@/scripts/motion";
         });
         scrollScene = tween.scrollTrigger;
         return () => {
+          section.classList.remove("is-scroll-driven");
           scrollScene = null;
           previous.disabled = false;
           next.disabled = false;

@@ -56,7 +56,7 @@ import { coffees } from "@/data/coffees";
   function update() {
     const product = catalog.find((product) => product.id === coffee.value);
     const pack = document.querySelector("#subscription-pack");
-    pack.src = product.image;
+    pack.src = product.image.src;
     pack.alt = "Bolsa de café " + product.name + " de Typica";
     document.querySelector("#subscription-summary").textContent =
       `${quantity.value} ${quantity.value === "1" ? "bolsa" : "bolsas"} de ${product.name}, ${frequency.value.toLowerCase()}.`;

@@ -114,6 +114,51 @@ export function initHeroTv() {
   sync();
   void document.fonts.ready.then(() => {
     const media = gsap.matchMedia();
+    const soundSticker = sound.querySelector<HTMLElement>(".sound-toggle_sticker");
+    if (soundSticker) {
+      media.add("(hover: hover) and (pointer: fine)", () => {
+        stage.classList.add("has-sound-cursor");
+        gsap.set(soundSticker, { left: 0, top: 0, xPercent: -50, yPercent: -50 });
+        const moveX = gsap.quickTo(soundSticker, "x", { duration: 0.32, ease: "power3.out" });
+        const moveY = gsap.quickTo(soundSticker, "y", { duration: 0.32, ease: "power3.out" });
+        const place = (x: number, y: number) => {
+          const b = stage.getBoundingClientRect(), pad = 60;
+          const point = {
+            x: Math.max(pad, Math.min(b.width - pad, x)),
+            y: Math.max(pad, Math.min(b.height - pad, y)),
+          };
+          if (reduce.matches) gsap.set(soundSticker, point);
+          else {
+            moveX(point.x);
+            moveY(point.y);
+          }
+        };
+        const rest = () => {
+          const b = stage.getBoundingClientRect();
+          place(b.width - 70, b.height - 70);
+        };
+        const move = (event: PointerEvent) => {
+          const b = stage.getBoundingClientRect();
+          place(event.clientX - b.left, event.clientY - b.top);
+        };
+        sound.addEventListener("pointermove", move as EventListener);
+        sound.addEventListener("pointerleave", rest as EventListener);
+        stage.addEventListener("pointermove", move as EventListener);
+        stage.addEventListener("pointerleave", rest as EventListener);
+        const observer = new ResizeObserver(rest);
+        observer.observe(stage);
+        rest();
+        return () => {
+          observer.disconnect();
+          sound.removeEventListener("pointermove", move as EventListener);
+          sound.removeEventListener("pointerleave", rest as EventListener);
+          stage.removeEventListener("pointermove", move as EventListener);
+          stage.removeEventListener("pointerleave", rest as EventListener);
+          stage.classList.remove("has-sound-cursor");
+          gsap.set(soundSticker, { clearProps: "left,top,transform" });
+        };
+      });
+    }
     media.add(
       {
         normal: "(prefers-reduced-motion: no-preference)",

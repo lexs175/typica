@@ -16,7 +16,10 @@ const { render = true } = Astro.props;
       id="subscription-coffee"
       name="cafe"
       value={coffees[0].id}
-      options={coffees.map((coffee) => ({ value: coffee.id, label: coffee.name }))}
+      options={coffees.map((coffee) => ({
+        value: coffee.id,
+        label: coffee.name,
+      }))}
     />
     <div class="subscription-form_fields">
       <Select
@@ -26,7 +29,7 @@ const { render = true } = Astro.props;
         value="1"
         options={[1, 2, 3, 4].map((quantity) => ({
           value: String(quantity),
-          label: `${quantity} ${quantity === 1 ? 'bolsa' : 'bolsas'} de 250 g`,
+          label: `${quantity} × 250 g`,
         }))}
       />
       <Select

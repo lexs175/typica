@@ -1,0 +1,753 @@
+---
+// Demo page con Typica - Nuestros Locales (GSAP ScrollTrigger Proporcional)
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typica — Nuestras Casas</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style is:global>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #080808;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    .carousel-pin-wrap {
+      --flow-scale: 1;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flowing-header {
+      position: absolute;
+      top: clamp(20px, 4vh, 40px);
+      left: clamp(20px, 4vw, 44px);
+      z-index: 280;
+      pointer-events: none;
+    }
+
+    .flowing-tag {
+      display: block;
+      font-size: calc(0.75rem * var(--flow-scale, 1));
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 4px;
+    }
+
+    .flowing-title {
+      font-size: calc(clamp(1.25rem, 2.4vw, 1.875rem) * var(--flow-scale, 1));
+      font-weight: 850;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      touch-action: pan-y;
+    }
+
+    .stage:active {
+      cursor: grabbing;
+    }
+
+    .card {
+      position: absolute;
+      width: calc(240px * var(--flow-scale, 1));
+      height: calc(330px * var(--flow-scale, 1));
+      border-radius: calc(16px * var(--flow-scale, 1));
+      background-color: var(--theme-color);
+      padding: calc(5px * var(--flow-scale, 1));
+      box-shadow: 0 calc(22px * var(--flow-scale, 1)) calc(45px * var(--flow-scale, 1)) rgba(0, 0, 0, 0.75);
+      transform-origin: center center;
+      will-change: transform, opacity;
+      cursor: pointer;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: calc(12px * var(--flow-scale, 1));
+      overflow: hidden;
+      background: #141414;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 82%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .card-footer {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: calc(112px * var(--flow-scale, 1));
+      pointer-events: none;
+    }
+
+    .card-footer svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    .branch-text {
+      font-family: 'Archivo Black', sans-serif;
+      fill: #0b0b0b;
+      text-transform: uppercase;
+    }
+
+    .city-pill {
+      position: absolute;
+      bottom: calc(13px * var(--flow-scale, 1));
+      left: 50%;
+      transform: translateX(-50%);
+      border: calc(1.5px * var(--flow-scale, 1)) solid #0b0b0b;
+      border-radius: 999px;
+      padding: calc(3px * var(--flow-scale, 1)) calc(14px * var(--flow-scale, 1));
+      font-size: calc(9px * var(--flow-scale, 1));
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #0b0b0b;
+      text-transform: uppercase;
+      background: transparent;
+      white-space: nowrap;
+    }
+
+    /* Botón fijo Typica con diseño brutalista oficial */
+    .fixed-action-bar {
+      position: absolute;
+      bottom: max(76px, calc(11vh * var(--flow-scale, 1)));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 280;
+      pointer-events: auto;
+    }
+
+    .typica-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: calc(0.75rem * var(--flow-scale, 1));
+      padding: calc(0.85em * var(--flow-scale, 1)) calc(1.75em * var(--flow-scale, 1));
+      min-height: calc(3.25rem * var(--flow-scale, 1));
+      background-color: var(--button-background, #f5efe3);
+      color: var(--dark-950, #080808);
+      border: calc(0.125rem * var(--flow-scale, 1)) solid var(--dark-950, #080808);
+      border-radius: calc(0.375rem * var(--flow-scale, 1));
+      box-shadow: calc(-0.25rem * var(--flow-scale, 1)) calc(0.25rem * var(--flow-scale, 1)) 0 var(--dark-950, #080808);
+      font-family: 'Inter', sans-serif;
+      font-weight: 750;
+      font-size: calc(0.875rem * var(--flow-scale, 1));
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 160ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 200ms ease;
+    }
+
+    .typica-action-btn:hover {
+      transform: translate(calc(-0.25rem * var(--flow-scale, 1)), calc(0.25rem * var(--flow-scale, 1)));
+      box-shadow: 0 0 0 transparent;
+      background-color: var(--btn-accent, #f4d46c);
+    }
+
+    .typica-action-btn .button_mark {
+      transition: transform 160ms ease;
+    }
+
+    .typica-action-btn:hover .button_mark {
+      transform: translateX(3px);
+    }
+
+    .city-nav {
+      position: fixed;
+      bottom: max(16px, calc(2.2vh * var(--flow-scale, 1)));
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: calc(8px * var(--flow-scale, 1));
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 90vw;
+      z-index: 250;
+      padding: 0 16px;
+      pointer-events: auto;
+    }
+
+    .city-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: rgba(255, 255, 255, 0.75);
+      padding: calc(5px * var(--flow-scale, 1)) calc(12px * var(--flow-scale, 1));
+      border-radius: 999px;
+      font-size: calc(10px * var(--flow-scale, 1));
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .city-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .city-btn.active {
+      background: #ffffff;
+      color: #0b0b0b;
+      border-color: #ffffff;
+      font-weight: 700;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: calc(140px * var(--flow-scale, 1));
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: calc(12px * var(--flow-scale, 1));
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.45);
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .footer-section {
+      position: relative;
+      width: 100vw;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d0d0d;
+      padding: 80px 24px;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .footer-card {
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-tag {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-card h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .footer-card p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-btn {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ffffff;
+      color: #080808;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .footer-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contenedor anclado con ScrollTrigger -->
+  <section class="carousel-pin-wrap" id="carouselPinWrap">
+    <div class="flowing-header">
+      <span class="flowing-tag">Nuestras Casas</span>
+      <h2 class="flowing-title">17 sucursales. Un mismo café.</h2>
+    </div>
+
+    <main class="stage" id="stage"></main>
+
+    <div class="scroll-hint" id="scrollHint">
+      <span>Desplaza hacia abajo para recorrer las sucursales</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    </div>
+
+    <!-- Botón fijo Typica -->
+    <div class="fixed-action-bar">
+      <a class="typica-action-btn" id="activeBranchBtn" href="/sucursales/#la-paz">
+        <span id="activeBranchBtnText">Conoce Casa SAN MIGUEL</span>
+        <svg class="button_mark" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <nav class="city-nav" id="cityNav"></nav>
+
+  <!-- Sección siguiente después de terminar el recorrido -->
+  <section class="footer-section">
+    <div class="footer-card">
+      <span class="footer-tag">Typica Café</span>
+      <h2>17 Casas. Una misma pasión.</h2>
+      <p>Café de especialidad de origen boliviano y latinoamericano tostado artesanalmente en cada una de nuestras casas.</p>
+      <a href="/sucursales/" class="footer-btn">Explorar todas las sucursales</a>
+    </div>
+  </section>
+
+  <script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const localesTypica = [
+      // LA PAZ (8 locales)
+      {
+        branch: "SAN MIGUEL",
+        city: "LA PAZ",
+        color: "#f4d46c",
+        link: "/sucursales/#la-paz",
+        image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "SOPOCACHI",
+        city: "LA PAZ",
+        color: "#bce3ff",
+        link: "/sucursales/#la-paz",
+        image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "CENTRO",
+        city: "LA PAZ",
+        color: "#ff4438",
+        link: "/sucursales/#la-paz",
+        image: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "SATÉLITE",
+        city: "LA PAZ",
+        color: "#b7ff52",
+        link: "/sucursales/#la-paz",
+        image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "MIRAFLORES",
+        city: "LA PAZ",
+        color: "#67e894",
+        link: "/sucursales/#la-paz",
+        image: "https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "PLAZA 21 MALL",
+        city: "LA PAZ",
+        color: "#ff6d1f",
+        link: "/sucursales/#la-paz",
+        image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "OBRAJES",
+        city: "LA PAZ",
+        color: "#f4d46c",
+        link: "/sucursales/#la-paz",
+        image: "https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "ACHUMANI",
+        city: "LA PAZ",
+        color: "#bce3ff",
+        link: "/sucursales/#la-paz",
+        image: "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=600&q=80"
+      },
+
+      // COCHABAMBA (2 locales)
+      {
+        branch: "PORTALES",
+        city: "COCHABAMBA",
+        color: "#f4d46c",
+        link: "/sucursales/#cochabamba",
+        image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "AMÉRICA",
+        city: "COCHABAMBA",
+        color: "#67e894",
+        link: "/sucursales/#cochabamba",
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80"
+      },
+
+      // SANTA CRUZ (3 locales)
+      {
+        branch: "EQUIPETROL",
+        city: "SANTA CRUZ",
+        color: "#b7ff52",
+        link: "/sucursales/#santa-cruz",
+        image: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "BLACUTT",
+        city: "SANTA CRUZ",
+        color: "#ff4438",
+        link: "/sucursales/#santa-cruz",
+        image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        branch: "LOS CUSIS",
+        city: "SANTA CRUZ",
+        color: "#bce3ff",
+        link: "/sucursales/#santa-cruz",
+        image: "https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=600&q=80"
+      },
+
+      // ORURO (1 local)
+      {
+        branch: "SORIA GALVARRO",
+        city: "ORURO",
+        color: "#ff4438",
+        link: "/sucursales/#mas-casas",
+        image: "https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=600&q=80"
+      },
+
+      // SUCRE (1 local)
+      {
+        branch: "CALLE AREQUIPA",
+        city: "SUCRE",
+        color: "#f4d46c",
+        link: "/sucursales/#mas-casas",
+        image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80"
+      },
+
+      // ASUNCIÓN - PARAGUAY (1 local)
+      {
+        branch: "ASUNCIÓN",
+        city: "ASUNCIÓN",
+        color: "#67e894",
+        link: "/sucursales/#mas-casas",
+        image: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=600&q=80"
+      },
+
+      // FLORIANÓPOLIS - BRASIL (1 local)
+      {
+        branch: "FLORIANÓPOLIS",
+        city: "FLORIANÓPOLIS",
+        color: "#ff6d1f",
+        link: "/sucursales/#mas-casas",
+        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80"
+      }
+    ];
+
+    const pinWrap = document.getElementById("carouselPinWrap")!;
+    const stage = document.getElementById("stage")!;
+    const cityNav = document.getElementById("cityNav")!;
+    const scrollHint = document.getElementById("scrollHint");
+    const actionBtn = document.getElementById("activeBranchBtn") as HTMLAnchorElement | null;
+    const actionBtnText = document.getElementById("activeBranchBtnText");
+
+    function getFontSizeForBranch(name: string) {
+      const len = name.length;
+      if (len <= 8) return { size: "25px", spacing: "1px" };
+      if (len <= 10) return { size: "20.5px", spacing: "0.5px" };
+      if (len <= 13) return { size: "16.5px", spacing: "0.2px" };
+      return { size: "14px", spacing: "-0.2px" };
+    }
+
+    const cardElements = localesTypica.map((item, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.style.setProperty("--theme-color", item.color);
+
+      const pathId = `text-arc-${index}`;
+      const fontConfig = getFontSizeForBranch(item.branch);
+
+      card.innerHTML = `
+        <div class="card-inner">
+          <img class="card-img" src="${item.image}" alt="Typica ${item.branch}" loading="lazy" />
+          <div class="card-footer">
+            <svg viewBox="0 0 240 115" preserveAspectRatio="none">
+              <path 
+                d="M 0,42 Q 120,-15 240,42 L 240,115 L 0,115 Z" 
+                fill="${item.color}" 
+              />
+              <path 
+                id="${pathId}" 
+                d="M 8,66 Q 120,12 232,66" 
+                fill="transparent" 
+              />
+              <text 
+                class="branch-text" 
+                style="font-size: ${fontConfig.size}; letter-spacing: ${fontConfig.spacing};"
+              >
+                <textPath href="#${pathId}" startOffset="50%" text-anchor="middle">
+                  ${item.branch}
+                </textPath>
+              </text>
+            </svg>
+            <div class="city-pill">${item.city}</div>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        scrollToCard(index);
+      });
+
+      stage.appendChild(card);
+      return card;
+    });
+
+    const uniqueCities = [...new Set(localesTypica.map(l => l.city))];
+    const cityButtons = uniqueCities.map(city => {
+      const btn = document.createElement("button");
+      btn.className = "city-btn";
+      btn.textContent = city;
+      btn.dataset.city = city;
+      btn.addEventListener("click", () => {
+        const targetIdx = localesTypica.findIndex(l => l.city === city);
+        if (targetIdx !== -1) scrollToCard(targetIdx);
+      });
+      cityNav.appendChild(btn);
+      return btn;
+    });
+
+    function updateActiveCity(cityName: string) {
+      cityButtons.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.city === cityName);
+      });
+    }
+
+    function updateActiveButton(index: number) {
+      const activeItem = localesTypica[index];
+      if (!activeItem) return;
+
+      if (actionBtn && actionBtnText) {
+        actionBtnText.textContent = `Conoce Casa ${activeItem.branch}`;
+        actionBtn.href = activeItem.link;
+        actionBtn.style.setProperty("--btn-accent", activeItem.color);
+      }
+    }
+
+    function getScaleFactor() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const scaleW = w / 1920;
+      const scaleH = h / 1080;
+      return Math.max(0.58, Math.min(Math.min(scaleW, scaleH * 1.15), 1.12));
+    }
+
+    function applyScale() {
+      const scale = getScaleFactor();
+      pinWrap.style.setProperty("--flow-scale", scale.toFixed(3));
+      return scale;
+    }
+
+    let currentScale = applyScale();
+
+    function getKeyframes(scale: number) {
+      const xSpan = 680 * scale;
+      const ySpan = 270 * scale;
+
+      return [
+        { offset: -3.2, x: -xSpan * 1.50, y:  ySpan * 1.45, scaleX: 0.82, scaleY: 0.16, skewX: 52, opacity: 0 },
+        { offset: -2.0, x: -xSpan * 0.96, y:  ySpan * 1.00, scaleX: 0.92, scaleY: 0.42, skewX: 38, opacity: 1 },
+        { offset: -1.0, x: -xSpan * 0.46, y:  ySpan * 0.54, scaleX: 0.96, scaleY: 0.78, skewX: 18, opacity: 1 },
+        { offset:  0.0, x:             0, y:             0, scaleX: 1.00, scaleY: 1.00, skewX:  0, opacity: 1 },
+        { offset:  1.0, x:  xSpan * 0.46, y: -ySpan * 0.44, scaleX: 0.96, scaleY: 0.82, skewX: 16, opacity: 1 },
+        { offset:  2.0, x:  xSpan * 0.96, y: -ySpan * 0.80, scaleX: 0.92, scaleY: 0.50, skewX: 35, opacity: 1 },
+        { offset:  3.2, x:  xSpan * 1.50, y: -ySpan * 1.20, scaleX: 0.82, scaleY: 0.20, skewX: 48, opacity: 0 }
+      ];
+    }
+
+    let keyframes = getKeyframes(currentScale);
+
+    function getTransformAtOffset(d: number, kfs: typeof keyframes) {
+      if (d <= kfs[0].offset) return { ...kfs[0], opacity: 0 };
+      if (d >= kfs[kfs.length - 1].offset) return { ...kfs[kfs.length - 1], opacity: 0 };
+
+      for (let i = 0; i < kfs.length - 1; i++) {
+        const k1 = kfs[i];
+        const k2 = kfs[i + 1];
+        if (d >= k1.offset && d <= k2.offset) {
+          const t = (d - k1.offset) / (k2.offset - k1.offset);
+          return {
+            x: gsap.utils.interpolate(k1.x, k2.x, t),
+            y: gsap.utils.interpolate(k1.y, k2.y, t),
+            scaleX: gsap.utils.interpolate(k1.scaleX, k2.scaleX, t),
+            scaleY: gsap.utils.interpolate(k1.scaleY, k2.scaleY, t),
+            skewX: gsap.utils.interpolate(k1.skewX, k2.skewX, t),
+            opacity: gsap.utils.interpolate(k1.opacity, k2.opacity, t)
+          };
+        }
+      }
+      return kfs[0];
+    }
+
+    const total = localesTypica.length;
+    const gap = 1.0;
+    const pMin = -2.0;
+    const pMax = 2.0 + (total - 1) * gap;
+
+    let currentProgress = pMin;
+
+    function render(P: number) {
+      const activeIdx = Math.max(0, Math.min(total - 1, Math.round(P / gap)));
+      const activeCity = localesTypica[activeIdx]?.city;
+      if (activeCity) updateActiveCity(activeCity);
+      updateActiveButton(activeIdx);
+
+      cardElements.forEach((card, i) => {
+        const d = P - i * gap;
+
+        if (d < -3.3 || d > 3.3) {
+          gsap.set(card, {
+            opacity: 0,
+            pointerEvents: "none",
+            visibility: "hidden"
+          });
+          return;
+        }
+
+        const props = getTransformAtOffset(d, keyframes);
+        const zIndex = Math.round(100 - Math.abs(d) * 20);
+
+        gsap.set(card, {
+          x: props.x,
+          y: props.y,
+          scaleX: props.scaleX,
+          scaleY: props.scaleY,
+          skewX: props.skewX,
+          opacity: props.opacity,
+          zIndex: zIndex,
+          visibility: "visible",
+          pointerEvents: Math.abs(d) > 2.2 ? "none" : "auto"
+        });
+      });
+    }
+
+    render(pMin);
+
+    const st = ScrollTrigger.create({
+      trigger: pinWrap,
+      start: "top top",
+      end: "+=3800",
+      pin: true,
+      pinSpacing: true,
+      scrub: 0.8,
+      onUpdate: (self) => {
+        const S = self.progress;
+        currentProgress = pMin + S * (pMax - pMin);
+        render(currentProgress);
+
+        if (scrollHint) {
+          scrollHint.style.opacity = S > 0.04 ? "0" : "1";
+        }
+      }
+    });
+
+    function scrollToCard(index: number) {
+      const targetP = index * gap;
+      const targetS = (targetP - pMin) / (pMax - pMin);
+      const clampedS = Math.max(0, Math.min(1, targetS));
+      const targetScroll = st.start + clampedS * (st.end - st.start);
+
+      const currentScroll = window.scrollY;
+      const tweenObj = { scroll: currentScroll };
+
+      gsap.to(tweenObj, {
+        scroll: targetScroll,
+        duration: 1.2,
+        ease: "power3.out",
+        onUpdate: () => {
+          window.scrollTo(0, tweenObj.scroll);
+        }
+      });
+    }
+
+    let isPointerDown = false;
+    let startY = 0;
+    let startScroll = 0;
+
+    stage.addEventListener("pointerdown", (e) => {
+      const target = e.target as HTMLElement | null;
+      if (target && (target.closest(".city-nav") || target.closest(".fixed-action-bar") || target.closest("button") || target.closest("a"))) return;
+      isPointerDown = true;
+      startY = e.clientY;
+      startScroll = window.scrollY;
+    });
+
+    window.addEventListener("pointermove", (e) => {
+      if (!isPointerDown) return;
+      const dy = e.clientY - startY;
+      window.scrollTo(0, startScroll - dy * 2.2);
+    });
+
+    window.addEventListener("pointerup", () => {
+      isPointerDown = false;
+    });
+
+    window.addEventListener("resize", () => {
+      currentScale = applyScale();
+      keyframes = getKeyframes(currentScale);
+      render(currentProgress);
+      ScrollTrigger.refresh();
+    });
+  </script>
+</body>
+</html>

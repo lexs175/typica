@@ -12,6 +12,8 @@ dist/
 *.log
 .playwright-mcp/
 .cache/
+test-results/
+playwright-report/
 
 # OS metadata
 .DS_Store

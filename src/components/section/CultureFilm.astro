@@ -1,5 +1,6 @@
 ---
 import FilmPlayer from "@/components/media/FilmPlayer.astro";
+import roosterSticker from "@/assets/stickers/Frame-2.svg";
 
 interface Props {
   render?: boolean;
@@ -17,7 +18,14 @@ const { render = true } = Astro.props;
       >
         <span class="culture-film_title-row" aria-hidden="true">
           <span class="culture-film_title-start">El café</span>
-          <span class="culture-film_mini-slot"></span>
+          <span class="culture-film_mini-slot">
+            <img
+              class="culture-film_rooster"
+              src={roosterSticker.src}
+              alt=""
+              aria-hidden="true"
+            />
+          </span>
           <span class="culture-film_title-end">nos junta</span>
         </span>
         <em class="culture-film_subtitle" aria-hidden="true">
@@ -78,10 +86,22 @@ const { render = true } = Astro.props;
       display: block;
     }
     .culture-film_mini-slot {
-      display: none;
+      position: relative;
+      display: inline-block;
       width: clamp(4.625rem, 15vw, 15.625rem);
       aspect-ratio: 16/10;
       flex-shrink: 0;
+      border-radius: 0.75rem;
+    }
+    .culture-film_rooster {
+      position: absolute;
+      bottom: 78%;
+      left: 50%;
+      transform: translateX(-40%);
+      width: clamp(2.5rem, 7vw, 5.5rem);
+      height: auto;
+      z-index: 2;
+      pointer-events: none;
     }
     .culture-film_title .culture-film_subtitle {
       display: inline-block;
@@ -108,7 +128,7 @@ const { render = true } = Astro.props;
       will-change: stroke-dashoffset;
     }
     .culture-film_wrap + .culture-story_wrap {
-      margin-top: 8.125rem;
+      margin-top: clamp(8rem, 16svh, 16rem);
     }
     .culture-film_animating {
       height: 280svh;
@@ -127,12 +147,13 @@ const { render = true } = Astro.props;
       left: 0;
       right: 0;
       transform: translateY(-50%);
-      z-index: 1;
+      z-index: 4;
       padding: 0 6vw;
       box-sizing: border-box;
+      pointer-events: none;
     }
     .culture-film_animating .culture-film_mini-slot {
-      display: block;
+      display: inline-block;
     }
     .culture-film_animating .film-player_wrap {
       position: absolute;

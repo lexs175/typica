@@ -75,15 +75,23 @@ const { render = true } = Astro.props;
       position: relative;
       background: var(--light-300);
       color: var(--ink);
+      width: 100vw;
+      height: 100svh;
+      overflow: hidden;
     }
     .coffee-showcase_viewport {
       position: relative;
-      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      overflow-x: auto;
     }
     .coffee-showcase_track {
       display: flex;
       align-items: stretch;
       width: max-content;
+    }
+    .coffee-showcase_wrap.is-scroll-driven .coffee-showcase_viewport {
+      overflow: hidden;
     }
     .coffee-showcase_rail-nav {
       position: absolute;

@@ -40,10 +40,15 @@ const {
     <div class="hero-tv_stage" data-hero-stage>
       <div class="hero-tv_content" data-hero-content>
         <ContentWrapper centered>
-          <Heading tag="h1" variant="h1" maxWidth={28} id="hero-title">
+          <Heading
+            tag="h1"
+            variant="h1"
+            style="--_mw: var(--hero-heading-width)"
+            id="hero-title"
+          >
             {title}
           </Heading>
-          <Paragraph variant="main" maxWidth={48}>
+          <Paragraph variant="main" style="--_mw: var(--hero-copy-width)">
             {description}
           </Paragraph>
           <ButtonWrapper>

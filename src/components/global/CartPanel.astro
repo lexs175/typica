@@ -9,7 +9,7 @@ const { render = true } = Astro.props;
 ---
 
 {render && (
-  <dialog class="cart-panel_wrap" id="cart-dialog" aria-labelledby="cart-title">
+  <dialog class="cart-panel_wrap" id="cart-dialog" data-lenis-prevent aria-labelledby="cart-title">
     <div class="cart-panel_head">
       <h2 id="cart-title">
         Tu carrito<span class="cart-panel_head-count">0 bolsas</span>
@@ -89,7 +89,7 @@ const { render = true } = Astro.props;
       background: var(--white);
     }
     .cart-panel_wrap::backdrop {
-      background: var(--shadow-soft8);
+      background: var(--shadow-strong);
     }
     .cart-panel_head {
       display: flex;

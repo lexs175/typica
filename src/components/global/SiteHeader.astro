@@ -11,9 +11,9 @@ const { render = true } = Astro.props;
   <header class="site-header_wrap" id="nav">
     <div class="site-header_bar">
       <nav class="site-header_primary" aria-label="Navegación principal">
-        <a href="/#cafes">Cafés en bolsa</a>
+        <a class="site-header_link" href="/#cafes">Cafés en bolsa</a>
         <details class="site-header_dropdown">
-          <summary>
+          <summary class="site-header_link">
             Sucursales{" "}
             <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path
@@ -24,17 +24,17 @@ const { render = true } = Astro.props;
             </svg>
           </summary>
           <div class="site-header_dropdown-panel">
-            <a href="/sucursales/">
+            <a class="site-header_dropdown-link" href="/sucursales/">
               Todas las sucursales <span>↗</span>
             </a>
-            <a href="/sucursales/#la-paz">La Paz</a>
-            <a href="/sucursales/#cochabamba">Cochabamba</a>
-            <a href="/sucursales/#santa-cruz">Santa Cruz</a>
-            <a href="/sucursales/#mas-casas">Más ciudades</a>
+            <a class="site-header_dropdown-link" href="/sucursales/#la-paz">La Paz</a>
+            <a class="site-header_dropdown-link" href="/sucursales/#cochabamba">Cochabamba</a>
+            <a class="site-header_dropdown-link" href="/sucursales/#santa-cruz">Santa Cruz</a>
+            <a class="site-header_dropdown-link" href="/sucursales/#mas-casas">Más ciudades</a>
           </div>
         </details>
-        <a href="/suscripciones/">Suscripciones</a>
-        <a href="/#cultura">Cultura</a>
+        <a class="site-header_link" href="/suscripciones/">Suscripciones</a>
+        <a class="site-header_link" href="/#cultura">Cultura</a>
       </nav>
       <a
         class="site-header_wordmark"
@@ -222,10 +222,17 @@ const { render = true } = Astro.props;
       color: var(--ink);
     }
     .site-header_wrap .site-header_primary a,
+    .site-header_wrap .site-header_link,
     .site-header_dropdown summary {
       font-size: 0.875rem;
       font-weight: 650;
       letter-spacing: -0.035em;
+      text-decoration: none !important;
+    }
+    .site-header_wrap .site-header_primary a:hover,
+    .site-header_wrap .site-header_link:hover,
+    .site-header_dropdown summary:hover {
+      text-decoration: underline !important;
     }
     .site-header_wrap .site-header_tools {
       grid-column: 3;
@@ -413,6 +420,7 @@ const { render = true } = Astro.props;
       font-size: 1.0625rem;
       font-weight: 750;
       letter-spacing: -0.03em;
+      text-decoration: none;
       text-decoration-thickness: 0.125rem;
       text-underline-offset: 0.4375rem;
     }

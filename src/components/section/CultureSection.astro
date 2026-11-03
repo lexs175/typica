@@ -9,7 +9,11 @@ const { render = true } = Astro.props;
 ---
 
 {render && (
-  <section class="culture-section_wrap people-section" id="cultura" aria-labelledby="people-title">
+  <section
+    class="culture-section_wrap people-section"
+    id="cultura"
+    aria-labelledby="people-title"
+  >
     <CultureFilm />
     <CultureStory />
   </section>
@@ -18,6 +22,12 @@ const { render = true } = Astro.props;
   @layer components {
     .culture-section_wrap {
       position: relative;
+      background: var(--dark-1000);
+      color: var(--warm-100);
+      overflow: clip;
+      padding-top: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 </style>

@@ -11,7 +11,10 @@ import "@/scripts/motion";
   if (!G || !ST) return;
   G.registerPlugin(ST);
 
-  document.fonts.ready.then(() => {
+  document.fonts.ready.then(async () => {
+    await new Promise((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(resolve)),
+    );
     const media = G.matchMedia();
     media.add(
       {
@@ -47,6 +50,15 @@ import "@/scripts/motion";
           };
         };
 
+        // Initialize frame inside the mini-slot immediately so it sits cleanly before scroll
+        G.set(frame, {
+          x: () => source().x,
+          y: () => source().y,
+          width: () => source().width,
+          height: () => source().height,
+          borderRadius: 12,
+        });
+
         const controls = scene.querySelectorAll(
           ".video-controls_wrap, .sound-toggle_wrap, .film-player_sticker",
         );
@@ -81,7 +93,10 @@ import "@/scripts/motion";
           },
         });
 
+        // 1. Initial resting hold so headline + mini video + rooster are presented cleanly
         timeline
+          .to({}, { duration: 0.35 })
+          // 2. Video expands from mini slot to full-bleed stage
           .fromTo(
             frame,
             {
@@ -100,40 +115,49 @@ import "@/scripts/motion";
               duration: 1,
               ease: "power2.inOut",
             },
-            0,
+            0.35,
           )
+          // 3. Rooster sticker fades out
+          .to(
+            ".culture-film_rooster",
+            { autoAlpha: 0, duration: 0.3, ease: "power2.in" },
+            0.35,
+          )
+          // 4. Headline parts separate and fade
           .to(
             ".culture-film_title-start",
             { xPercent: -45, duration: 0.8, ease: "power2.inOut" },
-            0,
+            0.35,
           )
           .to(
             ".culture-film_title-end",
             { xPercent: 45, duration: 0.8, ease: "power2.inOut" },
-            0,
+            0.35,
           )
           .to(
             ".culture-film_title-start, .culture-film_title-end",
             { autoAlpha: 0, duration: 0.45, ease: "power2.in" },
-            0.22,
+            0.55,
           )
           .to(
             ".culture-film_subtitle",
             { y: 24, scale: 0.96, duration: 0.75, ease: "power2.inOut" },
-            0.08,
+            0.4,
           )
           .to(
             ".culture-film_subtitle",
             { autoAlpha: 0, duration: 0.45, ease: "power2.in" },
-            0.26,
+            0.58,
           )
+          // 5. Cinema controls fade in
           .fromTo(
             controls,
             { autoAlpha: 0 },
             { autoAlpha: 1, duration: 0.25, ease: "power2.out" },
-            0.75,
+            1.1,
           )
-          .to({}, { duration: 0.65 }); // Hold at full screen for an immersive watching window
+          // 6. Hold at full screen for an immersive watching window
+          .to({}, { duration: 0.65 });
 
         return () =>
           scene.classList.remove("culture-film_animating", "scene", "is-live");

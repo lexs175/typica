@@ -170,10 +170,9 @@ import truus39Sticker from "@/assets/stickers/truus.co-39.svg";
   function lockMenu(value) {
     document.body.classList.toggle("site-header_overlay-open", value);
     document.body.classList.toggle("navigation-menu_open", value);
-    main.inert = value;
-    footer.inert = value;
-    primary.inert = value;
-    $(".skip").inert = value;
+    [main, footer, primary, $("[data-skip-link]")].forEach((element) => {
+      if (element) element.inert = value;
+    });
   }
   function buttonClip() {
     const r = toggle.getBoundingClientRect();
@@ -433,7 +432,7 @@ import truus39Sticker from "@/assets/stickers/truus.co-39.svg";
     $("#cart-items").innerHTML = items
       .map((item, index) => {
         const p = catalog.find((product) => product.id === item.id);
-        return `<article class="cart-panel_item" role="listitem"><div class="cart-panel_item-photo"><img src="${escape(p.image)}" alt="Bolsa de café ${escape(p.name)}" width="120" height="132"></div><div><h3>${escape(p.name)}</h3><p>250 g · ${escape(item.grind)}</p><p class="cart-panel_item-price">${money(p.price * item.quantity)}</p><div class="cart-panel_item-tools"><div class="cart-panel_quantity"><button data-cart-step="-1" data-index="${index}" aria-label="Quitar una bolsa de ${escape(p.name)}" ${item.quantity === 1 ? "disabled" : ""}>${minusIcon}</button><output>${item.quantity}</output><button data-cart-step="1" data-index="${index}" aria-label="Añadir una bolsa de ${escape(p.name)}" ${item.quantity === 99 ? "disabled" : ""}>${plusIcon}</button></div><button class="cart-panel_remove" data-cart-remove="${index}" aria-label="Eliminar ${escape(p.name)} del carrito">Eliminar</button></div></div></article>`;
+        return `<article class="cart-panel_item" role="listitem"><div class="cart-panel_item-photo"><img src="${escape(p.image.src)}" alt="Bolsa de café ${escape(p.name)}" width="120" height="132"></div><div><h3>${escape(p.name)}</h3><p>250 g · ${escape(item.grind)}</p><p class="cart-panel_item-price">${money(p.price * item.quantity)}</p><div class="cart-panel_item-tools"><div class="cart-panel_quantity"><button data-cart-step="-1" data-index="${index}" aria-label="Quitar una bolsa de ${escape(p.name)}" ${item.quantity === 1 ? "disabled" : ""}>${minusIcon}</button><output>${item.quantity}</output><button data-cart-step="1" data-index="${index}" aria-label="Añadir una bolsa de ${escape(p.name)}" ${item.quantity === 99 ? "disabled" : ""}>${plusIcon}</button></div><button class="cart-panel_remove" data-cart-remove="${index}" aria-label="Eliminar ${escape(p.name)} del carrito">Eliminar</button></div></div></article>`;
       })
       .join("");
     const total = items.reduce(
