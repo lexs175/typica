@@ -3,5 +3,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { Flip } from "gsap/Flip";
 gsap.registerPlugin(ScrollTrigger, SplitText, Flip);
+ScrollTrigger.clearScrollMemory("manual");
 Object.assign(window, { gsap, ScrollTrigger, SplitText, Flip });
 export { gsap, ScrollTrigger, SplitText, Flip };
