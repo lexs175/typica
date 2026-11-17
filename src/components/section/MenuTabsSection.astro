@@ -1,0 +1,886 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import baristaImg from "@/assets/images/barista.avif";
+import tostadorImg from "@/assets/images/tostador.avif";
+import barraImg from "@/assets/images/barra.avif";
+import menuV60Img from "@/assets/images/menu-v60.jpg";
+import menuFlatWhiteImg from "@/assets/images/menu-flat-white.jpg";
+import menuColdBrewImg from "@/assets/images/menu-cold-brew.jpg";
+import sopo1Img from "@/assets/images/sopo-1.jpg";
+import sopo2Img from "@/assets/images/sopo-2.jpg";
+import sopo3Img from "@/assets/images/sopo-3.jpg";
+import ensaladaQuinuaImg from "@/assets/images/menu-ensalada-quinua.jpg";
+import ensaladaManzanaImg from "@/assets/images/menu-ensalada-manzana.jpg";
+
+import sticker100 from "@/assets/stickers/sticker-100.svg";
+import frame1Sticker from "@/assets/stickers/Frame-1.svg";
+import cameraSticker from "@/assets/stickers/camera-figma.svg";
+import thumbsUpSticker from "@/assets/stickers/thumbs-up-figma.svg";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+
+interface MenuItem {
+  title: string;
+  price: string;
+  description: string;
+  img: ImageMetadata;
+  alt: string;
+}
+
+interface MenuCategory {
+  id: string;
+  label: string;
+  motto: string;
+  active: boolean;
+  items: MenuItem[];
+}
+
+const menuCategories: MenuCategory[] = [
+  {
+    id: "espresso",
+    label: "ESPRESSO & FILTRADOS",
+    motto: "Café de especialidad, extracción precisa y granos de Bolivia",
+    active: true,
+    items: [
+      {
+        title: "FILTRADO V60 - MICROLOTE GESHA",
+        price: "Bs 34",
+        description: "Extracción manual limpia y floral con notas de jazmín, mandarina y piña madura servida en jarra de cristal.",
+        img: menuV60Img,
+        alt: "Filtrado V60 de especialidad Typica",
+      },
+      {
+        title: "FLAT WHITE DOBLE · CASA TYPICA",
+        price: "Bs 26",
+        description: "Dos shots de nuestro blend De la Casa con leche texturizada sedosa, dulzor de panela y cacao tostado.",
+        img: menuFlatWhiteImg,
+        alt: "Flat White Doble con Latte Art en Typica",
+      },
+      {
+        title: "COLD BREW TONIC · NARANJA & ROMERO",
+        price: "Bs 32",
+        description: "Infusión en frío de grano Java de Nora Gemio sobre agua tónica botánica, piel de naranja y romero fresco.",
+        img: menuColdBrewImg,
+        alt: "Cold Brew Tonic refrescante Typica",
+      },
+    ],
+  },
+  {
+    id: "brunch",
+    label: "BRUNCH TODO EL DÍA",
+    motto: "Platos frescos y masa madre, hechos en casa",
+    active: false,
+    items: [
+      {
+        title: "TOSTÓN PALTA & HUEVO POCHÉ",
+        price: "Bs 38",
+        description: "Pan de masa madre tostado, láminas de palta hass fresca, huevo de campo poché, dukkah especiada y brotes verdes.",
+        img: sopo1Img,
+        alt: "Tostón de palta y huevo poché",
+      },
+      {
+        title: "ENSALADA FRESCA DE QUINUA REAL",
+        price: "Bs 38",
+        description: "Quinua real andina, mix de hojas verdes, palta, frutos secos tostados y vinagreta cítrica de la casa.",
+        img: ensaladaQuinuaImg,
+        alt: "Ensalada fresca de quinua real Typica",
+      },
+      {
+        title: "ENSALADA DE MANZANA & QUESO ARTESANAL",
+        price: "Bs 36",
+        description: "Láminas crujientes de manzana verde, queso artesanal fresco, nueces caramelizadas y vinagreta suave de miel.",
+        img: ensaladaManzanaImg,
+        alt: "Ensalada fresca de manzana verde Typica",
+      },
+    ],
+  },
+  {
+    id: "sandwiches",
+    label: "SÁNDWICHES & PARRILLA",
+    motto: "Panes artesanales, quesos madurados y cortes curados",
+    active: false,
+    items: [
+      {
+        title: "SÁNDWICH DE PASTRAMI ARTESANAL",
+        price: "Bs 46",
+        description: "Pastrami curado y ahumado en casa, queso provolone fundido, mostaza dijon rústica y pepinillos en pan ciabatta.",
+        img: sopo2Img,
+        alt: "Sándwich de pastrami artesanal Typica",
+      },
+      {
+        title: "GRILLED CHEESE TRES QUESOS",
+        price: "Bs 34",
+        description: "Trilogía de quesos criollos madurados fundidos con mantequilla clarificada en pan brioche de masa madre.",
+        img: sopo3Img,
+        alt: "Grilled Cheese en pan brioche",
+      },
+      {
+        title: "FOCACCIA PROSCIUTTO & PESTO",
+        price: "Bs 42",
+        description: "Focaccia al romero recién horneada con prosciutto crudo, pesto genovés fresco, rúcula y queso sardo.",
+        img: barraImg,
+        alt: "Focaccia artesanal con prosciutto y pesto",
+      },
+    ],
+  },
+  {
+    id: "pasteleria",
+    label: "PASTELERÍA ARTESANAL",
+    motto: "Hecho a mano en nuestra casa",
+    active: false,
+    items: [
+      {
+        title: "CROISSANT DE ALMENDRAS",
+        price: "Bs 22",
+        description: "Hojaldre 100% mantequilla pura relleno con suave crema frangipane y cubierto de almendras tostadas laminadas.",
+        img: baristaImg,
+        alt: "Croissant de almendras horneado",
+      },
+      {
+        title: "TARTA VASCA CON TOQUE DE CAFÉ",
+        price: "Bs 28",
+        description: "Tarta de queso horneada a alta temperatura con centro cremoso y una reducción de café Typica Gesha.",
+        img: tostadorImg,
+        alt: "Tarta de queso vasca de la casa",
+      },
+      {
+        title: "ROLL DE CANELA & CARDAMOMO",
+        price: "Bs 20",
+        description: "Masa trenzada esponjosa con canela ceilán, sutil toque de cardamomo andino y glaseado suave de vainilla.",
+        img: sopo3Img,
+        alt: "Roll de canela y cardamomo glaseado",
+      },
+    ],
+  },
+];
+---
+
+{render && (
+  <section class="menu-tabs_wrap" id="carta-menu" aria-label="Carta y Menú de Typica">
+    {/* =========================================================
+        1. BANNER MENÚ: BORDE A BORDE EN BASE A 8 COLUMNAS
+        Cols 1-2 (Fill): Foto Barista
+        Cols 3-6 (Escala exacta --cover-cell con 3D Flip): M · E · N · Ú
+        Cols 7-8 (Fill): Foto Tostador
+        ========================================================= */}
+    <div class="menu-banner_fullwidth" aria-label="MENÚ">
+      {/* 1. Foto Barista (Cols 1 y 2 - Fill) */}
+      <div class="menu-banner_cell menu-banner_photo menu-banner_photo--barista" style="grid-column: 1 / 3;">
+        <Image
+          src={baristaImg}
+          alt="Barista de Typica preparando café"
+          width={600}
+          height={400}
+          format="webp"
+          quality={80}
+          loading="eager"
+          decoding="async"
+          class="menu-banner_img"
+        />
+      </div>
+
+      {/* 2. Letra M (Col 3 - 3D Flip con Sticker 100) */}
+      <button
+        class="menu-banner_cell menu-letter_wrap"
+        type="button"
+        aria-label="Girar letra M"
+        aria-pressed="false"
+        style="grid-column: 3; --tile-color: var(--brand-500, #FFE52D);"
+        data-menu-letter
+      >
+        <span class="menu-letter_turn" aria-hidden="true">
+          <span class="menu-letter_front">M</span>
+          <span class="menu-letter_back">
+            <img src={sticker100.src} alt="" width="150" height="150" loading="lazy" />
+          </span>
+        </span>
+      </button>
+
+      {/* 3. Letra E (Col 4 - 3D Flip con Sticker POP) */}
+      <button
+        class="menu-banner_cell menu-letter_wrap"
+        type="button"
+        aria-label="Girar letra E"
+        aria-pressed="false"
+        style="grid-column: 4; --tile-color: #FF659A;"
+        data-menu-letter
+      >
+        <span class="menu-letter_turn" aria-hidden="true">
+          <span class="menu-letter_front">E</span>
+          <span class="menu-letter_back">
+            <img src={frame1Sticker.src} alt="" width="150" height="150" loading="lazy" />
+          </span>
+        </span>
+      </button>
+
+      {/* 4. Letra N (Col 5 - 3D Flip con Sticker Cámara) */}
+      <button
+        class="menu-banner_cell menu-letter_wrap"
+        type="button"
+        aria-label="Girar letra N"
+        aria-pressed="false"
+        style="grid-column: 5; --tile-color: #00BD3F;"
+        data-menu-letter
+      >
+        <span class="menu-letter_turn" aria-hidden="true">
+          <span class="menu-letter_front">N</span>
+          <span class="menu-letter_back">
+            <img src={cameraSticker.src} alt="" width="150" height="150" loading="lazy" />
+          </span>
+        </span>
+      </button>
+
+      {/* 5. Letra Ú (Col 6 - 3D Flip con Sticker Thumbs Up) */}
+      <button
+        class="menu-banner_cell menu-letter_wrap"
+        type="button"
+        aria-label="Girar letra Ú"
+        aria-pressed="false"
+        style="grid-column: 6; --tile-color: #FF2F32;"
+        data-menu-letter
+      >
+        <span class="menu-letter_turn" aria-hidden="true">
+          <span class="menu-letter_front">Ú</span>
+          <span class="menu-letter_back">
+            <img src={thumbsUpSticker.src} alt="" width="150" height="150" loading="lazy" />
+          </span>
+        </span>
+      </button>
+
+      {/* 6. Foto Tostador (Cols 7 y 8 - Fill) */}
+      <div class="menu-banner_cell menu-banner_photo menu-banner_photo--roast" style="grid-column: 7 / 9;">
+        <Image
+          src={tostadorImg}
+          alt="Granos tostados en Typica"
+          width={600}
+          height={400}
+          format="webp"
+          quality={80}
+          loading="eager"
+          decoding="async"
+          class="menu-banner_img"
+        />
+      </div>
+    </div>
+
+    {/* =========================================================
+        2. CONTENEDOR FIGMA OFICIAL (NODE 207:328)
+        Padding inline de 48px en desktop · 2x2 responsivo en móvil
+        Panel apilado sin saltos de scroll · Cambio suave e instantáneo
+        ========================================================= */}
+    <div class="menu-tabs_container">
+      {/* Pestañas (Tab List de Figma 207:381) */}
+      <div class="menu-tabs_header" role="tablist">
+        {menuCategories.map((cat, idx) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${cat.id}`}
+            aria-selected={idx === 0 ? "true" : "false"}
+            aria-controls={`panel-${cat.id}`}
+            class:list={["menu-tab_btn", idx === 0 && "is-active"]}
+            data-menu-tab={cat.id}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Franja Amarilla (Container 207:374) */}
+      <div class="menu-service_bar">
+        <span class="menu-service_motto" id="menu-service-motto">
+          {menuCategories[0].motto}
+        </span>
+        <span class="menu-service_hours">
+          TE ESPERAMOS — 07:30 a 22:00
+        </span>
+      </div>
+
+      {/* Viewport apilado con CSS Grid: NUNCA colapsa la altura ni salta */}
+      <div class="menu-panels_viewport">
+        {menuCategories.map((cat, idx) => (
+          <div
+            id={`panel-${cat.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${cat.id}`}
+            class:list={["menu-tab_panel", idx === 0 && "is-active"]}
+            data-menu-panel={cat.id}
+            data-motto={cat.motto}
+          >
+            <div class="menu-grid_wrap">
+              {cat.items.map((item, itemIdx) => (
+                <article class:list={["menu-card", itemIdx === 1 && "menu-card--white"]}>
+                  <div class="menu-card_media">
+                    <Image
+                      src={item.img}
+                      alt={item.alt}
+                      width={700}
+                      height={500}
+                      format="webp"
+                      quality={80}
+                      loading="lazy"
+                      decoding="async"
+                      class="menu-card_img"
+                    />
+                  </div>
+
+                  <div class="menu-card_body">
+                    <div class="menu-card_head">
+                      <h3 class="menu-card_title">{item.title}</h3>
+                      <span class="menu-card_price">{item.price}</span>
+                    </div>
+
+                    <p class="menu-card_desc">{item.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  function setupMenuTabs() {
+    const section = document.getElementById("carta-menu");
+    if (!section) return;
+
+    const buttons = section.querySelectorAll<HTMLButtonElement>("[data-menu-tab]");
+    const panels = section.querySelectorAll<HTMLElement>("[data-menu-panel]");
+    const mottoEl = document.getElementById("menu-service-motto");
+    const letters = section.querySelectorAll<HTMLButtonElement>("[data-menu-letter]");
+
+    // Flip 3D de las letras M-E-N-Ú
+    letters.forEach((letter) => {
+      letter.onclick = () => {
+        letter.classList.toggle("is-turned");
+        const isTurned = letter.classList.contains("is-turned");
+        letter.setAttribute("aria-pressed", isTurned ? "true" : "false");
+      };
+    });
+
+    if (!buttons.length || !panels.length) return;
+
+    buttons.forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        const targetId = btn.getAttribute("data-menu-tab");
+        if (!targetId || btn.classList.contains("is-active")) return;
+
+        // 1. Respuesta instantánea en los botones de pestañas
+        buttons.forEach((b) => {
+          const isActive = b === btn;
+          b.classList.toggle("is-active", isActive);
+          b.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        // 2. Transición suave del lema en la franja amarilla
+        let targetMotto = "";
+        panels.forEach((p) => {
+          const isTarget = p.getAttribute("data-menu-panel") === targetId;
+          p.classList.toggle("is-active", isTarget);
+          if (isTarget) {
+            targetMotto = p.getAttribute("data-motto") || "";
+          }
+        });
+
+        if (mottoEl && targetMotto && mottoEl.textContent !== targetMotto) {
+          mottoEl.style.transition = "opacity 120ms ease, transform 120ms ease";
+          mottoEl.style.opacity = "0";
+          mottoEl.style.transform = "translateY(-4px)";
+          setTimeout(() => {
+            mottoEl.textContent = targetMotto;
+            mottoEl.style.opacity = "1";
+            mottoEl.style.transform = "translateY(0)";
+          }, 120);
+        }
+      };
+    });
+  }
+
+  // Inicialización limpia
+  setupMenuTabs();
+  document.addEventListener("astro:page-load", setupMenuTabs);
+</script>
+
+<style is:global>
+  /* =========================================================
+     SECCIÓN MENÚ FIGMA OFICIAL TYPICA (NODE 207:328)
+     Banner 8 columnas superior + Contenedor de 48px padding
+     Tabs + Franja amarilla + Panel gris integrados sin bordes negros
+     Transición suave instantánea sin saltos de scroll
+     ========================================================= */
+  :root {
+    --cover-gap: clamp(6px, 0.7vw, 14px);
+    --cover-cell: calc((100vw - 6 * var(--cover-gap)) / 7);
+  }
+
+  .menu-tabs_wrap {
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    padding-top: 0;
+    padding-bottom: clamp(4rem, 6vw, 7rem);
+    color: #000000;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    scroll-margin-top: 80px;
+  }
+
+  /* =========================================================
+     1. BANNER MENÚ: 8 COLUMNAS BORDE A BORDE
+     ========================================================= */
+  .menu-banner_fullwidth {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr var(--cover-cell) var(--cover-cell) var(--cover-cell) var(--cover-cell) 1fr 1fr;
+    grid-template-rows: var(--cover-cell);
+    gap: var(--cover-gap);
+    background-color: #000000;
+    padding: var(--cover-gap) 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-bottom: clamp(2.5rem, 4vw, 4rem);
+  }
+
+  .menu-banner_cell {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    border-radius: clamp(4px, 0.5vw, 8px);
+    box-sizing: border-box;
+  }
+
+  .menu-banner_photo {
+    min-width: 0;
+    height: 100%;
+    background-color: #10100E;
+    border-radius: clamp(4px, 0.5vw, 8px);
+  }
+
+  .menu-banner_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* 3D FLIP TILES */
+  .menu-letter_wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: clamp(4px, 0.5vw, 8px);
+    overflow: hidden;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    perspective: 56.25rem;
+    box-shadow: none !important;
+    background: transparent;
+    touch-action: manipulation;
+  }
+
+  .menu-letter_turn {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 600ms cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  .menu-letter_front,
+  .menu-letter_back {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: clamp(4px, 0.5vw, 8px);
+  }
+
+  .menu-letter_front {
+    background: #ffffff;
+    color: #000000;
+    font-family: var(--font-headline);
+    font-weight: 900;
+    font-size: calc(var(--cover-cell, 150px) * 0.72);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    padding-top: 0.05em;
+  }
+
+  .menu-letter_back {
+    transform: rotateY(180deg);
+    background: var(--tile-color, #FFE42F);
+    overflow: hidden;
+  }
+
+  .menu-letter_back img {
+    width: 76%;
+    height: 76%;
+    object-fit: contain;
+  }
+
+  .menu-letter_wrap.is-turned .menu-letter_turn,
+  .menu-letter_wrap:focus-visible .menu-letter_turn {
+    transform: rotateY(180deg);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .menu-letter_wrap:hover .menu-letter_turn {
+      transform: rotateY(180deg);
+    }
+  }
+
+  /* Proporciones en pantallas móviles del banner */
+  @media (max-width: 768px) {
+    .menu-banner_fullwidth {
+      grid-template-columns: 1fr 1fr repeat(4, 58px) 1fr 1fr;
+      grid-template-rows: 58px;
+      gap: 4px;
+      padding: 6px 0;
+      margin-bottom: 20px;
+    }
+    .menu-letter_front {
+      font-size: 38px;
+    }
+  }
+
+  /* =========================================================
+     2. CONTENEDOR LUMOS: PADDING INLINE FLUIDO (--site-margin)
+     ========================================================= */
+  .menu-tabs_container {
+    width: 100%;
+    max-width: var(--max-width-main);
+    margin: 0 auto;
+    padding-inline: var(--site-margin);
+    box-sizing: border-box;
+  }
+
+  /* Pestañas (Figma Tab List 207:381): 53px alto, gap 6px, redondeado 6px arriba */
+  .menu-tabs_header {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 53px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0;
+  }
+
+  .menu-tab_btn {
+    padding: 12px 24px;
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.05vw, 1.05rem);
+    line-height: var(--line-height-large);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    background-color: #F2F2F2;
+    color: #000000;
+    cursor: pointer;
+    box-shadow: none !important;
+    white-space: nowrap;
+    touch-action: manipulation;
+    user-select: none;
+    transition: background-color 180ms cubic-bezier(0.2, 0, 0, 1),
+                color 180ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  @media (hover: hover) {
+    .menu-tab_btn:hover {
+      background-color: #E8E8E8;
+    }
+  }
+
+  .menu-tab_btn.is-active {
+    background-color: #FFE42F;
+    color: #000000;
+  }
+
+  /* Franja Amarilla (Figma Container 207:374): bg #FFE42F, padding 16px 24px */
+  .menu-service_bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 16px 24px;
+    background-color: #FFE42F;
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+  }
+
+  .menu-service_motto {
+    font-family: var(--font-headline);
+    font-size: clamp(1.1rem, 1.3vw, 1.35rem);
+    line-height: var(--line-height-large);
+    font-weight: 900;
+    color: #000000;
+    will-change: opacity, transform;
+  }
+
+  .menu-service_hours {
+    font-family: var(--font-body);
+    font-size: clamp(0.85rem, 0.95vw, 0.95rem);
+    line-height: var(--line-height-large);
+    font-weight: 700;
+    color: #000000;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* =========================================================
+     3. VIEWPORT DE PANELES CON CSS GRID STACK
+     Todos los paneles se superponen en grid-area: 1 / 1
+     => NUNCA hay salto de scroll ni colapso de altura
+     ========================================================= */
+  .menu-panels_viewport {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    width: 100%;
+    margin-top: 0;
+    position: relative;
+    z-index: 1;
+    background-color: #F2F2F2;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+
+  .menu-tab_panel {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 220ms;
+    will-change: opacity, transform;
+    box-sizing: border-box;
+  }
+
+  .menu-tab_panel.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    z-index: 2;
+  }
+
+  /* Grilla de 3 Columnas dentro del panel gris: 3 columnas iguales */
+  .menu-grid_wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: none;
+    background: transparent;
+    box-shadow: none !important;
+    box-sizing: border-box;
+  }
+
+  /* Tarjetas: padding 24px, sin bordes, sin sombras */
+  .menu-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    box-shadow: none !important;
+    transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 220ms ease;
+  }
+
+  .menu-tab_panel:not(.is-active) .menu-card {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .menu-tab_panel.is-active .menu-card:nth-child(1) {
+    transition-delay: 20ms;
+  }
+  .menu-tab_panel.is-active .menu-card:nth-child(2) {
+    transition-delay: 50ms;
+  }
+  .menu-tab_panel.is-active .menu-card:nth-child(3) {
+    transition-delay: 80ms;
+  }
+
+  /* Tarjeta central con fondo blanco (Figma 207:350) */
+  .menu-card--white {
+    background-color: #FFFFFF;
+  }
+
+  /* Foto de producto: aspect-ratio cuadrado en desktop, radio 6px */
+  .menu-card_media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-height: 382px;
+    overflow: hidden;
+    border: none;
+    border-radius: 6px;
+    background: #EAEAEA;
+    box-shadow: none !important;
+    margin-bottom: 20px;
+  }
+
+  .menu-card_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  @media (hover: hover) {
+    .menu-card:hover .menu-card_img {
+      transform: none !important;
+    }
+  }
+
+  .menu-card_body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .menu-card_head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  /* Título: hereda tipografía H3 global de Lumos */
+  .menu-card_title {
+    font-size: var(--text-h3);
+    color: #000000;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* Precio: amarillo #FFE42F, padding 4px 10px, radio 4px */
+  .menu-card_price {
+    font-size: var(--text-eyebrow);
+    line-height: 1.2;
+    font-weight: 700;
+    background-color: #FFE42F;
+    color: #000000;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    box-shadow: none !important;
+    flex-shrink: 0;
+  }
+
+  /* Descripción: hereda tipografía Body global de Lumos */
+  .menu-card_desc {
+    font-size: var(--text-body);
+    color: #000000;
+    margin: 0;
+  }
+
+  /* =========================================================
+     3. RESPONSIVE TABLET (769px – 1023px): 2 Columnas holgadas
+     ========================================================= */
+  @media (max-width: 1023px) and (min-width: 769px) {
+    .menu-grid_wrap {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .menu-card:nth-child(3):last-child {
+      grid-column: span 2;
+      max-width: 580px;
+      margin-inline: auto;
+      width: 100%;
+    }
+    .menu-card_media {
+      aspect-ratio: 16 / 10;
+      max-height: 280px;
+    }
+  }
+
+  /* =========================================================
+     4. RESPONSIVE MÓVIL (NADA CORTADO)
+     Pestañas en cuadrícula 2x2: texto 100% visible sin cortes
+     Tarjetas verticales con proporciones limpias
+     ========================================================= */
+  @media (max-width: 768px) {
+    .menu-tabs_header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      height: auto;
+      overflow-x: visible;
+      margin-bottom: 6px;
+    }
+
+    .menu-tab_btn {
+      border-radius: 6px;
+      padding: 12px 10px;
+      font-size: 13px;
+      line-height: 1.25;
+      text-align: center;
+      white-space: normal;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+    }
+
+    .menu-service_bar {
+      border-radius: 6px 6px 0 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 14px 16px;
+    }
+
+    .menu-service_motto {
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .menu-service_hours {
+      font-size: 13px;
+    }
+
+    .menu-grid_wrap {
+      grid-template-columns: 1fr;
+    }
+
+    .menu-card {
+      padding: 16px;
+    }
+
+    .menu-card_media {
+      aspect-ratio: 16 / 10;
+      max-height: 240px;
+    }
+  }
+</style>

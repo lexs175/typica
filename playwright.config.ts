@@ -15,7 +15,7 @@ export default defineConfig({
       executablePath:
         process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
     },
-    trace: "retain-on-failure",
+    trace: "off",
     screenshot: "only-on-failure",
   },
   webServer: {

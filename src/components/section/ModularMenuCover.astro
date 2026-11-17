@@ -1,0 +1,247 @@
+---
+import tostadorImage from "@/assets/images/tostador.avif";
+import baristaImage from "@/assets/images/barista.avif";
+import barraImage from "@/assets/images/barra.avif";
+import sopoImage from "@/assets/images/sopo-1.avif";
+import popSticker from "@/assets/stickers/Frame.svg";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <section class="modular-menu_wrap" id="menu-cafe" aria-label="Café en bolsa y Menú Typica">
+    <div class="modular-menu_grid">
+      {/* =========================================================
+          FILA 1: [→] [C] [A] [F] [É] [E] [N] [FOTO GRANOS]
+          ========================================================= */}
+      {/* Casilla 1: Flecha amarilla brutalista */}
+      <a href="/#cafes" class="grid-cell grid-cell--arrow" aria-label="Ir a cafés">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M5 16h21M17 6l10 10-10 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+
+      {/* C A F É */}
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">C</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">A</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">F</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">É</span></div>
+
+      {/* E N */}
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">E</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">N</span></div>
+
+      {/* Foto Granos Tostados */}
+      <div class="grid-cell grid-cell--photo grid-photo--roast">
+        <img src={tostadorImage.src} alt="Granos de café de altura tostados en Typica" loading="lazy" />
+      </div>
+
+      {/* =========================================================
+          FILA 2: [FOTO BARISTA] [B] [O] [L] [S] [A] [EDITORIAL] [STICKER POP]
+          ========================================================= */}
+      {/* Foto Barista vertical */}
+      <div class="grid-cell grid-cell--photo grid-photo--barista">
+        <img src={baristaImage.src} alt="Barista Typica preparando café de especialidad" loading="lazy" />
+      </div>
+
+      {/* B O L S A */}
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">B</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">O</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">L</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">S</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">A</span></div>
+
+      {/* Bloque Editorial */}
+      <div class="grid-cell grid-cell--copy">
+        <p class="grid-copy_text">
+          De Bolivia <br />
+          a tu cafetera en casa.
+        </p>
+      </div>
+
+      {/* Casilla Sticker POP */}
+      <div class="grid-cell grid-cell--sticker">
+        <img src={popSticker.src} alt="Sticker POP" class="sticker-pop_img" loading="lazy" />
+      </div>
+
+      {/* =========================================================
+          FILA 3: [FOTO INTERIOR] [M] [E] [N] [Ú] [FOTO LATTE ART]
+          ========================================================= */}
+      {/* Foto Interior / Salón Typica (2 columnas de ancho) */}
+      <div class="grid-cell grid-cell--photo grid-photo--lounge">
+        <img src={sopoImage.src} alt="Ambiente colonial Casa Typica" loading="lazy" />
+      </div>
+
+      {/* M E N Ú */}
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">M</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">E</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">N</span></div>
+      <div class="grid-cell grid-cell--letter"><span class="letter-char">Ú</span></div>
+
+      {/* Foto Barra / Latte Art (2 columnas de ancho) */}
+      <div class="grid-cell grid-cell--photo grid-photo--latte">
+        <img src={barraImage.src} alt="Barra de espresso y latte art" loading="lazy" />
+      </div>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  /* =========================================================
+     SECCIÓN 4: GRID MODULAR "CAFÉ EN BOLSA" & "MENÚ"
+     Fondo crema claro, celdas negras con letras blancas, bordes negros
+     ========================================================= */
+  .modular-menu_wrap {
+    position: relative;
+    background-color: #F8F5EE;
+    padding: clamp(3rem, 5vw, 6rem) var(--gutter, 2rem);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .modular-menu_grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(3, clamp(90px, 11vw, 150px));
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    border: 2px solid #000000;
+    background: #000000;
+    gap: 2px;
+  }
+
+  /* Celdas del grid */
+  .grid-cell {
+    position: relative;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Flecha amarilla */
+  .grid-cell--arrow {
+    background: #FBE84C;
+    color: #000000;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  @media (hover: hover) {
+    .grid-cell--arrow:hover {
+      background: #f7e02e;
+    }
+  }
+
+  .grid-cell--arrow svg {
+    width: 45%;
+    height: 45%;
+    stroke-width: 3;
+  }
+
+  /* Letras negras con texto blanco bold condensed */
+  .grid-cell--letter {
+    background: #000000;
+    color: #FFFFFF;
+    user-select: none;
+  }
+
+  .letter-char {
+    font-family: var(--font-headline);
+    font-weight: 900;
+    font-size: clamp(2.4rem, 5.2vw, 6.2rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+  }
+
+  /* Fotos dentro del grid */
+  .grid-cell--photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Posiciones especiales para spans */
+  .grid-photo--lounge {
+    grid-column: span 2;
+  }
+
+  .grid-photo--latte {
+    grid-column: span 2;
+  }
+
+  /* Bloque de texto editorial */
+  .grid-cell--copy {
+    background: #FFFFFF;
+    color: #000000;
+    padding: clamp(0.75rem, 1.5vw, 1.5rem);
+    text-align: left;
+    display: flex;
+    align-items: center;
+  }
+
+  .grid-copy_text {
+    font-family: var(--font-body);
+    font-size: clamp(0.85rem, 1.2vw, 1.15rem);
+    font-weight: 500;
+    line-height: 1.35;
+    color: #111111;
+    margin: 0;
+  }
+
+  /* Casilla con sticker POP */
+  .grid-cell--sticker {
+    background: #F0BEFA; /* Rosa claro del sticker */
+    padding: 10px;
+  }
+
+  .sticker-pop_img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+  }
+
+  /* Responsivo para pantallas pequeñas */
+  @media (max-width: 900px) {
+    .modular-menu_grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .grid-cell {
+      min-height: 90px;
+    }
+
+    .grid-photo--lounge,
+    .grid-photo--latte {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 550px) {
+    .modular-menu_grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-photo--lounge,
+    .grid-photo--latte {
+      grid-column: span 3;
+      height: 160px;
+    }
+
+    .grid-cell--copy {
+      grid-column: span 2;
+    }
+
+    .letter-char {
+      font-size: 2.5rem;
+    }
+  }
+</style>

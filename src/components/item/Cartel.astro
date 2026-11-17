@@ -1,0 +1,10 @@
+---
+import Cartel from "../Cartel.astro";
+import type { ComponentProps } from "astro/types";
+
+type Props = ComponentProps<typeof Cartel>;
+---
+
+<Cartel {...Astro.props}>
+  <slot />
+</Cartel>

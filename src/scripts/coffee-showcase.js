@@ -1,4 +1,5 @@
 import "@/scripts/motion";
+import { BREAKPOINTS } from "@/scripts/breakpoints";
 (() => {
   "use strict";
   const section = document.querySelector(".coffee-showcase_wrap");
@@ -31,7 +32,14 @@ import "@/scripts/motion";
   section
     .querySelectorAll("[data-coffee-browse]")
     .forEach((button) =>
-      button.addEventListener("click", () => goTo(cover.offsetWidth)),
+      button.addEventListener("click", () => {
+        if (window.innerWidth >= BREAKPOINTS.laptop && scrollScene) {
+          goTo(cover.offsetWidth);
+        } else {
+          const grid = section.querySelector(".coffee-products_grid") || cards[0];
+          if (grid) grid.scrollIntoView({ behavior: "smooth" });
+        }
+      }),
     );
   previous.addEventListener("click", () =>
     goTo(
@@ -87,7 +95,7 @@ import "@/scripts/motion";
     gsap.registerPlugin(ScrollTrigger);
     const mm = gsap.matchMedia();
     mm.add(
-      "(min-width: 901px) and (min-height: 621px) and (prefers-reduced-motion: no-preference)",
+      `(min-width: ${BREAKPOINTS.laptop}px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)`,
       () => {
         section.classList.add("is-scroll-driven");
         viewport.scrollLeft = 0;
@@ -110,14 +118,19 @@ import "@/scripts/motion";
           },
         });
         scrollScene = tween.scrollTrigger;
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
         return () => {
           section.classList.remove("is-scroll-driven");
           scrollScene = null;
           previous.disabled = false;
           next.disabled = false;
+          ScrollTrigger.sort();
+          ScrollTrigger.refresh();
         };
       },
     );
+    ScrollTrigger.sort();
     ScrollTrigger.refresh();
   }
   init().catch((error) => console.warn("Recorrido del café:", error));

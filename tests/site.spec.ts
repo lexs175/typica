@@ -161,7 +161,7 @@ test("catalogue grid, product options and persistent cart", async ({
   await page.screenshot({ path: testInfo.outputPath("catalogue.png") });
   await page.locator(".coffee-cover_arrow").click();
   const card = page.locator('[data-coffee="gesha"]');
-  await card.locator(".coffee-product_details").click();
+  await card.locator(".coffee-product_quick-add").click();
   await card.locator('select[name="grind"]').selectOption("Molido para filtro");
   await card.locator('[data-quantity-step="1"]').click();
   await card.locator('button[type="submit"]').click();

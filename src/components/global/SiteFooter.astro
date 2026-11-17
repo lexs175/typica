@@ -218,10 +218,12 @@ const { render = true } = Astro.props;
         opacity 0.2s,
         text-decoration 0.2s;
     }
-    .site-footer_col-links a:hover {
-      opacity: 0.6;
-      text-decoration: underline;
-      text-underline-offset: 0.25rem;
+    @media (hover: hover) {
+      .site-footer_col-links a:hover {
+        opacity: 0.6;
+        text-decoration: underline;
+        text-underline-offset: 0.25rem;
+      }
     }
     .site-footer_word {
       display: flex;
@@ -261,9 +263,11 @@ const { render = true } = Astro.props;
       text-decoration: none;
       transition: opacity 0.2s;
     }
-    .site-footer_bottom a:hover,
-    .site-footer_bottom button:hover {
-      opacity: 0.55;
+    @media (hover: hover) {
+      .site-footer_bottom a:hover,
+      .site-footer_bottom button:hover {
+        opacity: 0.55;
+      }
     }
     @media (max-width: 71.875rem) {
       .site-footer_bottom {

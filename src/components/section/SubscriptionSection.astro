@@ -37,7 +37,7 @@ const { render = true } = Astro.props;
       min-height: 100svh;
     }
     .subscription-section_copy {
-      padding: 8.75rem 5vw 4.375rem;
+      padding: 8.75rem var(--site-margin) 4.375rem;
     }
     .subscription-section_copy h1 {
       font-size: clamp(4rem, 6.5vw, 6.75rem);
@@ -53,7 +53,7 @@ const { render = true } = Astro.props;
     }
     @media (max-width: 68.75rem) {
       .subscription-section_copy {
-        padding: 8.125rem 1.875rem 3.125rem;
+        padding: 8.125rem var(--site-margin) 3.125rem;
       }
     }
     @media (max-width: 47.5rem) {

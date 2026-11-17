@@ -1,0 +1,534 @@
+---
+import roasterImg from "@/assets/images/roaster-beans.png";
+import baristaPortrait from "@/assets/images/barista-portrait.png";
+import natintaImg from "@/assets/images/typica-natinta-2026.jpg";
+import amistades1Img from "@/assets/images/typica-amistades-1.jpg";
+import amistades2Img from "@/assets/images/typica-amistades-2.jpg";
+import miraflores1Img from "@/assets/images/casa-miraflores-1.jpg";
+import miraflores2Img from "@/assets/images/casa-miraflores-2.jpg";
+import miraflores3Img from "@/assets/images/casa-miraflores-3.jpg";
+import lapaz1Img from "@/assets/images/casa-centro-lapaz-1.jpg";
+import colabFalsoparaisoImg from "@/assets/images/colab-falsoparaiso-sideral.webp";
+import cafe300g1Img from "@/assets/images/menu-cafe-300g-1.jpg";
+import cafe300g2Img from "@/assets/images/menu-cafe-300g-2.jpg";
+import cafePuesto33Img from "@/assets/images/cafe-puesto-33.jpg";
+import colabFalsoparaiso2Img from "@/assets/images/colab-falsoparaiso-sideral-2.webp";
+import lapaz2Img from "@/assets/images/casa-centro-lapaz-2.jpg";
+
+import efRunClub from "@/assets/stickers/ef-run-club.svg";
+import Button from "@/components/Button.astro";
+import Cartel from "@/components/Cartel.astro";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+---
+
+{render && (
+  <section
+    class="music-exp_wrap"
+    id="cultura-musica"
+    aria-label="Un buen café se disfruta con arte en las paredes y talento en la barra"
+  >
+    <div class="music-exp_container">
+      {/* 1. Cabecera Editorial */}
+      <div class="music-exp_header">
+        <h2 class="music-exp_title-pre">CADA CASA</h2>
+
+        {/* Cartel / Placa roja TIENE SU HISTORIA (Frame 86) */}
+        <Cartel text="TIENE SU HISTORIA" />
+
+        <p class="music-exp_subtitle">
+          Con paredes intervenidas por arte local y talento boliviano en la
+          barra
+        </p>
+
+        <div class="music-exp_cta">
+          <Button
+            element="link"
+            href="/cultura/"
+            aria-label="Conocer el arte y la comunidad"
+          >
+            Conocer el arte y la comunidad
+          </Button>
+        </div>
+      </div>
+
+      {/* 2. Fila 1: Cinta Estática Inclinada a +3° (Sin cortes en los extremos) */}
+      <div class="music-tape_stage music-tape_stage--top" aria-hidden="true">
+        <div class="music-tape_tilt music-tape_tilt--top">
+          <div class="music-tape_track">
+            <div class="music-tape_card">
+              <img
+                src={colabFalsoparaisoImg.src}
+                alt=""
+                loading="lazy"
+                class="music-tape_img"
+              />
+            </div>
+            <div class="music-tape_card">
+              <img
+                src={cafe300g1Img.src}
+                alt=""
+                loading="lazy"
+                class="music-tape_img"
+              />
+            </div>
+            <div class="music-tape_card">
+              <img
+                src={cafe300g2Img.src}
+                alt=""
+                loading="lazy"
+                class="music-tape_img"
+              />
+            </div>
+            <div class="music-tape_card music-tape_card--white">
+              <img
+                src={cafePuesto33Img.src}
+                alt=""
+                loading="lazy"
+                class="music-tape_img"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Fila 2: Bloque Intermedio Editorial (Fotos solapadas + Texto) */}
+      <div class="music-editorial_row">
+        {/* Fotos solapadas a la izquierda */}
+        <div class="music-editorial_media">
+          <div class="music-polaroid music-polaroid--main">
+              <img
+                src={baristaPortrait.src}
+                alt="Barista de Typica preparando arte latte"
+                loading="lazy"
+              />
+          </div>
+          <div class="music-polaroid music-polaroid--secondary">
+            <img
+              src={roasterImg.src}
+              alt="Granos de café seleccionados"
+              loading="lazy"
+            />
+            <div class="music-polaroid_sticker">
+              <img
+                src={efRunClub.src}
+                alt=""
+                width="85"
+                height="85"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Texto editorial a la derecha */}
+        <div class="music-editorial_copy">
+          <h3 class="music-editorial_heading">
+            Artistas en las paredes
+            <br />
+            Campeones en la barra
+          </h3>
+          <p class="music-editorial_desc">
+            Nuestras casonas patrimoniales cobran vida con murales,
+            ilustraciones y cuadros de creadores bolivianos. Mientras tanto,
+            baristas campeones nacionales rotan entre ciudades, llevando recetas
+            y arte latte en vivo entre La Paz, Santa Cruz y Cochabamba.
+          </p>
+          <div class="music-editorial_action">
+            <Button
+              element="link"
+              href="/sucursales/"
+              aria-label="Descubrir nuestras casas"
+            >
+              Descubrir nuestras casas
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. Fila 3: Cinta Estática Inclinada a -3° (PEGADA directamente a la siguiente sección LAS CASAS) */}
+      <div class="music-tape_stage music-tape_stage--bottom" aria-hidden="true">
+        <div class="music-tape_tilt music-tape_tilt--bottom">
+          <div class="music-tape_track">
+            <div class="music-tape_card">
+              <img
+                src={colabFalsoparaiso2Img.src}
+                alt=""
+                loading="lazy"
+                class="music-tape_img"
+              />
+            </div>
+            <div class="music-tape_card">
+              <img
+                src={miraflores3Img.src}
+                alt=""
+                loading="lazy"
+                class="music-tape_img"
+              />
+            </div>
+            <div class="music-tape_card">
+              <img
+                src={lapaz1Img.src}
+                alt=""
+                loading="lazy"
+                class="music-tape_img"
+              />
+            </div>
+            <div class="music-tape_card music-tape_card--white">
+              <img
+                src={lapaz2Img.src}
+                alt=""
+                loading="lazy"
+                class="music-tape_img"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  /* =========================================================
+     SECCIÓN MÚSICA Y ARTE: FONDO BLANCO PURO
+     CERO SOMBRAS - CINTAS ESTÁTICAS SIN CORTAR
+     PEGADA DIRECTAMENTE A LA SECCIÓN "LAS CASAS"
+     ========================================================= */
+  .music-exp_wrap {
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    padding-top: clamp(4rem, 6vw, 8rem);
+    padding-bottom: 0 !important; /* Cero espacio abajo: se pega a Las Casas */
+    margin-bottom: 0 !important;
+    color: #070612;
+    overflow-x: clip;
+    overflow-y: visible;
+    z-index: 10;
+  }
+
+  .music-exp_container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 5vw, 6rem);
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  /* Cabecera */
+  .music-exp_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: var(--max-width-main);
+    margin: 0 auto;
+    width: 100%;
+    padding-inline: var(--site-margin);
+    gap: clamp(1rem, 1.8vw, 2rem);
+    box-sizing: border-box;
+  }
+
+  .music-exp_title-pre {
+    font-size: var(--text-display);
+    line-height: var(--line-height-small);
+    color: #070612;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: none !important;
+  }
+
+  .music-exp_subtitle {
+    font-size: var(--text-intro);
+    line-height: 1.25;
+    color: #070612;
+    margin: 0;
+    max-width: 1100px;
+  }
+
+  .music-exp_cta {
+    margin-top: 0.5rem;
+  }
+
+  /* =========================================================
+     CINTAS ESTÁTICAS DE BORDE A BORDE DE PANTALLA
+     ========================================================= */
+  .music-tape_stage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .music-tape_tilt {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 115vw;
+    min-width: 115vw;
+    flex-shrink: 0;
+    transform-origin: center center;
+  }
+
+  .music-tape_tilt--top {
+    transform: rotate(2.5deg);
+  }
+
+  .music-tape_tilt--bottom {
+    transform: rotate(-2.5deg);
+  }
+
+  /* La última cinta va superpuesta uniendo ambos fondos sin tapar jamás el título LAS CASAS */
+  .music-tape_stage--bottom {
+    margin-bottom: clamp(-45px, -2.5vw, -20px);
+    z-index: 10;
+  }
+
+  .music-tape_track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(14px, 1.8vw, 32px);
+    background: #070612;
+    padding: 22px clamp(24px, 4vw, 48px);
+    width: 100%;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box;
+  }
+
+  .music-tape_card {
+    position: relative;
+    width: clamp(270px, 32vw, 590px);
+    height: clamp(200px, 24vw, 430px);
+    border-radius: clamp(8px, 0.8vw, 12px);
+    overflow: hidden;
+    background: #000000;
+    flex-shrink: 0;
+    box-shadow: none !important;
+  }
+
+  .music-tape_card--white {
+    background: #ffffff;
+  }
+
+  .music-tape_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: clamp(8px, 0.8vw, 12px);
+  }
+
+  /* =========================================================
+     FILA EDITORIAL INTERMEDIA
+     ========================================================= */
+  .music-editorial_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 6rem);
+    align-items: center;
+    padding: clamp(1rem, 3vw, 4rem) var(--site-margin);
+    max-width: var(--max-width-main);
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .music-editorial_media {
+    position: relative;
+    width: 100%;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+  }
+
+  .music-polaroid {
+    position: absolute;
+    background: #000000;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: none !important;
+  }
+  .music-polaroid img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .music-polaroid--main {
+    width: clamp(260px, 26vw, 380px);
+    height: clamp(340px, 32vw, 470px);
+    transform: rotate(-3deg);
+    left: 2%;
+    z-index: 1;
+  }
+
+  .music-polaroid--secondary {
+    width: clamp(200px, 20vw, 290px);
+    height: clamp(240px, 24vw, 340px);
+    transform: rotate(4deg);
+    left: 45%;
+    top: 25%;
+    z-index: 2;
+  }
+
+  .music-polaroid_sticker {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    z-index: 3;
+    pointer-events: none;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+
+  .music-editorial_copy {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 2.2vw, 2.5rem);
+    max-width: 650px;
+  }
+
+  .music-editorial_heading {
+    font-size: var(--text-h2);
+    color: #070612;
+    margin: 0;
+  }
+
+  .music-editorial_desc {
+    font-size: var(--text-body);
+    line-height: var(--line-height-large);
+    color: #070612;
+    margin: 0;
+  }
+
+  .music-editorial_action {
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 960px) {
+    .music-editorial_row {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .music-editorial_media {
+      min-height: 380px;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initMusicScrollytelling() {
+    const section = document.querySelector(".music-exp_wrap");
+    if (!section) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // 1. Scrollytelling Parallax: Cintas inclinadas en direcciones opuestas guiadas por el scroll
+      const topTilt = section.querySelector<HTMLElement>(
+        ".music-tape_tilt--top",
+      );
+      const bottomTilt = section.querySelector<HTMLElement>(
+        ".music-tape_tilt--bottom",
+      );
+
+      if (topTilt) {
+        gsap.fromTo(
+          topTilt,
+          { x: "4vw", rotation: 2.5 },
+          {
+            x: "-4vw",
+            rotation: 2.5,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          },
+        );
+      }
+
+      if (bottomTilt) {
+        gsap.fromTo(
+          bottomTilt,
+          { x: "-4vw", rotation: -2.5 },
+          {
+            x: "4vw",
+            rotation: -2.5,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          },
+        );
+      }
+
+      // 2. Scrollytelling de Polaroids: Sensación física de capas y profundidad
+      const secondaryPolaroid = section.querySelector<HTMLElement>(
+        ".music-polaroid--secondary",
+      );
+      if (secondaryPolaroid) {
+        gsap.fromTo(
+          secondaryPolaroid,
+          { y: 35, rotation: 2 },
+          {
+            y: -25,
+            rotation: 6,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".music-editorial_row",
+              start: "top 80%",
+              end: "bottom 20%",
+              scrub: 1.2,
+            },
+          },
+        );
+      }
+
+      // 3. Revelación sincronizada del texto editorial al alcanzar la sección
+      const copy = section.querySelector<HTMLElement>(".music-editorial_copy");
+      if (copy && copy.children.length > 0) {
+        gsap.from(Array.from(copy.children), {
+          y: 25,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".music-editorial_row",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMusicScrollytelling);
+  } else {
+    initMusicScrollytelling();
+  }
+</script>

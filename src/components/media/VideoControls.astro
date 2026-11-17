@@ -82,8 +82,10 @@ const { render = true, namespace = "film" } = Astro.props;
       color: var(--dark-900);
       transition: background-color 0.2s;
     }
-    .video-controls_wrap > button:hover {
-      background: var(--yellow);
+    @media (hover: hover) {
+      .video-controls_wrap > button:hover {
+        background: var(--yellow);
+      }
     }
     .video-controls_wrap > button > img {
       width: 1.375rem;

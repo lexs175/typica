@@ -104,6 +104,14 @@ import truus39Sticker from "@/assets/stickers/truus.co-39.svg";
   }
   function updateTone() {
     const sample = header.getBoundingClientRect().height / 2 + 18;
+    const heroWrap = $(".hero-red_wrap");
+    if (heroWrap) {
+      const heroRect = heroWrap.getBoundingClientRect();
+      if (heroRect.top <= sample && heroRect.bottom > sample) {
+        header.dataset.tone = "light";
+        return;
+      }
+    }
     const subscriptionPhoto = $(".subscription-visual_wrap");
     if (subscriptionPhoto) {
       const photo = subscriptionPhoto.getBoundingClientRect();
@@ -112,7 +120,7 @@ import truus39Sticker from "@/assets/stickers/truus.co-39.svg";
         return;
       }
     }
-    const section = $$("main>section,footer").find((el) => {
+    const section = $$("main>section,main>div,footer").find((el) => {
       const r = el.getBoundingClientRect();
       return r.top <= sample && r.bottom > sample;
     });
@@ -441,7 +449,7 @@ import truus39Sticker from "@/assets/stickers/truus.co-39.svg";
       0,
     );
     $("#cart-total").textContent = money(total);
-    $("#cart-copy .button_text").textContent = "Copiar mi pedido";
+    $("#cart-copy .button_text").textContent = "Enviar al WhatsApp";
   }
   function saveCart() {
     try {

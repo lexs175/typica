@@ -39,7 +39,7 @@ const { render = true, coffee } = Astro.props;
         <span>Añadir al carrito</span>
         <output class="coffee-options_total">{money(coffee.price)}</output>
       </button>
-      <p class="coffee-options_note">250 g · Precio de muestra</p>
+      <p class="coffee-options_note">250 g · En grano</p>
       <p
         class="sr-only coffee-options_status"
         role="status"
@@ -103,11 +103,33 @@ const { render = true, coffee } = Astro.props;
       width: 100%;
       min-height: 3.5rem;
       margin-top: 1.5rem;
-      padding: 1rem 1.25rem;
-      background: var(--light-100);
-      color: var(--neutral-900);
+      padding: 0.85em 1.5em;
+      background: #ffffff;
+      color: #000000;
+      border: 2px solid #000000;
+      border-radius: var(--button-radius, 6px);
+      box-shadow: -4px 4px 0px #000000;
       font-size: 0.9375rem;
-      font-weight: 550;
+      font-weight: 750;
+      cursor: pointer;
+      user-select: none;
+      transition:
+        transform var(--button-press-duration, 160ms)
+          var(--button-press-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+        box-shadow var(--button-press-duration, 160ms)
+          var(--button-press-ease, cubic-bezier(0.2, 0.8, 0.2, 1));
+    }
+
+    @media (hover: hover) {
+      .coffee-options_add:hover:not(:disabled) {
+        transform: translate(-4px, 4px);
+        box-shadow: 0 0 0 transparent;
+      }
+    }
+
+    .coffee-options_add:active:not(:disabled) {
+      transform: translate(-4px, 4px);
+      box-shadow: 0 0 0 transparent;
     }
     .coffee-options_total {
       font-weight: 750;

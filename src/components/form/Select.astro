@@ -302,10 +302,15 @@ const text = label ?? wording.label;
         border-radius: var(--radius-small);
         cursor: pointer;
         transition: background-color var(--hover-duration) var(--hover-ease);
-        &:hover,
         &:focus {
           background-color: var(--background-2);
           outline: 0;
+        }
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--background-2);
+            outline: 0;
+          }
         }
       }
 

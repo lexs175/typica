@@ -5,6 +5,7 @@ import arrow from "@/assets/icons/arrow-full.svg";
 import close from "@/assets/icons/close.svg";
 import play from "@/assets/icons/play.svg";
 import pause from "@/assets/icons/pause.svg";
+import cartBagIcon from "@/assets/icons/cart-bag.svg";
 import { slotContent } from "@/utils/slots.ts";
 
 type Emphasis = "primary" | "secondary";
@@ -36,6 +37,7 @@ type Kind =
       label?: never;
       pressed?: never;
       direction?: never;
+      count?: never;
     }
   | {
       variant: "link";
@@ -44,6 +46,7 @@ type Kind =
       label?: never;
       pressed?: never;
       direction?: never;
+      count?: never;
     }
   | {
       variant: "play";
@@ -53,6 +56,7 @@ type Kind =
       /** Show the pause icon and pressed state. */
       pressed?: boolean;
       direction?: never;
+      count?: never;
     }
   | {
       variant: "close";
@@ -61,6 +65,7 @@ type Kind =
       label?: string;
       pressed?: never;
       direction?: never;
+      count?: never;
     }
   | {
       variant: "arrow";
@@ -70,6 +75,17 @@ type Kind =
       pressed?: never;
       /** Arrow direction. */
       direction?: "forward" | "back";
+      count?: never;
+    }
+  | {
+      variant: "cart";
+      emphasis?: Emphasis;
+      /** Accessible label. Defaults to `Abrir carrito`. */
+      label?: string;
+      /** Count of items in the cart badge. Defaults to 0. */
+      count?: number;
+      pressed?: never;
+      direction?: never;
     };
 
 type Props = {
@@ -81,9 +97,10 @@ type Props = {
 type AllProps = HTMLAttributes<"button"> &
   Omit<HTMLAttributes<"a">, "type"> & {
     render?: boolean;
-    variant?: "main" | "link" | "play" | "close" | "arrow";
+    variant?: "main" | "link" | "play" | "close" | "arrow" | "cart";
     emphasis?: Emphasis;
     label?: string;
+    count?: number;
     pressed?: boolean;
     direction?: "forward" | "back";
     element?: "button" | "link";
@@ -96,6 +113,7 @@ const {
   variant = "main",
   emphasis = "primary",
   label,
+  count = 0,
   pressed = false,
   direction = "forward",
   element = "button",
@@ -112,15 +130,29 @@ const tagAttrs = isLink
   : { type: type === "submit" ? undefined : type };
 
 const marks = { play, close, arrow };
-/* main and link are written, the rest are marks with a label. */
-const isWritten = variant === "main" || variant === "link";
-const content = isWritten ? await slotContent(Astro.slots) : "";
+/* main, link, and cart are written, the rest are marks with a label. */
+const isWritten =
+  variant === "main" || variant === "link" || variant === "cart";
+const rawContent = isWritten ? await slotContent(Astro.slots) : "";
+const content = rawContent || (variant === "cart" ? "Carrito" : "");
 
 const named = {
   play: pressed ? "Pause" : "Play",
   close: "Close",
   arrow: direction === "back" ? "Previous" : "Next",
+  cart: `Abrir carrito, ${count} ${count === 1 ? "bolsa" : "bolsas"}`,
 };
+
+const ariaLabelProp = rest["aria-label"];
+delete rest["aria-label"];
+const resolvedAriaLabel =
+  ariaLabelProp ??
+  label ??
+  (variant === "cart"
+    ? named.cart
+    : isWritten
+      ? undefined
+      : named[variant]);
 ---
 
 {render && (isWritten ? content : true) && (
@@ -132,11 +164,28 @@ const named = {
       variant === "arrow" && direction === "back" && "back",
       className,
     ]}
-    aria-label={isWritten ? undefined : (label ?? named[variant])}
+    aria-label={resolvedAriaLabel}
     aria-pressed={variant === "play" ? pressed : undefined}
     {...tagAttrs}
     {...rest}
   >
+    {variant === "cart" && (
+      <div
+        class="site-header_cart-badge-wrap button_cart-badge-wrap"
+        aria-hidden="true"
+      >
+        <img
+          src={cartBagIcon.src}
+          alt=""
+          width="22"
+          height="25"
+          class="site-header_cart-bag button_cart-bag"
+        />
+        <span class="site-header_count button_cart-count">
+          {count}
+        </span>
+      </div>
+    )}
     {variant === "main" && (
       <Icon class="button_mark" src={arrow} variant="medium" />
     )}
@@ -213,6 +262,83 @@ const named = {
           background-color: var(--button-background-hover);
           color: var(--button-text-hover);
           border-color: var(--button-border-hover);
+        }
+      }
+      &.cart {
+        --button-background: #ffe239;
+        --button-text: #000000;
+        --button-stroke: 1.5px;
+        --button-border: #000000;
+        --button-shadow-size: 4px;
+        --button-shadow-color: #ffffff;
+        --button-radius: 6px;
+        --button-press-duration: 160ms;
+        --button-press-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+        background-color: var(--button-background);
+        color: var(--button-text);
+        border: var(--button-stroke) solid var(--button-border);
+        border-radius: var(--button-radius);
+        box-shadow: calc(var(--button-shadow-size) * -1)
+          var(--button-shadow-size) 0 var(--button-shadow-color);
+        padding: 8px 14px;
+        min-height: unset;
+        gap: 14px;
+        cursor: pointer;
+        user-select: none;
+        white-space: nowrap;
+
+        & .button_text {
+          font-family: var(--font-headline);
+          font-size: clamp(19px, 1.25vw, 23.5px);
+          font-weight: 900;
+          line-height: 1;
+          color: #000000;
+          letter-spacing: -0.02em;
+          margin-top: 1px;
+        }
+
+        & .button_cart-badge-wrap {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 25px;
+          flex-shrink: 0;
+        }
+
+        & .button_cart-bag {
+          width: 22px;
+          height: 25px;
+          display: block;
+        }
+
+        & .button_cart-count {
+          position: absolute;
+          top: -2px;
+          right: -7px;
+          min-width: 18px;
+          height: 18px;
+          padding: 0 4px;
+          background-color: #000000;
+          color: #ffffff;
+          border-radius: 999px;
+          display: grid;
+          place-items: center;
+          font-family: var(--font-headline);
+          font-size: 11px;
+          font-weight: 700;
+          line-height: 1;
+          box-sizing: border-box;
+        }
+
+        @media (max-width: 480px) {
+          padding: 8px 10px;
+          gap: 0;
+          & .button_text {
+            display: none;
+          }
         }
       }
       &.secondary {

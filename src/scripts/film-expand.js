@@ -33,30 +33,25 @@ import "@/scripts/motion";
         const source = () => {
           const a = slot.getBoundingClientRect(),
             b = stage.getBoundingClientRect();
+          const targetW = stage.clientWidth || window.innerWidth;
+          const targetH = stage.clientHeight || window.innerHeight;
           return {
             x: a.left - b.left,
             y: a.top - b.top,
-            width: a.width,
-            height: a.height,
+            scaleX: Math.max(0.01, a.width / targetW),
+            scaleY: Math.max(0.01, a.height / targetH),
           };
         };
 
-        const target = () => {
-          return {
-            width: stage.clientWidth,
-            height: stage.clientHeight,
-            x: 0,
-            y: 0,
-          };
-        };
-
-        // Initialize frame inside the mini-slot immediately so it sits cleanly before scroll
+        // Initialize frame inside the mini-slot immediately with GPU transform matrix
         G.set(frame, {
           x: () => source().x,
           y: () => source().y,
-          width: () => source().width,
-          height: () => source().height,
+          scaleX: () => source().scaleX,
+          scaleY: () => source().scaleY,
+          transformOrigin: "0 0",
           borderRadius: 12,
+          force3D: true,
         });
 
         const controls = scene.querySelectorAll(
@@ -96,24 +91,25 @@ import "@/scripts/motion";
         // 1. Initial resting hold so headline + mini video + rooster are presented cleanly
         timeline
           .to({}, { duration: 0.35 })
-          // 2. Video expands from mini slot to full-bleed stage
+          // 2. Video expands smoothly from mini slot to full-bleed stage via GPU transform
           .fromTo(
             frame,
             {
               x: () => source().x,
               y: () => source().y,
-              width: () => source().width,
-              height: () => source().height,
+              scaleX: () => source().scaleX,
+              scaleY: () => source().scaleY,
               borderRadius: 12,
             },
             {
               x: 0,
               y: 0,
-              width: () => target().width,
-              height: () => target().height,
+              scaleX: 1,
+              scaleY: 1,
               borderRadius: 0,
               duration: 1,
               ease: "power2.inOut",
+              force3D: true,
             },
             0.35,
           )

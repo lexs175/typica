@@ -1,0 +1,425 @@
+---
+import door1 from "@/assets/images/film/door-casa-1.webp";
+import door2 from "@/assets/images/film/door-casa-2.webp";
+import roasterBeans from "@/assets/images/roaster-beans.png";
+import barraImg from "@/assets/images/barra.avif";
+import interiorImg from "@/assets/images/typica-interior.avif";
+import cochabambaImg from "@/assets/images/cochabamba.avif";
+
+import sprocketsLeader from "@/assets/images/film-sprockets-leader.svg";
+import natintaImg from "@/assets/images/typica-natinta-2026.jpg";
+import amistades1 from "@/assets/images/typica-amistades-1.jpg";
+import amistades2 from "@/assets/images/typica-amistades-2.jpg";
+import miraflores1 from "@/assets/images/casa-miraflores-1.jpg";
+import miraflores2 from "@/assets/images/casa-miraflores-2.jpg";
+import centro1 from "@/assets/images/casa-centro-lapaz-1.jpg";
+import centro2 from "@/assets/images/casa-centro-lapaz-2.jpg";
+
+import stickerThumbs from "@/assets/stickers/thumbs-up-figma.svg";
+import stickerCamera from "@/assets/stickers/camera-figma.svg";
+import stickerClub from "@/assets/stickers/join-the-club-figma.svg";
+import stickerCroissant from "@/assets/stickers/croissant.svg";
+import stickerLatte from "@/assets/stickers/latte.svg";
+import stickerCoffee from "@/assets/stickers/coffee.svg";
+import Cartel from "@/components/Cartel.astro";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+
+// Fotos continuas de la cinta superior (tira larga para que nunca se vea el final)
+const baseTopPhotos = [
+  { img: natintaImg.src, alt: "Celebración Ñatinta en Typica" },
+  { img: door1.src, alt: "Casa Typica Fachada Colonial" },
+  { img: amistades1.src, alt: "Amigos compartiendo en Typica" },
+  { img: centro1.src, alt: "Typica Casa Centro La Paz" },
+  { img: barraImg.src, alt: "Barra de Especialidad Typica" },
+  { img: miraflores1.src, alt: "Rincón Mágico Casa Miraflores" },
+  { img: roasterBeans.src, alt: "Tostaduría de Granos" },
+  { img: door2.src, alt: "Patio y Galería Colonial" },
+];
+const topPhotos = [
+  ...baseTopPhotos,
+  ...baseTopPhotos,
+  ...baseTopPhotos,
+  ...baseTopPhotos,
+];
+
+// Fotos continuas de la cinta inferior (tira larga para que nunca se vea el final)
+const baseBottomPhotos = [
+  { img: centro2.src, alt: "Ritmo y cultura en Typica Centro" },
+  { img: amistades2.src, alt: "La mejor mesa entre amigos" },
+  { img: miraflores2.src, alt: "Ambiente cálido en Miraflores" },
+  { img: interiorImg.src, alt: "Salón y Arte en Typica" },
+  { img: cochabambaImg.src, alt: "Casa Cochabamba" },
+  { img: barraImg.src, alt: "Extracción y Barismo" },
+  { img: door2.src, alt: "Puerta Colonial Typica" },
+];
+const bottomPhotos = [
+  ...baseBottomPhotos,
+  ...baseBottomPhotos,
+  ...baseBottomPhotos,
+  ...baseBottomPhotos,
+];
+---
+
+{render && (
+  <section class="film-reels_wrap" id="film-reels" aria-label="Tenemos café y siempre se disfruta">
+    {/* Cinta Superior: Inclinada a +2.5° */}
+    <div class="film-reels_stage film-reels_stage--top">
+      <div class="film-reel_tilt film-reel_tilt--top">
+        <div class="film-reel_ribbon film-reel_ribbon--top" data-reel-top>
+          {/* Punta con cuadraditos (Sprockets leader oficial de Figma) a la izquierda */}
+          <div class="film-leader film-leader--start" aria-hidden="true">
+            <div class="film-leader_svg-box">
+              <img src={sprocketsLeader.src} alt="" class="film-leader_svg" />
+            </div>
+          </div>
+
+          {/* Cinta de Fotos */}
+          <div class="film-ribbon_strip">
+            {topPhotos.map((item, idx) => (
+              <div class="film-ribbon_frame" data-frame-index={idx}>
+                <img src={item.img} alt={item.alt} loading="lazy" class="film-ribbon_img" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Bloque Central: "Tenemos Café y siempre [SE DISFRUTA]" + Stickers Oficiales */}
+    <div class="film-reels_center" data-reel-center>
+      {/* Sticker Cámara arriba */}
+      <div class="film-sticker film-sticker--camera" data-reel-sticker>
+        <img src={stickerCamera.src} alt="" width="112" height="96" class="film-sticker_img" />
+      </div>
+
+      {/* Sticker Latte (Cafetería) arriba a la izquierda */}
+      <div class="film-sticker film-sticker--latte" data-reel-sticker>
+        <img src={stickerLatte.src} alt="" width="118" height="142" class="film-sticker_img" />
+      </div>
+
+      {/* Sticker Thumbs Up a la izquierda */}
+      <div class="film-sticker film-sticker--thumbs" data-reel-sticker>
+        <img src={stickerThumbs.src} alt="" width="104" height="134" class="film-sticker_img" />
+      </div>
+
+      {/* Sticker Café taza (Cafetería) abajo a la izquierda */}
+      <div class="film-sticker film-sticker--coffee" data-reel-sticker>
+        <img src={stickerCoffee.src} alt="" width="128" height="120" class="film-sticker_img" />
+      </div>
+
+      <div class="film-reels_title-group">
+        <h2 class="film-reels_heading-pre">Tenemos café recién tostado y siempre</h2>
+
+        {/* Cartel / Placa negra SE DISFRUTA (Frame 86) con borde blanco e inclinación -3° */}
+        <Cartel text="SE DISFRUTA" variant="black" tilt={true} />
+      </div>
+
+      {/* Sticker JOIN THE CLUB a la derecha */}
+      <div class="film-sticker film-sticker--club" data-reel-sticker>
+        <img src={stickerClub.src} alt="" width="136" height="114" class="film-sticker_img" />
+      </div>
+
+      {/* Sticker Croissant (Cafetería) abajo a la derecha */}
+      <div class="film-sticker film-sticker--croissant" data-reel-sticker>
+        <img src={stickerCroissant.src} alt="" width="128" height="116" class="film-sticker_img" />
+      </div>
+    </div>
+
+    {/* Cinta Inferior: Inclinada a -2.5° */}
+    <div class="film-reels_stage film-reels_stage--bottom">
+      <div class="film-reel_tilt film-reel_tilt--bottom">
+        <div class="film-reel_ribbon film-reel_ribbon--bottom" data-reel-bottom>
+          <div class="film-ribbon_strip">
+            {bottomPhotos.map((item, idx) => (
+              <div class="film-ribbon_frame" data-frame-index={idx}>
+                <img src={item.img} alt={item.alt} loading="lazy" class="film-ribbon_img" />
+              </div>
+            ))}
+          </div>
+
+          {/* Punta con cuadraditos oficial de Figma a la derecha */}
+          <div class="film-leader film-leader--end" aria-hidden="true">
+            <div class="film-leader_svg-box film-leader_svg-box--reverse">
+              <img src={sprocketsLeader.src} alt="" class="film-leader_svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  import { initFilmReels } from "@/scripts/film-reels";
+  initFilmReels();
+</script>
+
+<style is:global>
+  /* =========================================================
+     SECCIÓN FILM REELS - ROJO INTENSO FIGMA (#e50000 / #C8102E)
+     100% FLAT - CERO SOMBRAS - BORDES LIMPIOS
+     ========================================================= */
+  .film-reels_wrap {
+    position: relative;
+    background-color: #e50000;
+    color: #ffffff;
+    padding: clamp(6rem, 10vw, 12rem) 0;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(7rem, 12vw, 15rem);
+    user-select: none;
+  }
+
+  .film-reels_stage {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .film-reel_tilt {
+    position: relative;
+    width: 100%;
+    transform-origin: center center;
+  }
+
+  .film-reel_tilt--top {
+    transform: rotate(2.5deg);
+  }
+
+  .film-reel_tilt--bottom {
+    transform: rotate(-2.5deg);
+  }
+
+  /* Pistas de cinta de película: Negro stock #070612 escaladas ~1.35x */
+  .film-reel_ribbon {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    background: #070612;
+    padding: 22px 28px;
+    border-radius: 16px;
+    will-change: transform;
+    box-shadow: none !important;
+  }
+
+  /* Posición inicial en reposo (Scroll 0): las puntas asoman en los extremos según Figma */
+  .film-reel_ribbon--top {
+    margin: 0;
+  }
+
+  .film-reel_ribbon--bottom {
+    margin: 0;
+  }
+
+  /* Punta con cuadraditos (Film leader) escalada y 100% responsive */
+  .film-leader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(210px, 25vw, 440px);
+    background: #070612;
+    padding: 0 clamp(12px, 1.4vw, 22px);
+    border-radius: clamp(12px, 1.2vw, 16px);
+    flex-shrink: 0;
+    box-shadow: none !important;
+  }
+
+  .film-leader--start {
+    border-top-left-radius: clamp(16px, 1.5vw, 22px);
+    border-bottom-left-radius: clamp(16px, 1.5vw, 22px);
+    margin-right: clamp(10px, 1vw, 16px);
+  }
+
+  .film-leader--end {
+    border-top-right-radius: clamp(16px, 1.5vw, 22px);
+    border-bottom-right-radius: clamp(16px, 1.5vw, 22px);
+    margin-left: clamp(10px, 1vw, 16px);
+  }
+
+  .film-leader_svg-box {
+    width: clamp(20px, 1.8vw, 32px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .film-leader_svg-box--reverse {
+    transform: rotate(180deg);
+  }
+
+  .film-leader_svg {
+    height: 90%;
+    width: auto;
+    display: block;
+  }
+
+  /* Tira de fotos escalada y 100% responsive */
+  .film-ribbon_strip {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 1.8vw, 32px);
+  }
+
+  .film-ribbon_frame {
+    position: relative;
+    width: clamp(270px, 32vw, 590px);
+    height: clamp(200px, 24vw, 430px);
+    overflow: hidden;
+    background: #000000;
+    flex-shrink: 0;
+    border-radius: clamp(8px, 0.8vw, 12px);
+    box-shadow: none !important;
+  }
+
+  .film-ribbon_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: clamp(8px, 0.8vw, 12px);
+  }
+
+  /* =========================================================
+     BLOQUE CENTRAL
+     ========================================================= */
+  .film-reels_center {
+    position: relative;
+    width: min(94vw, 1440px);
+    margin: 0 auto;
+    padding: clamp(3rem, 6vw, 7rem) clamp(1rem, 3vw, 2rem);
+    min-height: clamp(380px, 42vh, 540px);
+    text-align: center;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .film-reels_title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1rem, 1.8vw, 1.6rem);
+    position: relative;
+    z-index: 5;
+    margin-top: clamp(20px, 3vw, 40px);
+  }
+
+  .film-reels_heading-pre {
+    font-size: var(--text-display);
+    line-height: var(--line-height-small);
+    color: #ffffff;
+    margin: 0;
+    text-transform: none;
+    text-shadow: none !important;
+  }
+
+  /* Stickers */
+  .film-sticker {
+    position: absolute;
+    z-index: 12;
+    pointer-events: none;
+    box-shadow: none !important;
+    filter: none !important;
+    will-change: transform;
+  }
+
+  .film-sticker_img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .film-sticker--camera {
+    top: clamp(-72px, -4.8vw, -48px);
+    left: 50%;
+    transform: translateX(-50%) rotate(-4deg);
+    width: clamp(75px, 6.5vw, 105px);
+  }
+
+  .film-sticker--latte {
+    top: clamp(-75px, -5vw, -50px);
+    left: clamp(20px, 15vw, 240px);
+    transform: rotate(-12deg);
+    width: clamp(68px, 6.2vw, 98px);
+  }
+
+  .film-sticker--thumbs {
+    left: clamp(10px, 3.5vw, 55px);
+    top: 50%;
+    transform: translateY(-50%) rotate(-10deg);
+    width: clamp(75px, 7.5vw, 105px);
+  }
+
+  .film-sticker--coffee {
+    bottom: clamp(-70px, -4.2vw, -40px);
+    left: clamp(20px, 14vw, 210px);
+    transform: rotate(-12deg);
+    width: clamp(76px, 6.8vw, 108px);
+  }
+
+  .film-sticker--club {
+    right: clamp(10px, 3.5vw, 55px);
+    top: 52%;
+    transform: translateY(-40%) rotate(8deg);
+    width: clamp(105px, 9vw, 138px);
+  }
+
+  .film-sticker--croissant {
+    bottom: clamp(-72px, -4.5vw, -42px);
+    right: clamp(20px, 15vw, 230px);
+    transform: rotate(14deg);
+    width: clamp(80px, 7.4vw, 118px);
+  }
+
+  @media (max-width: 960px) {
+    .film-sticker--latte {
+      top: -38px;
+      left: 6%;
+      transform: rotate(-12deg);
+      width: clamp(54px, 13vw, 75px);
+    }
+
+    .film-sticker--thumbs {
+      position: relative;
+      left: auto;
+      top: auto;
+      transform: rotate(-10deg);
+      margin-bottom: -10px;
+      align-self: flex-start;
+      margin-left: 8%;
+    }
+
+    .film-sticker--club {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: rotate(8deg);
+      margin-top: 15px;
+      align-self: flex-end;
+      margin-right: 8%;
+    }
+
+    .film-sticker--coffee {
+      bottom: -32px;
+      left: 6%;
+      transform: rotate(-12deg);
+      width: clamp(56px, 14vw, 78px);
+    }
+
+    .film-sticker--croissant {
+      bottom: -35px;
+      right: 6%;
+      transform: rotate(14deg);
+      width: clamp(60px, 15vw, 84px);
+    }
+  }
+</style>

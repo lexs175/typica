@@ -4,10 +4,11 @@ import frame1Sticker from "@/assets/stickers/Frame-1.svg";
 interface Props {
   render?: boolean;
   letter: string;
-  color: string;
+  color?: string;
   class?: string;
+  sticker?: typeof frame1Sticker;
 }
-const { render = true, letter, color, class: className = "" } = Astro.props;
+const { render = true, letter, color = "--brand-500", class: className = "", sticker = frame1Sticker } = Astro.props;
 ---
 
 {render && (
@@ -21,17 +22,18 @@ const { render = true, letter, color, class: className = "" } = Astro.props;
     <span class="coffee-letter_turn" aria-hidden="true">
       <span class="coffee-letter_front">{letter}</span>
       <span class="coffee-letter_back">
-        <img
-          src={frame1Sticker.src}
-          alt=""
-          width="150"
-          height="150"
-          loading="lazy"
-        />
+          <img
+            src={sticker.src}
+            alt=""
+            width="150"
+            height="150"
+            loading="lazy"
+          />
       </span>
     </span>
   </button>
 )}
+
 <style is:global>
   @layer components {
     .coffee-letter_wrap,
@@ -41,12 +43,17 @@ const { render = true, letter, color, class: className = "" } = Astro.props;
       min-height: 0;
       perspective: 56.25rem;
       outline-offset: -0.375rem !important;
+      box-shadow: none !important;
     }
     .coffee-letter_wrap {
       width: 100%;
       height: 100%;
-      container-type: size;
       box-sizing: border-box;
+      border-radius: clamp(4px, 0.5vw, 8px);
+      overflow: hidden;
+      border: none;
+      padding: 0;
+      cursor: pointer;
     }
     .coffee-letter_turn {
       position: absolute;
@@ -62,11 +69,15 @@ const { render = true, letter, color, class: className = "" } = Astro.props;
       place-items: center;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+      border-radius: clamp(4px, 0.5vw, 8px);
     }
+    /* Letras frontales: Negro carbón con texto blanco exacto de Figma */
     .coffee-letter_front {
-      background: var(--light-300);
+      background: #000000;
+      color: #ffffff;
+      font-family: var(--font-headline);
       font-weight: 900;
-      font-size: 75cqh;
+      font-size: calc(var(--cover-cell, 150px) * 0.72);
       line-height: 1;
       letter-spacing: -0.08em;
       padding-right: 0.08em;
@@ -82,6 +93,7 @@ const { render = true, letter, color, class: className = "" } = Astro.props;
       height: 77%;
       object-fit: contain;
     }
+    /* 3D Flip al hacer hover */
     .coffee-letter_wrap.is-turned .coffee-letter_turn,
     .coffee-letter_wrap:focus-visible .coffee-letter_turn {
       transform: rotateY(180deg);
@@ -91,19 +103,9 @@ const { render = true, letter, color, class: className = "" } = Astro.props;
         transform: rotateY(180deg);
       }
     }
-    @media (max-width: 37.5rem) {
+    @media (max-width: 1023px) {
       .coffee-letter_front {
-        font-size: 17vw;
-      }
-      .coffee-letter_wrap:nth-of-type(n + 6) {
-        grid-row: 3;
-      }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .coffee-letter_turn,
-      .coffee-product_visual > img,
-      .coffee-product_quick-add {
-        transition: none;
+        font-size: clamp(2rem, 9vw, 5.5rem);
       }
     }
   }

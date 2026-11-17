@@ -191,18 +191,16 @@
     transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 160ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 200ms ease;
   }
 
-  .carousel-pin-wrap .typica-action-btn:hover {
-    transform: translate(calc(-0.25rem * var(--flow-scale, 1)), calc(0.25rem * var(--flow-scale, 1)));
-    box-shadow: 0 0 0 transparent;
-    background-color: var(--btn-accent, #f4d46c);
-  }
+  @media (hover: hover) {
+    .carousel-pin-wrap .typica-action-btn:hover {
+      transform: translate(calc(-0.25rem * var(--flow-scale, 1)), calc(0.25rem * var(--flow-scale, 1)));
+      box-shadow: 0 0 0 transparent;
+      background-color: var(--btn-accent, #f4d46c);
+    }
 
-  .carousel-pin-wrap .typica-action-btn .button_mark {
-    transition: transform 160ms ease;
-  }
-
-  .carousel-pin-wrap .typica-action-btn:hover .button_mark {
-    transform: translateX(3px);
+    .carousel-pin-wrap .typica-action-btn:hover .button_mark {
+      transform: translateX(3px);
+    }
   }
 
   .carousel-pin-wrap .city-nav {
@@ -234,9 +232,11 @@
     transition: all 0.2s ease;
   }
 
-  .carousel-pin-wrap .city-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+  @media (hover: hover) {
+    .carousel-pin-wrap .city-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
   }
 
   .carousel-pin-wrap .city-btn.active {
@@ -510,7 +510,7 @@
 
     function applyScale() {
       const scale = getScaleFactor();
-      pinWrap.style.setProperty("--flow-scale", scale.toFixed(3));
+      pinWrap?.style.setProperty("--flow-scale", scale.toFixed(3));
       return scale;
     }
 

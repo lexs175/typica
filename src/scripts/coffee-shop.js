@@ -50,7 +50,7 @@ import { coffees } from "@/data/coffees";
     options.hidden = !open;
     card
       .querySelectorAll(
-        ".coffee-product_visual,.coffee-product_foot,.coffee-product_watermark,.coffee-product_sample-note",
+        ".coffee-product_visual,.coffee-product_foot,.coffee-product_watermark",
       )
       .forEach((element) => {
         element.hidden = open;

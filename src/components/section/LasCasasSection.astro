@@ -1,0 +1,723 @@
+---
+import roasterBeans from "@/assets/images/roaster-beans.png";
+import centro1 from "@/assets/images/casa-centro-lapaz-1.jpg";
+import centro2 from "@/assets/images/casa-centro-lapaz-2.jpg";
+import miraflores1 from "@/assets/images/casa-miraflores-1.jpg";
+import miraflores2 from "@/assets/images/casa-miraflores-2.jpg";
+import miraflores3 from "@/assets/images/casa-miraflores-3.jpg";
+import amistades1 from "@/assets/images/typica-amistades-1.jpg";
+import amistades2 from "@/assets/images/typica-amistades-2.jpg";
+import sopo1 from "@/assets/images/sopo-1.jpg";
+import sopo2 from "@/assets/images/sopo-2.jpg";
+import cochabamba1 from "@/assets/images/casa-cochabamba.jpg";
+import cochabambaAvif from "@/assets/images/cochabamba.avif";
+import santaCruz1 from "@/assets/images/casa-santa-cruz.png";
+import santaCruzAvif from "@/assets/images/santa-cruz.avif";
+import door1 from "@/assets/images/film/door-casa-1.webp";
+import door2 from "@/assets/images/film/door-casa-2.webp";
+import barraImg from "@/assets/images/barra.avif";
+import interiorImg from "@/assets/images/typica-interior.avif";
+
+interface Props {
+  render?: boolean;
+}
+const { render = true } = Astro.props;
+
+// Tarjetas separadas por color según cada ciudad y país oficial
+// Usando tokens oficiales del sistema (--city-la-paz, --city-cochabamba, etc.)
+const casaCards = [
+  // La Paz
+  { theme: "yellow", city: "La Paz", name: "CASA SAN MIGUEL", desc: "El punto de encuentro clásico de la Zona Sur para trabajar y compartir.", slug: "la-paz", img: miraflores1.src },
+  { theme: "yellow", city: "La Paz", name: "CASA SOPOCACHI", desc: "Casona patrimonial de 1940 con patio colonial y galería de arte.", slug: "la-paz", img: sopo1.src },
+  { theme: "yellow", city: "La Paz", name: "CASA CENTRO", desc: "Tu refugio de café de especialidad entre adoquines y arquitectura histórica.", slug: "la-paz", img: centro1.src },
+  { theme: "yellow", city: "La Paz", name: "CASA SATÉLITE", desc: "Café de altura con vista panorámica y ambiente acogedor en El Alto.", slug: "la-paz", img: centro2.src },
+  { theme: "yellow", city: "La Paz", name: "CASA ACHUMANI", desc: "Espacio amplio con jardín y arte creado por nuestros propios baristas.", slug: "la-paz", img: amistades1.src },
+
+  // Cochabamba
+  { theme: "green",  city: "Cochabamba", name: "CASA ESPAÑA", desc: "Casona verde y tranquila bajo la sombra de los árboles cochabambinos.", slug: "cochabamba", img: cochabamba1.src },
+  { theme: "green",  city: "Cochabamba", name: "CASA FIDEL ANZE", desc: "Frente al parque, perfecta para un brunch al aire libre y buena charla.", slug: "cochabamba", img: cochabambaAvif.src },
+  { theme: "green",  city: "Cochabamba", name: "CASA PORTALES", desc: "Arquitectura clásica y café recién extraído en un rincón patrimonial.", slug: "cochabamba", img: interiorImg.src },
+  { theme: "green",  city: "Cochabamba", name: "CASA CALA CALA", desc: "Tu espacio de calma y luz natural en el norte de la ciudad.", slug: "cochabamba", img: door2.src },
+
+  // Santa Cruz
+  { theme: "blue",   city: "Santa Cruz", name: "CASA EQUIPETROL", desc: "Terraza tropical y café frío en el corazón del barrio cruceño.", slug: "santa-cruz", img: santaCruz1.src },
+  { theme: "blue",   city: "Santa Cruz", name: "CASA SIRARI", desc: "Patio abierto rodeado de plantas para desconectar de la tarde.", slug: "santa-cruz", img: santaCruzAvif.src },
+  { theme: "blue",   city: "Santa Cruz", name: "CASA PALERMO", desc: "Café de especialidad, pastelería fresca y ambiente relajado de barrio.", slug: "santa-cruz", img: amistades2.src },
+  { theme: "blue",   city: "Santa Cruz", name: "CASA MONSEÑOR", desc: "Encuentros, buena música y barra completa de métodos filtrados.", slug: "santa-cruz", img: barraImg.src },
+
+  // Oruro
+  { theme: "red",    city: "Oruro", name: "CASA SORIA GALVARRO", desc: "Café de especialidad en el corazón del altiplano y la tradición orureña.", slug: "oruro", img: sopo2.src },
+  { theme: "red",    city: "Oruro", name: "CASA JUNÍN", desc: "Espacio cálido y acogedor entre la mística y el frío de la calle Junín.", slug: "oruro", img: miraflores2.src },
+
+  // Sucre
+  { theme: "orange", city: "Sucre", name: "CASA AZURDUY", desc: "Café de especialidad entre casonas blancas y el ritmo pausado colonial.", slug: "sucre", img: miraflores3.src },
+
+  // Paraguay
+  { theme: "purple", city: "Paraguay", name: "CASA ASUNCIÓN", desc: "Nuestra primera embajada internacional de café boliviano en Asunción.", slug: "asuncion", img: door1.src },
+
+  // Brasil
+  { theme: "lime",   city: "Brasil", name: "CASA FLORIANÓPOLIS", desc: "Café de especialidad boliviano en la magia de la isla de Santa Catarina.", slug: "florianopolis", img: roasterBeans.src },
+];
+---
+
+{render && (
+  <section class="casas-section_wrap" id="casas" aria-label="Nuestras Casas Typica">
+    <div class="casas-section_container">
+      {/* Título de Sección */}
+      <div class="casas-section_header">
+        <h2 class="casas-section_title">LAS CASAS</h2>
+      </div>
+
+      {/* Pista Horizontal con las 13 Tarjetas de Figma */}
+      <div class="casas-section_track-viewport" id="casas-track-viewport">
+        <div class="casas-section_track">
+          {casaCards.map((card, idx) => (
+            <a
+              href={`/sucursales/#${card.slug}`}
+              class:list={["casa-card_figma", `casa-card_figma--${card.theme}`]}
+              data-index={idx}
+              data-city={card.city.toLowerCase().replace(/\s+/g, '-')}
+              aria-label={`Conocer ${card.name}, ${card.city}`}
+            >
+              {/* Foto de cabecera de cada casa */}
+              <div class="casa-card_media">
+                <img src={card.img} alt={card.name} loading="lazy" class="casa-card_img" />
+              </div>
+
+              {/* Información de la casa */}
+              <div class="casa-card_info">
+                <span class="casa-card_city">{card.city}</span>
+                <h3 class="casa-card_name">{card.name}</h3>
+                <p class="casa-card_desc">{card.desc}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Fila Inferior: Pestañas de Ciudades y Botones Oficiales */}
+      <div class="casas-section_controls">
+        <div class="casas-city_tabs" role="tablist">
+          <button type="button" class="casas-city_tab is-active" role="tab" aria-selected="true" data-city-tab="la-paz">
+            La Paz
+          </button>
+          <button type="button" class="casas-city_tab" role="tab" aria-selected="false" data-city-tab="cochabamba">
+            Cochabamba
+          </button>
+          <button type="button" class="casas-city_tab" role="tab" aria-selected="false" data-city-tab="santa-cruz">
+            Santa Cruz
+          </button>
+          <button type="button" class="casas-city_tab" role="tab" aria-selected="false" data-city-tab="oruro">
+            Oruro
+          </button>
+          <button type="button" class="casas-city_tab" role="tab" aria-selected="false" data-city-tab="sucre">
+            Sucre
+          </button>
+          <button type="button" class="casas-city_tab" role="tab" aria-selected="false" data-city-tab="paraguay">
+            Paraguay
+          </button>
+          <button type="button" class="casas-city_tab" role="tab" aria-selected="false" data-city-tab="brasil">
+            Brasil
+          </button>
+        </div>
+
+        {/* Botones de Flechas Oficiales de Figma: Cuadrados blancos con chevrons */}
+        <div class="casas-nav_buttons">
+          <button type="button" class="casas-btn_figma" id="casas-btn-prev" aria-label="Casa anterior">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button type="button" class="casas-btn_figma" id="casas-btn-next" aria-label="Casa siguiente">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  import { gsap } from "gsap";
+
+  function setupCasasNavigation() {
+    const viewport = document.getElementById("casas-track-viewport");
+    const prevBtn = document.getElementById("casas-btn-prev") as HTMLButtonElement | null;
+    const nextBtn = document.getElementById("casas-btn-next") as HTMLButtonElement | null;
+    const tabs = document.querySelectorAll<HTMLButtonElement>(".casas-city_tab");
+
+    if (!viewport) return;
+    if (viewport.dataset.casasInit === "true") return;
+    viewport.dataset.casasInit = "true";
+
+    // Obtener las posiciones exactas de inicio de cada tarjeta (normalizadas desde 0)
+    function getCardOffsets(): number[] {
+      if (!viewport) return [];
+      const cards = viewport.querySelectorAll<HTMLElement>(".casa-card_figma");
+      if (cards.length === 0) return [];
+      const baseOffset = cards[0]?.offsetLeft ?? 0;
+      return Array.from(cards).map((card) => card.offsetLeft - baseOffset);
+    }
+
+    // Obtener el índice de la tarjeta más cercana a una posición
+    function getClosestCardIndex(scrollPos: number): number {
+      const offsets = getCardOffsets();
+      if (offsets.length === 0) return 0;
+      let closestIdx = 0;
+      let minDiff = Infinity;
+      offsets.forEach((pos, idx) => {
+        const diff = Math.abs(pos - scrollPos);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = idx;
+        }
+      });
+      return closestIdx;
+    }
+
+    // Sincronizar la pestaña de ciudad activa según la tarjeta visible
+    function updateActiveCityTab() {
+      if (!viewport) return;
+      const currentScroll = viewport.scrollLeft;
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      const cards = viewport.querySelectorAll<HTMLElement>(".casa-card_figma");
+      if (cards.length === 0) return;
+
+      const baseOffset = cards[0]?.offsetLeft ?? 0;
+      let activeCity = "";
+
+      // Si llegó al final del scroll, activar la última ciudad visible
+      if (maxScroll > 0 && currentScroll >= maxScroll - 40) {
+        activeCity = cards[cards.length - 1]?.dataset.city || "";
+      } else {
+        let minDiff = Infinity;
+        cards.forEach((card) => {
+          const offset = card.offsetLeft - baseOffset;
+          const diff = Math.abs(offset - currentScroll);
+          if (diff < minDiff) {
+            minDiff = diff;
+            activeCity = card.dataset.city || "";
+          }
+        });
+      }
+
+      if (activeCity) {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.cityTab === activeCity;
+          tab.classList.toggle("is-active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+        });
+      }
+    }
+
+    // Actualizar estado disabled de las flechas y la pestaña activa
+    function updateArrowStates() {
+      if (!viewport || !prevBtn || !nextBtn) return;
+      const scrollLeft = viewport.scrollLeft;
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth - 4;
+
+      const isStart = scrollLeft <= 4;
+      const isEnd = scrollLeft >= maxScroll;
+
+      prevBtn.disabled = isStart;
+      prevBtn.setAttribute("aria-disabled", String(isStart));
+      prevBtn.classList.toggle("is-disabled", isStart);
+
+      nextBtn.disabled = isEnd;
+      nextBtn.setAttribute("aria-disabled", String(isEnd));
+      nextBtn.classList.toggle("is-disabled", isEnd);
+
+      updateActiveCityTab();
+    }
+
+    // Desplazamiento orgánico con GSAP y desaceleración suave (reposo natural)
+    function smoothScrollTo(targetX: number, duration = 0.8) {
+      if (!viewport) return;
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      const clampedX = Math.max(0, Math.min(targetX, maxScroll));
+
+      gsap.to(viewport, {
+        scrollLeft: clampedX,
+        duration: duration,
+        ease: "power3.out", // Desaceleración fluida y reposo suave
+        overwrite: "auto",
+        onUpdate: updateArrowStates,
+        onComplete: updateArrowStates,
+      });
+    }
+
+    // Navegación con flechas: suave hacia la tarjeta anterior / siguiente
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (!viewport) return;
+        const currentIdx = getClosestCardIndex(viewport.scrollLeft);
+        const prevIdx = Math.max(0, currentIdx - 1);
+        const offsets = getCardOffsets();
+        smoothScrollTo(offsets[prevIdx] ?? 0, 0.75);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (!viewport) return;
+        const currentIdx = getClosestCardIndex(viewport.scrollLeft);
+        const offsets = getCardOffsets();
+        const nextIdx = Math.min(offsets.length - 1, currentIdx + 1);
+        smoothScrollTo(offsets[nextIdx] ?? 0, 0.75);
+      });
+    }
+
+    // Arrastre con ratón en desktop con física natural e inercia suave
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let hasDragged = false;
+    let history: { x: number; time: number }[] = [];
+
+    viewport.addEventListener("mousedown", (e) => {
+      if (e.button !== 0) return; // Solo clic primario
+      gsap.killTweensOf(viewport); // Detener cualquier animación previa para agarrar con precisión
+      isDown = true;
+      hasDragged = false;
+      startX = e.pageX;
+      scrollStart = viewport.scrollLeft;
+      history = [{ x: e.pageX, time: performance.now() }];
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isDown || !viewport) return;
+      const currentX = e.pageX;
+      const now = performance.now();
+
+      // Guardar historial reciente para calcular inercia real al soltar
+      history.push({ x: currentX, time: now });
+      if (history.length > 8) history.shift();
+
+      const totalDist = currentX - startX;
+      if (Math.abs(totalDist) > 4) {
+        if (!hasDragged) {
+          hasDragged = true;
+          viewport.classList.add("is-dragging");
+        }
+        viewport.scrollLeft = scrollStart - totalDist;
+        updateArrowStates();
+      }
+    });
+
+    function endDrag() {
+      if (!isDown || !viewport) return;
+      isDown = false;
+      viewport.classList.remove("is-dragging");
+
+      if (hasDragged) {
+        const now = performance.now();
+        // Filtrar puntos de los últimos 120ms
+        const recentPoints = history.filter((p) => now - p.time < 120);
+        let velocity = 0;
+        if (recentPoints.length >= 2) {
+          const first = recentPoints[0]!;
+          const last = recentPoints[recentPoints.length - 1]!;
+          const dt = last.time - first.time;
+          if (dt > 10) {
+            velocity = (last.x - first.x) / dt; // px / ms
+          }
+        }
+
+        // Proyectar hacia adelante con inercia física suave
+        // velocity > 0 = arrastre a la derecha (retroceder)
+        // velocity < 0 = arrastre a la izquierda (avanzar)
+        const momentumDistance = velocity * 400; // Factor de planeo natural
+        const projectedScroll = viewport.scrollLeft - momentumDistance;
+
+        const offsets = getCardOffsets();
+        const targetIdx = getClosestCardIndex(projectedScroll);
+        const targetOffset = offsets[targetIdx] ?? 0;
+
+        // Duración orgánica adaptada a la velocidad del gesto (0.65s a 1.1s)
+        const duration = Math.min(1.1, Math.max(0.65, Math.abs(velocity) * 0.35 + 0.65));
+        smoothScrollTo(targetOffset, duration);
+      }
+    }
+
+    window.addEventListener("mouseup", endDrag);
+
+    // Evitar arrastre accidental de imágenes nativas del navegador
+    viewport.addEventListener("dragstart", (e) => {
+      e.preventDefault();
+    });
+
+    // Si hubo arrastre físico en el carrusel, cancelar el clic del enlace
+    viewport.addEventListener(
+      "click",
+      (e) => {
+        if (hasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      },
+      true
+    );
+
+    // Control de scroll y flechas reactivo
+    let scrollTicking = false;
+    viewport.addEventListener(
+      "scroll",
+      () => {
+        if (!scrollTicking) {
+          requestAnimationFrame(() => {
+            updateArrowStates();
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("resize", () => {
+      updateArrowStates();
+    });
+
+    // Pestañas de ciudades (La Paz, Cochabamba, Santa Cruz): llevan directo al inicio de esas cards
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const cityKey = tab.dataset.cityTab;
+        if (!cityKey || !viewport) return;
+
+        const targetCard = viewport.querySelector<HTMLElement>(`.casa-card_figma[data-city="${cityKey}"]`);
+        if (targetCard) {
+          const cards = viewport.querySelectorAll<HTMLElement>(".casa-card_figma");
+          const baseOffset = cards[0]?.offsetLeft ?? 0;
+          const targetOffset = targetCard.offsetLeft - baseOffset;
+          smoothScrollTo(targetOffset, 0.85);
+        }
+
+        tabs.forEach((t) => {
+          t.classList.remove("is-active");
+          t.setAttribute("aria-selected", "false");
+        });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-selected", "true");
+      });
+    });
+
+    // Inicializar estado de las flechas
+    updateArrowStates();
+  }
+
+  setupCasasNavigation();
+  document.addEventListener("astro:page-load", setupCasasNavigation);
+</script>
+
+<style is:global>
+  /* =========================================================
+     SECCIÓN "LAS CASAS" (FIGMA EXACT MATCH)
+     FONDO NEGRO PURO - CERO SOMBRAS - BORDES LIMPIOS
+     TEXTOS PROPORCIONADOS SIN CORTARSE
+     ========================================================= */
+  .casas-section_wrap {
+    position: relative;
+    z-index: 1;
+    background-color: var(--dark-950);
+    color: var(--light-100);
+    padding-top: clamp(10.5rem, 15vw, 17.5rem);
+    padding-bottom: clamp(4rem, 6vw, 6rem);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .casas-section_container {
+    width: 100%;
+    max-width: var(--max-width-main);
+    margin: 0 auto;
+    padding-inline: var(--site-margin);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.75rem, 3vw, 3rem);
+    box-sizing: border-box;
+  }
+
+  .casas-section_header {
+    width: 100%;
+  }
+
+  .casas-section_title {
+    font-family: var(--font-headline);
+    font-size: clamp(2.8rem, 5.5vw, 5.8rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--light-100);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  /* Pista Deslizable Horizontal Fluida */
+  .casas-section_track-viewport {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    user-select: none;
+  }
+  .casas-section_track-viewport.is-dragging {
+    cursor: grabbing;
+  }
+  .casas-section_track-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .casas-section_track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    padding-bottom: 8px;
+    padding-right: clamp(24px, 15vw, 240px);
+  }
+
+  /* Tarjeta Individual: Proporciones fluidas sin cortes */
+  .casa-card_figma {
+    width: clamp(280px, 29vw, 540px);
+    border-radius: 8px;
+    padding: 16px 16px 24px 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    .casa-card_figma {
+      width: calc(100vw - var(--site-margin) * 2 - 16px);
+      max-width: 360px;
+    }
+  }
+
+  /* Variantes de Color por Ciudad y País (Variables CSS Oficiales) */
+  .casa-card_figma--yellow {
+    background-color: var(--city-la-paz);
+    color: var(--dark-950);
+  }
+  .casa-card_figma--green {
+    background-color: var(--city-cochabamba);
+    color: var(--light-100);
+  }
+  .casa-card_figma--blue {
+    background-color: var(--city-santa-cruz);
+    color: var(--light-100);
+  }
+  .casa-card_figma--red {
+    background-color: var(--city-oruro);
+    color: var(--light-100);
+  }
+  .casa-card_figma--orange {
+    background-color: var(--city-sucre);
+    color: var(--light-100);
+  }
+  .casa-card_figma--purple {
+    background-color: var(--city-paraguay);
+    color: var(--light-100);
+  }
+  .casa-card_figma--lime {
+    background-color: var(--city-brasil);
+    color: var(--dark-950);
+  }
+
+  /* Foto superior redondeada de 8px */
+  .casa-card_media {
+    width: 100%;
+    aspect-ratio: 16 / 10.5;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--dark-950);
+  }
+
+  .casa-card_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+  }
+
+  /* Textos de la tarjeta: heredan tipografía del sistema Lumos */
+  .casa-card_info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
+  }
+
+  .casa-card_city {
+    font-size: var(--text-eyebrow);
+    font-weight: 500;
+    line-height: 1.2;
+    opacity: 0.95;
+  }
+
+  /* Título: hereda tipografía H3 oficial */
+  .casa-card_name {
+    font-size: var(--text-h3);
+    line-height: 1;
+    text-transform: uppercase;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  /* Párrafo descriptivo: hereda Body oficial */
+  .casa-card_desc {
+    font-size: var(--text-caption);
+    line-height: 1.4;
+    margin: 4px 0 0;
+    opacity: 0.95;
+  }
+
+  /* Fila de Controles con flex-wrap para evitar recortes en mobile */
+  .casas-section_controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+  }
+
+  .casas-city_tabs {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .casas-city_tab {
+    background: transparent;
+    border: none;
+    color: var(--light-100);
+    font-size: var(--text-eyebrow);
+    font-weight: 400;
+    cursor: pointer;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 150ms ease, font-weight 150ms ease;
+  }
+
+  .casas-city_tab.is-active {
+    font-weight: 700;
+  }
+  .casas-city_tab[data-city-tab="la-paz"].is-active {
+    border-bottom-color: var(--city-la-paz);
+  }
+  .casas-city_tab[data-city-tab="cochabamba"].is-active {
+    border-bottom-color: var(--city-cochabamba);
+  }
+  .casas-city_tab[data-city-tab="santa-cruz"].is-active {
+    border-bottom-color: var(--city-santa-cruz);
+  }
+  .casas-city_tab[data-city-tab="oruro"].is-active {
+    border-bottom-color: var(--city-oruro);
+  }
+  .casas-city_tab[data-city-tab="sucre"].is-active {
+    border-bottom-color: var(--city-sucre);
+  }
+  .casas-city_tab[data-city-tab="paraguay"].is-active {
+    border-bottom-color: var(--city-paraguay);
+  }
+  .casas-city_tab[data-city-tab="brasil"].is-active {
+    border-bottom-color: var(--city-brasil);
+  }
+
+  .casas-city_tab:hover:not(.is-active) {
+    opacity: 0.85;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .casas-nav_buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding-left: 8px; /* Espacio para la sombra izquierda */
+  }
+
+  /* Botones Oficiales de Figma (50x50 Hug):
+     - Blanco habilitado: fondo var(--light-100), borde 2px negro, sombra amarilla -5px 5px var(--yellow-400)
+     - Hover/Activo: se presiona completamente sobre la base amarilla (-5px, 5px) sin sombra
+     - Deshabilitado: gris plano var(--disabled-gray), sin sombra, sin borde
+  */
+  .casas-btn_figma {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    background-color: var(--light-100);
+    border: 2px solid var(--dark-950);
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    box-shadow: -5px 5px 0px var(--yellow-400);
+    transition: transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+                background-color 150ms ease,
+                border-color 150ms ease;
+    user-select: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  .casas-btn_figma svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+    pointer-events: none;
+  }
+
+  .casas-btn_figma svg path {
+    stroke: var(--dark-950);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Hover Oficial Typica: Presión total sobre la sombra amarilla */
+  @media (hover: hover) {
+    .casas-btn_figma:hover:not(:disabled) {
+      transform: translate(-5px, 5px);
+      box-shadow: 0 0 0 transparent;
+    }
+  }
+
+  .casas-btn_figma:active:not(:disabled) {
+    transform: translate(-5px, 5px);
+    box-shadow: 0 0 0 transparent;
+  }
+
+  /* Estado Inhabilitado / Desactivado */
+  .casas-btn_figma:disabled,
+  .casas-btn_figma.is-disabled {
+    background-color: var(--disabled-gray);
+    border: 2px solid transparent;
+    box-shadow: none;
+    opacity: 1;
+    cursor: not-allowed;
+    transform: translate(-5px, 5px);
+    pointer-events: none;
+  }
+
+  .casas-btn_figma:disabled svg path,
+  .casas-btn_figma.is-disabled svg path {
+    stroke: var(--dark-950);
+  }
+</style>

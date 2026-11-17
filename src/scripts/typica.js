@@ -172,14 +172,16 @@ import "@/scripts/motion";
         const { desktop, reduce } = ctx.conditions;
         if (reduce) return;
         if (desktop) document.body.classList.add("motion-ready");
-        // The TV module owns the hero; this module animates the remaining page.
-        G.from(".site-header_bar", {
-          y: -24,
-          opacity: 0,
-          duration: 0.65,
-          ease: "power4.out",
-          clearProps: "transform,opacity",
-        });
+        // The hero module owns the header entrance when present; otherwise animate here.
+        if (!$(".hero-red_wrap")) {
+          G.from(".site-header_bar", {
+            y: -24,
+            opacity: 0,
+            duration: 0.65,
+            ease: "power4.out",
+            clearProps: "transform,opacity",
+          });
+        }
         const serifLine = $(".coffee-intro_serif-line");
         if (serifLine) {
           const handPaths = serifLine.querySelectorAll(".hand-path");
@@ -254,8 +256,15 @@ import "@/scripts/motion";
         };
       },
     );
+    let refreshTimeout = null;
+    const debouncedRefresh = () => {
+      if (refreshTimeout) clearTimeout(refreshTimeout);
+      refreshTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 200);
+    };
     $$('img[loading="lazy"]').forEach((img) =>
-      img.addEventListener("load", () => ScrollTrigger.refresh(), {
+      img.addEventListener("load", debouncedRefresh, {
         once: true,
       }),
     );

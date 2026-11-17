@@ -2,11 +2,7 @@ import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { gsap, ScrollTrigger } from "./motion";
 
-declare global {
-  interface Window {
-    lenis?: Lenis;
-  }
-}
+let instance: Lenis | undefined;
 
 export function initSmoothScroll(): Lenis | undefined {
   if (typeof window === "undefined") return;
@@ -15,8 +11,8 @@ export function initSmoothScroll(): Lenis | undefined {
     return;
   }
 
-  if (window.lenis) {
-    return window.lenis;
+  if (instance) {
+    return instance;
   }
 
   const lenis = new Lenis({
@@ -28,7 +24,8 @@ export function initSmoothScroll(): Lenis | undefined {
     touchMultiplier: 1.5,
   });
 
-  window.lenis = lenis;
+  instance = lenis;
+  (window as any).lenisInstance = lenis;
 
   // Synchronize Lenis scrolling with GSAP's ScrollTrigger
   lenis.on("scroll", ScrollTrigger.update);
@@ -38,8 +35,8 @@ export function initSmoothScroll(): Lenis | undefined {
     lenis.raf(time * 1000);
   });
 
-  // Disable lag smoothing in GSAP to avoid jumps
-  gsap.ticker.lagSmoothing(0);
+  // Activar lag smoothing en GSAP para absorber micro-caídas de FPS y evitar tirones secos
+  gsap.ticker.lagSmoothing(500, 33);
 
   return lenis;
 }

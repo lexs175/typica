@@ -22,9 +22,11 @@ const { render = true } = Astro.props;
     >
       <div class="coffee-showcase_track">
         <CoffeeCover />
-        {coffees.map((coffee) => (
-          <CoffeeProduct coffee={coffee} />
-        ))}
+        <div class="coffee-products_grid">
+          {coffees.map((coffee) => (
+            <CoffeeProduct coffee={coffee} />
+          ))}
+        </div>
       </div>
       <div
         class="coffee-showcase_rail-nav"
@@ -73,7 +75,7 @@ const { render = true } = Astro.props;
     }
     .coffee-showcase_wrap {
       position: relative;
-      background: var(--light-300);
+      background: #ffffff;
       color: var(--ink);
       width: 100vw;
       height: 100svh;
@@ -122,17 +124,46 @@ const { render = true } = Astro.props;
       .coffee-showcase_rail-nav {
       display: none;
     }
-    @media (max-width: 56.25rem), (max-height: 38.75rem) {
+    .coffee-products_grid {
+      display: contents;
+    }
+    @media (max-width: 1023px) {
+      .coffee-showcase_wrap {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+      }
       .coffee-showcase_viewport {
-        overflow-x: auto;
-        overscroll-behavior-x: contain;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: thin;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      .coffee-showcase_track {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        transform: none !important;
+      }
+      /* Tablet (768px a 1023px): 2 columnas exactas */
+      .coffee-products_grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        gap: 0;
+      }
+      .coffee-showcase_rail-nav {
+        display: none !important;
       }
     }
-    @media (max-width: 56.25rem), (max-height: 38.75rem) {
-      .coffee-showcase_rail-nav {
-        display: none;
+    /* Mobile (< 768px): 1 sola columna para visualización completa limpia */
+    @media (max-width: 767px) {
+      .coffee-products_grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 0;
       }
     }
     @media (prefers-reduced-motion: reduce) {

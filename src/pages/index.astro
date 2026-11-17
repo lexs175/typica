@@ -1,20 +1,37 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import HeroTv from "@/components/section/HeroTv.astro";
+import HeroRed from "@/components/section/HeroRed.astro";
 import MeetCopy from "@/components/section/MeetCopy.astro";
-import CoffeeIntro from "@/components/section/CoffeeIntro.astro";
+import FilmReels from "@/components/section/FilmReels.astro";
 import CoffeeShowcase from "@/components/section/CoffeeShowcase.astro";
+import MenuTabsSection from "@/components/section/MenuTabsSection.astro";
 import CultureSection from "@/components/section/CultureSection.astro";
-import ImagesFlowing from "@/components/section/ImagesFlowing.astro";
-import VisitLinks from "@/components/section/VisitLinks.astro";
+import MusicExperience from "@/components/section/MusicExperience.astro";
+import LasCasasSection from "@/components/section/LasCasasSection.astro";
 ---
 
 <SiteLayout home>
-  <HeroTv />
+  {/* 1. Hero Rojo Oficial Typica (Figma 1920x1080) */}
+  <HeroRed />
+
+  {/* 2. Frase de Transición Editorial con animación original */}
   <MeetCopy />
-  <CoffeeIntro />
+
+  {/* 3. Scroll Horizontal Oficial: CAFÉ EN BOLSA (con 3D Flip) + 4 Bolsas de Café */}
   <CoffeeShowcase />
+
+  {/* 4. Sección Roja: Cintas 35mm continuas rápidas + Placa Negra "SE DISFRUTA" + Stickers */}
+  <FilmReels />
+
+  {/* 5. Sección de Menú Tabbed Brutalista */}
+  <MenuTabsSection />
+
+  {/* 6. Cultura: "EL CAFÉ NOS JUNTA" con cápsula de video expansiva por scroll */}
   <CultureSection />
-  <ImagesFlowing />
-  <VisitLinks />
+
+  {/* 7. Música y Arte: "UN BUEN CAFÉ" + Collage Editorial de 3 Filas Estáticas */}
+  <MusicExperience />
+
+  {/* 8. Nuestras Sedes: "LAS CASAS" con pista horizontal de 13 tarjetas multicolores de Figma */}
+  <LasCasasSection />
 </SiteLayout>

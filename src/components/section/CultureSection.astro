@@ -1,6 +1,5 @@
 ---
 import CultureFilm from "@/components/section/CultureFilm.astro";
-import CultureStory from "@/components/content/CultureStory.astro";
 
 interface Props {
   render?: boolean;
@@ -15,7 +14,6 @@ const { render = true } = Astro.props;
     aria-labelledby="people-title"
   >
     <CultureFilm />
-    <CultureStory />
   </section>
 )}
 <style is:global>
