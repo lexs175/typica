@@ -47,7 +47,8 @@ const { render = true } = Astro.props;
         <div class="music-exp_cta">
           <Button
             element="link"
-            href="/cultura/"
+            href="javascript:void(0)"
+            onclick="event.preventDefault(); return false;"
             aria-label="Conocer el arte y la comunidad"
           >
             Conocer el arte y la comunidad
@@ -140,7 +141,8 @@ const { render = true } = Astro.props;
           <div class="music-editorial_action">
             <Button
               element="link"
-              href="/sucursales/"
+              href="#casas"
+              onclick="document.getElementById('casas')?.scrollIntoView({behavior: 'smooth'}); event.preventDefault(); return false;"
               aria-label="Descubrir nuestras casas"
             >
               Descubrir nuestras casas

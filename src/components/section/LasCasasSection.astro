@@ -74,7 +74,8 @@ const casaCards = [
         <div class="casas-section_track">
           {casaCards.map((card, idx) => (
             <a
-              href={`/sucursales/#${card.slug}`}
+              href="javascript:void(0)"
+              onclick="event.preventDefault(); return false;"
               class:list={["casa-card_figma", `casa-card_figma--${card.theme}`]}
               data-index={idx}
               data-city={card.city.toLowerCase().replace(/\s+/g, '-')}

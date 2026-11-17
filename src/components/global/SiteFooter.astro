@@ -11,7 +11,7 @@ const { render = true } = Astro.props;
   <footer class="site-footer_wrap" id="contacto">
     <div class="site-footer_top">
       <h2 data-split="">¿UN CAFÉ?</h2>
-      <Button element="link" emphasis="secondary" href="/sucursales/">
+      <Button element="link" emphasis="secondary" href="javascript:void(0)" onclick="event.preventDefault(); return false;">
         Nos vemos en typica
       </Button>
     </div>
@@ -20,22 +20,21 @@ const { render = true } = Astro.props;
         <span class="site-footer_col-title">Visítanos</span>
         <ul class="site-footer_col-links">
           <li>
-            <a href="/sucursales/">Nuestras casas</a>
+            <a href="javascript:void(0)" onclick="event.preventDefault(); return false;">Nuestras casas</a>
           </li>
           <li>
             <a
-              href="https://www.typica.com.bo/locales"
-              target="_blank"
-              rel="noopener"
+              href="javascript:void(0)"
+              onclick="event.preventDefault(); return false;"
             >
               Carta por local
             </a>
           </li>
           <li>
-            <a href="/#cultura">Arte y cultura</a>
+            <a href="javascript:void(0)" onclick="event.preventDefault(); return false;">Arte y cultura</a>
           </li>
           <li>
-            <a href="/#de-cerca">Galería</a>
+            <a href="javascript:void(0)" onclick="event.preventDefault(); return false;">Galería</a>
           </li>
         </ul>
       </div>
@@ -43,25 +42,23 @@ const { render = true } = Astro.props;
         <span class="site-footer_col-title">El café</span>
         <ul class="site-footer_col-links">
           <li>
-            <a href="/#cafes">Cafés en bolsa</a>
+            <a href="javascript:void(0)" onclick="event.preventDefault(); return false;">Cafés en bolsa</a>
           </li>
           <li>
-            <a href="/suscripciones/">Suscripciones</a>
+            <a href="javascript:void(0)" onclick="event.preventDefault(); return false;">Suscripciones</a>
           </li>
           <li>
             <a
-              href="https://www.typica.com.bo/tostaduria"
-              target="_blank"
-              rel="noopener"
+              href="javascript:void(0)"
+              onclick="event.preventDefault(); return false;"
             >
               Servicio de tueste
             </a>
           </li>
           <li>
             <a
-              href="https://www.typica.com.bo/aillio-x-typica"
-              target="_blank"
-              rel="noopener"
+              href="javascript:void(0)"
+              onclick="event.preventDefault(); return false;"
             >
               Aillio × Typica
             </a>
@@ -72,22 +69,20 @@ const { render = true } = Astro.props;
         <span class="site-footer_col-title">Typica</span>
         <ul class="site-footer_col-links">
           <li>
-            <a href="/#inicio">Historia y equipo</a>
+            <a href="javascript:void(0)" onclick="event.preventDefault(); return false;">Historia y equipo</a>
           </li>
           <li>
             <a
-              href="https://www.typica.com.bo/trabaja-con-nosotros"
-              target="_blank"
-              rel="noopener"
+              href="javascript:void(0)"
+              onclick="event.preventDefault(); return false;"
             >
               Trabaja con nosotros
             </a>
           </li>
           <li>
             <a
-              href="https://linktr.ee/typicacafetostaduria"
-              target="_blank"
-              rel="noopener"
+              href="javascript:void(0)"
+              onclick="event.preventDefault(); return false;"
             >
               Contacto directo
             </a>
@@ -137,21 +132,19 @@ const { render = true } = Astro.props;
       <span>Café boliviano de especialidad.</span>
       <div>
         <a
-          href="https://www.instagram.com/typica.cafe/"
-          target="_blank"
-          rel="noopener"
+          href="javascript:void(0)"
+          onclick="event.preventDefault(); return false;"
         >
           Instagram
         </a>
         <a
-          href="https://linktr.ee/typicacafetostaduria"
-          target="_blank"
-          rel="noopener"
+          href="javascript:void(0)"
+          onclick="event.preventDefault(); return false;"
         >
           Hablemos
         </a>
         <button id="open-credits">Fotografías</button>
-        <a href="/#inicio">Arriba</a>
+        <a href="javascript:void(0)" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Arriba</a>
       </div>
       <span>© 2026 Typica</span>
     </div>
@@ -214,6 +207,7 @@ const { render = true } = Astro.props;
       text-decoration: none;
       width: fit-content;
       display: inline-block;
+      cursor: default;
       transition:
         opacity 0.2s,
         text-decoration 0.2s;
