@@ -22,26 +22,27 @@ const { render = true } = Astro.props;
     <div class="navigation-menu_layout">
       <nav aria-label="Navegación principal">
         <a
-          href="/#cafes"
+          href="javascript:void(0)"
+          onclick="event.preventDefault(); return false;"
           data-menu-preview="cafes"
           class="navigation-menu_is-active"
         >
           <span class="navigation-menu_link-title">Cafés</span>
           <span class="navigation-menu_link-note">Para preparar en casa</span>
         </a>
-        <a href="/sucursales/" data-menu-preview="espacios">
+        <a href="javascript:void(0)" onclick="event.preventDefault(); return false;" data-menu-preview="espacios">
           <span class="navigation-menu_link-title">Sucursales</span>
           <span class="navigation-menu_link-note">Encuentra tu lugar</span>
         </a>
-        <a href="/suscripciones/" data-menu-preview="suscripciones">
+        <a href="javascript:void(0)" onclick="event.preventDefault(); return false;" data-menu-preview="suscripciones">
           <span class="navigation-menu_link-title">Suscripciones</span>
           <span class="navigation-menu_link-note">Tu café, a tu ritmo</span>
         </a>
-        <a href="/#cultura" data-menu-preview="cultura">
+        <a href="javascript:void(0)" onclick="event.preventDefault(); return false;" data-menu-preview="cultura">
           <span class="navigation-menu_link-title">Cultura</span>
           <span class="navigation-menu_link-note">Lo que pasa alrededor</span>
         </a>
-        <a href="/#de-cerca" data-menu-preview="typica">
+        <a href="javascript:void(0)" onclick="event.preventDefault(); return false;" data-menu-preview="typica">
           <span class="navigation-menu_link-title">Esto es Typica</span>
           <span class="navigation-menu_link-note">
             Café de aquí. Gente de todos lados.

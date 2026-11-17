@@ -589,25 +589,104 @@ import truus39Sticker from "@/assets/stickers/truus.co-39.svg";
         "Cantidad actualizada. Subtotal: " + $("#cart-total").textContent;
     }
   });
-  $("#cart-copy").addEventListener("click", async () => {
-    if (!items.length) return;
-    const lines = items.map((item) => {
-      const p = catalog.find((product) => product.id === item.id);
-      return `${item.quantity} × ${p.name} · 250 g · ${item.grind}`;
-    });
-    const text =
-      "Hola, Typica. Quisiera consultar este pedido:\n" +
-      lines.join("\n") +
-      "\n¿Me confirman precio, disponibilidad y entrega?";
+  const customerNameKey = "typica:customer-name";
+  const customerAddressKey = "typica:customer-address";
+  const TYPICA_WHATSAPP_NUMBER = "59175698074";
+
+  try {
+    const savedName = localStorage.getItem(customerNameKey);
+    const savedAddress = localStorage.getItem(customerAddressKey);
+    const nameInput = $("#cart-customer-name");
+    const addressInput = $("#cart-customer-address");
+    if (savedName && nameInput) nameInput.value = savedName;
+    if (savedAddress && addressInput) addressInput.value = savedAddress;
+  } catch {}
+
+  $("#cart-customer-name")?.addEventListener("input", (e) => {
+    e.target.classList.remove("is-invalid");
+    const err = $("#cart-form-error");
+    if (err) err.hidden = true;
     try {
-      await navigator.clipboard.writeText(text);
-      $("#cart-copy .button_text").textContent = "Pedido copiado";
-      $("#cart-status").textContent =
-        "Pedido copiado. Puedes consultarlo con Typica.";
-    } catch {
-      $("#cart-status").textContent =
-        "No se pudo copiar. Puedes consultar las bolsas de tu carrito con Typica.";
+      localStorage.setItem(customerNameKey, e.target.value);
+    } catch {}
+  });
+
+  $("#cart-customer-address")?.addEventListener("input", (e) => {
+    e.target.classList.remove("is-invalid");
+    const err = $("#cart-form-error");
+    if (err) err.hidden = true;
+    try {
+      localStorage.setItem(customerAddressKey, e.target.value);
+    } catch {}
+  });
+
+  $("#cart-copy").addEventListener("click", () => {
+    if (!items.length) return;
+
+    const nameInput = $("#cart-customer-name");
+    const addressInput = $("#cart-customer-address");
+    const errorEl = $("#cart-form-error");
+
+    const name = nameInput?.value.trim() || "";
+    const address = addressInput?.value.trim() || "";
+
+    if (!name) {
+      if (errorEl) {
+        errorEl.textContent = "Por favor, escribe tu nombre completo.";
+        errorEl.hidden = false;
+      }
+      nameInput?.classList.add("is-invalid");
+      nameInput?.focus();
+      return;
     }
+    nameInput?.classList.remove("is-invalid");
+
+    if (!address) {
+      if (errorEl) {
+        errorEl.textContent =
+          "Por favor, ingresa tu dirección o ubicación de entrega.";
+        errorEl.hidden = false;
+      }
+      addressInput?.classList.add("is-invalid");
+      addressInput?.focus();
+      return;
+    }
+    addressInput?.classList.remove("is-invalid");
+    if (errorEl) errorEl.hidden = true;
+
+    try {
+      localStorage.setItem(customerNameKey, name);
+      localStorage.setItem(customerAddressKey, address);
+    } catch {}
+
+    const productLines = items
+      .map((item) => {
+        const p = catalog.find((product) => product.id === item.id);
+        const subtotal = money(p.price * item.quantity);
+        return `• ${item.quantity}x ${p.name} (250g · ${item.grind}) - ${subtotal}`;
+      })
+      .join("\n");
+
+    const total = items.reduce(
+      (sum, item) =>
+        sum + catalog.find((p) => p.id === item.id).price * item.quantity,
+      0,
+    );
+
+    const message =
+      `¡Hola Typica! Quiero realizar el siguiente pedido:\n\n` +
+      `👤 *Cliente:* ${name}\n` +
+      `📍 *Ubicación / Dirección de entrega:* ${address}\n\n` +
+      `☕ *Detalle del pedido:*\n` +
+      `${productLines}\n\n` +
+      `💰 *Total:* ${money(total)}\n\n` +
+      `¿Me confirman para coordinar el pago y la entrega?`;
+
+    const waUrl = `https://wa.me/${TYPICA_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+
+    $("#cart-status").textContent =
+      "Abriendo WhatsApp para enviar tu pedido a Typica...";
   });
   addEventListener("storage", (event) => {
     if (event.key !== storageKey) return;

@@ -11,7 +11,7 @@ import santaCruzImage from "@/assets/images/santa-cruz.avif";
 import oruroImage from "@/assets/images/sopo-1.avif";
 import sucreImage from "@/assets/images/san-miguel.avif";
 import paraguayImage from "@/assets/images/barra.avif";
-import brasilImage from "@/assets/images/typica-interior.avif";
+import brasilImage from "@/assets/images/sopo-3.jpg";
 
 interface Props {
   render?: boolean;
@@ -44,9 +44,9 @@ const { render = true } = Astro.props;
         />
       </a>
 
-      {/* 2. Navegación Principal (Centro) - Sin pastillas, enlaces directos en blanco */}
+      {/* 2. Navegación Principal (Centro) - Sin pastillas, visuales (solo Home navega) */}
       <nav class="site-header_primary" aria-label="Navegación principal">
-        <a class="site-header_link" href="/#cafes">Cafés en bolsa</a>
+        <a class="site-header_link site-header_link--static" href="javascript:void(0)" onclick="event.preventDefault(); return false;" role="link" aria-disabled="true">Cafés en bolsa</a>
         <details class="site-header_dropdown" id="site-header-dropdown">
           <summary class="site-header_link" aria-haspopup="true">
             <span>Sucursales</span>
@@ -64,7 +64,7 @@ const { render = true } = Astro.props;
               <div class="mega-menu_grid">
                 <!-- Columna 1: La Paz -->
                 <div class="mega-menu_col">
-                  <a class="mega-menu_card" href="/sucursales/#la-paz">
+                  <a class="mega-menu_card" href="javascript:void(0)" onclick="event.preventDefault(); return false;">
                     <div class="mega-menu_media">
                       <img
                         src={laPazImage.src}
@@ -82,7 +82,7 @@ const { render = true } = Astro.props;
 
                 <!-- Columna 2: Cochabamba -->
                 <div class="mega-menu_col">
-                  <a class="mega-menu_card" href="/sucursales/#cochabamba">
+                  <a class="mega-menu_card" href="javascript:void(0)" onclick="event.preventDefault(); return false;">
                     <div class="mega-menu_media">
                       <img
                         src={cochabambaImage.src}
@@ -100,7 +100,7 @@ const { render = true } = Astro.props;
 
                 <!-- Columna 3: Santa Cruz -->
                 <div class="mega-menu_col">
-                  <a class="mega-menu_card" href="/sucursales/#santa-cruz">
+                  <a class="mega-menu_card" href="javascript:void(0)" onclick="event.preventDefault(); return false;">
                     <div class="mega-menu_media">
                       <img
                         src={santaCruzImage.src}
@@ -118,7 +118,7 @@ const { render = true } = Astro.props;
 
                 <!-- Columna 4: Lista Oruro, Sucre, Paraguay, Brasil -->
                 <div class="mega-menu_col mega-menu_col--list">
-                  <a class="mega-menu_list-item" href="/sucursales/#oruro">
+                  <a class="mega-menu_list-item" href="javascript:void(0)" onclick="event.preventDefault(); return false;">
                     <div class="mega-menu_list-thumb">
                       <img src={oruroImage.src} alt="Typica Oruro" loading="lazy" />
                     </div>
@@ -128,7 +128,7 @@ const { render = true } = Astro.props;
                     </div>
                   </a>
 
-                  <a class="mega-menu_list-item" href="/sucursales/#sucre">
+                  <a class="mega-menu_list-item" href="javascript:void(0)" onclick="event.preventDefault(); return false;">
                     <div class="mega-menu_list-thumb">
                       <img src={sucreImage.src} alt="Typica Sucre" loading="lazy" />
                     </div>
@@ -138,7 +138,7 @@ const { render = true } = Astro.props;
                     </div>
                   </a>
 
-                  <a class="mega-menu_list-item" href="/sucursales/#asuncion">
+                  <a class="mega-menu_list-item" href="javascript:void(0)" onclick="event.preventDefault(); return false;">
                     <div class="mega-menu_list-thumb">
                       <img src={paraguayImage.src} alt="Typica Paraguay" loading="lazy" />
                     </div>
@@ -148,7 +148,7 @@ const { render = true } = Astro.props;
                     </div>
                   </a>
 
-                  <a class="mega-menu_list-item" href="/sucursales/#florianopolis">
+                  <a class="mega-menu_list-item" href="javascript:void(0)" onclick="event.preventDefault(); return false;">
                     <div class="mega-menu_list-thumb">
                       <img src={brasilImage.src} alt="Typica Brasil" loading="lazy" />
                     </div>
@@ -162,8 +162,8 @@ const { render = true } = Astro.props;
             </div>
           </div>
         </details>
-        <a class="site-header_link" href="/suscripciones/">Suscripciones</a>
-        <a class="site-header_link" href="/#cultura">Cultura</a>
+        <a class="site-header_link site-header_link--static" href="javascript:void(0)" onclick="event.preventDefault(); return false;" role="link" aria-disabled="true">Suscripciones</a>
+        <a class="site-header_link site-header_link--static" href="javascript:void(0)" onclick="event.preventDefault(); return false;" role="link" aria-disabled="true">Cultura</a>
       </nav>
 
       {/* 3. Herramientas: Carrito Sticker Amarillo Figma Node 219:612 (Derecha) */}
@@ -290,6 +290,10 @@ const { render = true } = Astro.props;
     white-space: nowrap;
     cursor: pointer;
     transition: opacity var(--hover-duration) var(--hover-ease);
+  }
+
+  .site-header_link--static {
+    cursor: default;
   }
 
   @media (hover: hover) {
